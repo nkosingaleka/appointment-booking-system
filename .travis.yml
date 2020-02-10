@@ -1,0 +1,16 @@
+matrix:
+  include:
+    - language: php
+      php: "7.4"
+      before_install:
+        - composer self-update
+      before_script:
+        - cd back-end
+        - composer install
+      script: phpunit --configuration phpunit.xml
+
+    - language: node_js
+      node_js: "node"
+      before_script:
+        - cd front-end
+        - npm i
