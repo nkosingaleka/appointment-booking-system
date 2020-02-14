@@ -96,3 +96,43 @@ class Database {
     return array();
   }
 
+  /**
+   * Inserts data into the database using the given table name and data values.
+   *
+   * @param $table
+   * @param $data
+   * @return boolean
+   */
+  public function insert($table, $data) {
+    $params = $values = array();
+    $table = $this->__name . '.' . $table;
+
+    // List projections separately
+    $projections = implode(', ', array_keys($data));
+
+    foreach (array_keys($data) as $key) {
+      $params[] = $data[$key]['param'];
+      $values[] = $data[$key]['value'];
+
+      unset($data[$key]['value']);
+    }
+
+    // List parameters separately
+    $placeholders = implode(', ', $params);
+
+    $statement = $this->__pdo->prepare("INSERT INTO $table ($projections) VALUES ($placeholders)");
+
+    for ($i = 0; $i < count(array_keys($data)); $i += 1) {
+      // Safely bind parameters with input values
+      $statement->bindParam($params[$i], $values[$i]);
+    }
+
+    if ($statement->execute()) {
+      // If successful
+      return true;
+    }
+
+    // If unsuccessful
+    return false;
+  }
+
