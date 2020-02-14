@@ -33,3 +33,13 @@ class App {
   public function redirectTo($location) {
     header("Location: $location");
   }
+
+  /**
+   * Gets the database object instantiated upon initialisation.
+   *
+   * @return Database
+   */
+  public function getDB() {
+    return $this->__db;
+  }
+}
