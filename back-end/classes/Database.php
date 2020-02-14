@@ -136,3 +136,12 @@ class Database {
     return false;
   }
 
+  /**
+   * Gets the PDO holding the database connection.
+   *
+   * @return void
+   */
+  public function getPDO() {
+    return $this->__pdo;
+  }
+}
