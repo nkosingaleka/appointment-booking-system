@@ -46,3 +46,53 @@ class Database {
     }
   }
 
+  /**
+   * Selects data from the database using the given table name,
+   * selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
+   *
+   * @param $table
+   * @param $selections
+   * @param $projections
+   * @return array
+   */
+  public function selectWhere($table, $selections, $projections = ['*']) {
+    // Append database name to table name to avoid ambiguity
+    $table = $this->__name . '.' . $table;
+
+    // List projections separately
+    $projections = implode(', ', $projections);
+
+    $conditions = '';
+    $params = $values = array();
+
+    foreach (array_keys($selections) as $key) {
+      $params[] = $selections[$key]['param'];
+      $values[] = $selections[$key]['value'];
+
+      unset($selections[$key]['value']);
+
+      $conditions .= $key . ' ' . implode(' ', $selections[$key]);
+      $index = array_search($key, array_keys($selections));
+
+      if ($index + 1 < count(array_keys($selections))) {
+        // Append a space to all conditions apart from the last
+        $conditions .= ' ';
+      }
+    }
+
+    $statement = $this->__pdo->prepare("SELECT $projections FROM $table WHERE $conditions");
+
+    for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+      // Safely bind parameters with input values
+      $statement->bindParam($params[$i], $values[$i]);
+    }
+
+    if ($statement->execute() && $statement->rowCount() > 0) {
+      // Return fetched rows if successful
+      return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Return empty array if unsuccessful
+    return array();
+  }
+
