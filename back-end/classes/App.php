@@ -30,7 +30,7 @@ class App {
    * @param $location
    * @return void
    */
-  public function redirectTo($location) {
+  public function redirect_to($location) {
     header("Location: $location");
   }
 
@@ -39,7 +39,7 @@ class App {
    *
    * @return Database
    */
-  public function getDB() {
+  public function get_db() {
     return $this->__db;
   }
 }
