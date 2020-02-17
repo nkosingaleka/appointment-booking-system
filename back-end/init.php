@@ -21,3 +21,5 @@ spl_autoload_register('autoload_classes');
 // Instantiate the application
 $GLOBALS['app'] = new App();
 // @codeCoverageIgnoreEnd
+
+$GLOBALS['errors'] = array();

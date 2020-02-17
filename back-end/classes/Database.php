@@ -42,7 +42,7 @@ class Database {
       $this->__pdo = new PDO($dsn, $this->__user, $this->__password);
       $this->__pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
-      echo 'Database connection failed: ' . $e->getMessage();
+      $GLOBALS['errors'][] = $e->getMessage();
     }
   }
 
