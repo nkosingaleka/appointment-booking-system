@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.5;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+header {
+  margin: 0 0 1em;
+  padding: 1em 2em;
+  background: lightgrey;
+}
+
+main {
+  max-width: 80em;
+  margin: 0 auto;
+}
+
+input,
+select {
+  height: 2em;
+}
+
+input[type="text"] {
+  padding: 0.5em;
+}
+
+#login-form,
+#registration-form {
+  padding: 1em;
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#login-form {
+  max-width: 20em;
+  display: grid;
+  grid-template-areas:
+    "email email"
+    "password password"
+    "alt-link submit-btn";
+}
+
+#registration-form {
+  max-width: 30em;
+  grid-template-areas:
+    "account account"
+    "patient patient"
+    "next-of-kin next-of-kin"
+    "alt-link submit-btn";
+  gap: 1em;
+}
+
+#registration-form > fieldset:nth-of-type(1) {
+  grid-area: account;
+}
+
+#registration-form > fieldset:nth-of-type(2) {
+  grid-area: patient;
+}
+
+#registration-form > fieldset:nth-of-type(3) {
+  grid-area: next-of-kin;
+}
+
+#login-form > label,
+#registration-form label {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0;
+}
+
+#login-form > label[for="email"],
+#registration-form label[for="email"] {
+  grid-area: email;
+}
+
+#login-form > label[for="password"],
+#registration-form label[for="password"] {
+  grid-area: password;
+}
+
+#login-form > input[type="submit"],
+#registration-form input[type="submit"] {
+  grid-area: submit-btn;
+}
+
+#login-form > a,
+#registration-form > a {
+  grid-area: alt-link;
+  max-width: fit-content;
+}
