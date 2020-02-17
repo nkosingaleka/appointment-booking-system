@@ -5,7 +5,7 @@ session_start();
 
 // Redirect users who have not logged in to the login page
 if (!isset($_SESSION['user'])) {
-  $GLOBALS['app']->redirect_to('login.php');
+  $GLOBALS['app']->redirect('login.php');
 }
 ?>
 

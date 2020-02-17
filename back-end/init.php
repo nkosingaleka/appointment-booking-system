@@ -6,7 +6,7 @@
  * @param $class_ref
  * @return void
  */
-function autoload_classes($class_ref) {
+function autoloadClasses($class_ref) {
   // Isolate class name from namespace
   $class_ref_parts = explode('\\', $class_ref);
   $class_name = end($class_ref_parts);
@@ -15,7 +15,7 @@ function autoload_classes($class_ref) {
   require_once $class_url;
 }
 
-spl_autoload_register('autoload_classes');
+spl_autoload_register('autoloadClasses');
 
 // @codeCoverageIgnoreStart
 // Instantiate the application

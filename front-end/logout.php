@@ -8,4 +8,4 @@ session_destroy();
 unset($_SESSION['user']);
 
 // Redirect to login page
-$GLOBALS['app']->redirect_to('login.php');
+$GLOBALS['app']->redirect('login.php');

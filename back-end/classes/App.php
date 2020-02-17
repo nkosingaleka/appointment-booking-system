@@ -12,7 +12,7 @@ class App {
    * The configuration should, at minimum, include parameters for database creation.
    */
   public function __construct() {
-    $this->__start_database();
+    $this->__startDatabase();
   }
 
   /**
@@ -20,7 +20,7 @@ class App {
    *
    * @return void
    */
-  private function __start_database() {
+  private function __startDatabase() {
     $this->__db = new Database();
   }
 
@@ -30,7 +30,7 @@ class App {
    * @param $location
    * @return void
    */
-  public function redirect_to($location) {
+  public function redirect($location) {
     header("Location: $location");
   }
 
@@ -39,7 +39,7 @@ class App {
    *
    * @return Database
    */
-  public function get_db() {
+  public function getDB() {
     return $this->__db;
   }
 }

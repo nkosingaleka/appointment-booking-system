@@ -3,7 +3,7 @@ require_once '../back-end/init.php';
 
 // Redirect users who have already logged in to the home page
 if (isset($_SESSION['user'])) {
-  $GLOBALS['app']->redirect_to('index.php');
+  $GLOBALS['app']->redirect('index.php');
 }
 
 // Check if the register form has been submitted
