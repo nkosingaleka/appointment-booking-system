@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Represents the component for handling user-related actions.
+ */
 class UserManager {
   /**
    * Logs the user into their account using their email address and password.
