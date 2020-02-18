@@ -11,6 +11,12 @@ Begin by downloading a zip of the repository or cloning it using:
 git clone https://github.com/lewisknewton/setp.git
 ```
 
+### Database Configuration
+
+The system currently uses MySQL's default configurations. If you need to include your own configurations, please edit *back-end/.config.ini*.
+
+If you are using XAMPP on default settings, you should not need to edit this file.
+
 ### Using XAMPP
 
 1. Move the project folder to the *htdocs/* folder (usually in *c://xampp/htdocs/*).
