@@ -1,14 +1,14 @@
-services:
-  - mysql
-before_install:
-  - mysql -u root --password="" < back-end/database/database.sql
-  - use appointment_booking_system;
-  - source back-end/database/test_data.sql;
 matrix:
   include:
     - language: php
       php: "7.4"
+      services:
+        - mysql  
       before_install:
+        - mysql -u root --password="" < back-end/database/database.sql
+        - use appointment_booking_system;
+        - source back-end/database/test_data.sql;
+        - exit
         - composer self-update
       before_script:
         - cd back-end
