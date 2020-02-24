@@ -6,8 +6,7 @@ matrix:
         - mysql  
       before_install:
         - mysql -u root --password="" < back-end/database/database.sql
-        - source back-end/database/test_data.sql;
-        - exit
+        - mysql -u root --password="" appointment_booking_system  < back-end/database/test_data.sql
         - composer self-update
       before_script:
         - cd back-end
