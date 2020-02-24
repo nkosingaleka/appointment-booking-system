@@ -12,7 +12,10 @@ function autoloadClasses($class_ref) {
   $class_name = end($class_ref_parts);
 
   $class_url = dirname(__FILE__) . "/classes/$class_name.php";
-  require_once $class_url;
+  
+  if (file_exists($class_url)) {
+    require_once $class_url;
+  }
 }
 
 spl_autoload_register('autoloadClasses');
