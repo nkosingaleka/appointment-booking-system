@@ -54,6 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="register.php">Register</a>
     </form>
   </main>
+
+  <script src="main.js"></script>
 </body>
 
 </html>
