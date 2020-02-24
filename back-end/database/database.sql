@@ -1,5 +1,7 @@
 CREATE DATABASE appointment_booking_system;
 
+USE `appointment_booking_system`;
+
 CREATE TABLE `facility` (
   `id` VARCHAR(36),
   `name` VARCHAR(70) NOT NULL,
