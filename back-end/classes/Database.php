@@ -16,8 +16,22 @@ class Database {
    *
    */
   public function __construct() {
-    // Read configuration parameters
-    $config = parse_ini_file(realpath(dirname(__FILE__) . '../../.config.ini'));
+    $config = array();
+    $config_file = dirname(__FILE__) . '../../.config.ini';
+
+    if (file_exists($config_file)) {
+      // Read configuration parameters
+      $config = parse_ini_file(realpath($config_file));
+    } else {
+      // Define default configuration parameters
+      $config = array(
+        'host' => '127.0.0.1',
+        'user' => 'root',
+        'dbname' => 'appointment_booking_system',
+        'driver' => 'mysql',
+        'password' => '',
+      );
+    }
 
     $this->__host = $config['host'];
     $this->__user = $config['user'];
