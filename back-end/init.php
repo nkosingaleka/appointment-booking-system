@@ -17,9 +17,7 @@ function autoloadClasses($class_ref) {
 
 spl_autoload_register('autoloadClasses');
 
-// @codeCoverageIgnoreStart
 // Instantiate the application
 $GLOBALS['app'] = new App();
-// @codeCoverageIgnoreEnd
 
 $GLOBALS['errors'] = array();
