@@ -6,6 +6,17 @@ Project created by Team 9C for the Software Engineering Theory and Practice modu
 
 XAMPP was used as the local development and testing environment. Therefore, it is recommended that the project continues to be tested in the same way.
 
+## The Team
+
+| Username           | Name             | UP Number |
+|--------------------|------------------|-----------|
+| Alexander-Portland | Alexander Gordon | 896020    |
+| jakelove15         | Jake Love        | 734426    |
+| lewisknewton       | Lewis Newton     | 891791    |
+| up876210           | Lucas Morandet   | 876210    |
+| luketipler         | Luke Tipler      | 891550    |
+| NabinG99           | Nabin Gurung     | 903868    |
+
 ## Set-up
 
 ### Installation 
