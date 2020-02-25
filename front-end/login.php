@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </main>
 
-  <script src="main.js"></script>
+  <script src="js/login.js"></script>
 </body>
 
 </html>
