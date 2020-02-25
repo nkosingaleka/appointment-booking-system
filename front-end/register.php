@@ -208,6 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <a href="login.php">Log in</a>
     </form>
   </main>
+  
+  <script src="js/register.js"></script>
 </body>
 
 </html>
