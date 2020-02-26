@@ -278,4 +278,35 @@ class UserManager {
 
     return false;
   }
+
+  /**
+   * Retrieves patient details from the database.
+   *
+   * @return array
+   */
+  public static function getPatients() {
+    $columns = array(
+      'account.id',
+      'email',
+      'verified',
+      'title',
+      'forename',
+      'surname',
+      'sex',
+      'date_of_birth',
+      'house_name',
+      'house_no',
+      'street',
+      'city',
+      'county',
+      'postcode',
+      'tel_no',
+      'mob_no',
+      'next_of_kin',
+      'NHS_no',
+      'HC_no',
+    );
+
+    return $GLOBALS['app']->getDB()->selectJoin('account', 'patient', 'account.id = patient.id', $columns);
+  }
 }

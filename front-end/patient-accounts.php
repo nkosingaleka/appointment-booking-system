@@ -6,14 +6,25 @@ session_start();
 
 // Checks for if the user is logged in and if necessary to redirect them to the login page
 if (!isset($_SESSION['user'])) {
-    $GLOBALS['app']->redirect('login.php');
+  $GLOBALS['app']->redirect('login.php');
 } else {
-    // Redirect people who are not admin staff
-    if ($_SESSION['user']->role_id != 1) {
-        $GLOBALS['app']->redirect('index.php');
-    }
-}
+  // Redirect people who are not admin staff
+  if ($_SESSION['user']->role_id != 1) {
+    $GLOBALS['app']->redirect('index.php');
 
+  } else {
+    $patients = UserManager::getPatients();
+    $verified_patients = $unverified_patients = [];
+
+    foreach ($patients as $patient) {
+      if ($patient['verified']) {
+        $verified_patients[] = $patient;
+      } else {
+        $unverified_patients[] = $patient;
+      }
+    }
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +48,45 @@ if (!isset($_SESSION['user'])) {
     <button>Verified</button>
     <button>Unverified</button>
 
-    <?php if (count($patients) > 0): ?>
-    <?php endif?>
+    <section id="verified-patients">
+      <h2>Verified Patients</h2>
+      <?php if (count($verified_patients) > 0): ?>
+        <?php foreach ($verified_patients as $patient): ?>
+          <article>
+            <ul>
+              <?php foreach (array_keys($patient) as $detail): ?>
+                <?php if (!empty($patient[$detail])): ?>
+                  <li><b><?=ucfirst($detail)?></b> <?=': ' . $patient[$detail]?></li>
+                <?php endif?>
+              <?php endforeach?>
+            </ul>
+          </article>
+        <?php endforeach?>
+        <?php else: ?>
+        <p>Sorry, no patients were found.</p>
+      <?php endif?>
+    </section>
+
+    <section id="unverified-patients" class="hidden">
+      <h2>Unverified Patients</h2>
+      <?php if (count($unverified_patients) > 0): ?>
+        <?php foreach ($unverified_patients as $patient): ?>
+          <article>
+            <ul>
+              <?php foreach (array_keys($patient) as $detail): ?>
+                <?php if (!empty($patient[$detail])): ?>
+                  <li><b><?=ucfirst($detail)?></b> <?=': ' . $patient[$detail]?></li>
+                <?php endif?>
+              <?php endforeach?>
+            </ul>
+
+            <a href="verify.php?id=<?=$patient['id']?>">Verify</a>
+          </article>
+        <?php endforeach?>
+        <?php else: ?>
+        <p>Sorry, no patients were found.</p>
+      <?php endif?>
+    </section>
   </main>
 </body>
 </html>

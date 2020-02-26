@@ -111,6 +111,35 @@ class Database {
   }
 
   /**
+   * Selects data from the database using the given table name,
+   * join table, join condition, and (optional) projections (e.g. attribute names).
+   *
+   * @param $table
+   * @param $join_table
+   * @param $join_condition
+   * @param $projections
+   * @return array
+   */
+  public function selectJoin($table, $join_table, $join_condition, $projections = ['*']) {
+    // Append database name to table names to avoid ambiguity
+    $table = $this->__name . '.' . $table;
+    $join_table = $this->__name . '.' . $join_table;
+
+    // List projections separately
+    $projections = implode(', ', $projections);
+
+    $statement = $this->__pdo->prepare("SELECT $projections FROM $table JOIN $join_table ON $join_condition");
+
+    if ($statement->execute() && $statement->rowCount() > 0) {
+      // Return fetched rows if successful
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Return empty array if unsuccessful
+    return array();
+  }
+
+  /**
    * Inserts data into the database using the given table name and data values.
    *
    * @param $table
