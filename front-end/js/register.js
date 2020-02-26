@@ -76,14 +76,9 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid date of birth.');
   }
 
-  if (pHouseName.value == '' || pHouseName.value == null) {
+  if ((pHouseName.value == '' || pHouseName.value == null) || (pHouseNo.value == '' || pHouseNo.value == null)){
     e.preventDefault();
-    errors.push('Please enter a valid house name.');
-  }
-
-  if (pHouseNo.value == '' || pHouseNo.value == null) {
-    e.preventDefault();
-    errors.push('Please enter a valid house number.');
+    errors.push('Please enter a valid house name or number.');
   }
 
   if (pStreet.value == '' || pStreet.value == null) {
@@ -106,24 +101,14 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid postcode.');
   }
 
-  if (pTelNo.value == '' || pTelNo.value == null) {
+  if ((pTelNo.value == '' || pTelNo.value == null) || (pMobNo.value == '' || pMobNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid telephone number.');
+    errors.push('Please enter a valid telephone or mobile number.');
   }
 
-  if (pMobNo.value == '' || pMobNo.value == null) {
+  if ((pNHSNo.value == '' || pNHSNo.value == null) || (pHCNo.value == '' || pHCNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid mobile number.');
-  }
-
-  if (pNHSNo.value == '' || pNHSNo.value == null) {
-    e.preventDefault();
-    errors.push('Please enter a valid nhs number.');
-  }
-
-  if (pHCNo.value == '' || pHCNo.value == null) {
-    e.preventDefault();
-    errors.push('Please enter a valid health and care number.');
+    errors.push('Please enter a valid NHS or Health and Care number.');
   }
 
   if (nokRelationship.value == '' || nokRelationship.value == null) {
@@ -146,14 +131,9 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid surname.');
   }
 
-  if (nokHouseName.value == '' || nokHouseName.value == null) {
+  if ((nokHouseName.value == '' || nokHouseName.value == null) || (nokHouseNo.value == '' || nokHouseNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid house name.');
-  }
-
-  if (nokHouseNo.value == '' || nokHouseNo.value == null) {
-    e.preventDefault();
-    errors.push('Please enter a valid house number.');
+    errors.push('Please enter a valid house name or number.');
   }
 
   if (nokStreet.value == '' || nokStreet.value == null) {
@@ -176,14 +156,9 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid postcode.');
   }
 
-  if (nokTelNo.value == '' || nokTelNo.value == null) {
+  if ((nokTelNo.value == '' || nokTelNo.value == null) || (nokMobNo.value == '' || nokMobNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid telephone number.');
-  }
-
-  if (nokMobNo.value == '' || nokMobNo.value == null) {
-    e.preventDefault();
-    errors.push('Please enter a valid mobile number.');
+    errors.push('Please enter a valid telephone or mobile number.');
   }
 
   // If there are errors
