@@ -11,7 +11,7 @@ class UserManager {
    * @param $password
    * @return void
    */
-  static function login($email, $password) {
+  public static function login($email, $password) {
     // Validate the user's email address and password
     $valid = self::__validateUserDetails($email, $password);
 
@@ -67,7 +67,7 @@ class UserManager {
    * @param $data
    * @return void
    */
-  static function register($data) {
+  public static function register($data) {
     // Validate account, personal, and next of kin details
     $valid_account = self::__validateUserDetails($data['email'], $data['password']);
     $valid_patient = self::__validatePatientDetails($data['patient']);
