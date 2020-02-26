@@ -51,14 +51,14 @@ In the terminal, run the following commands:
 
 ```
 mysql -u root -p < back-end/database/database.sql
-mysql -u root -p < appointment_booking_system  < back-end/database/test_data.sql
+mysql -u root -p appointment_booking_system < back-end/database/test_data.sql
 ```
 
 NOTE: With local MySQL installations, the path to the MySQL binary may need to be included e.g.
 
 ```
 c:/xampp/mysql/bin/mysql -u root -p < back-end/database/database.sql
-c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system  < back-end/database/test_data.sql
+c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/database/test_data.sql
 ```
 
 #### Using phpMyAdmin
