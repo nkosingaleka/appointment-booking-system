@@ -180,6 +180,74 @@ class Database {
   }
 
   /**
+   * Updates data from the database using the given table name,
+   * selections (e.g. comparions), and columns to be updated. 
+   *
+   * @param $table
+   * @param $selections
+   * @param $update_columns
+   * @return boolean
+   */
+  public function updateWhere($table, $selections, $update_columns) {
+    // Append database name to table name to avoid ambiguity
+    $table = $this->__name . '.' . $table;
+
+    $updates = '';
+    $conditions = '';
+    $select_params = $select_values = $update_params = $update_values = array();
+
+    foreach (array_keys($selections) as $key) {
+      $select_params[] = $selections[$key]['param'];
+      $select_values[] = $selections[$key]['value'];
+
+      unset($selections[$key]['value']);
+
+      $conditions .= $key . ' ' . implode(' ', $selections[$key]);
+      $index = array_search($key, array_keys($selections));
+
+      if ($index + 1 < count(array_keys($selections))) {
+        // Append a space to all conditions apart from the last
+        $conditions .= ', ';
+      }
+    }
+
+    foreach (array_keys($update_columns) as $key) {
+      $update_params[] = $update_columns[$key]['param'];
+      $update_values[] = $update_columns[$key]['value'];
+
+      unset($update_columns[$key]['value']);
+
+      $updates .= $key . ' = ' . implode(' ', $update_columns[$key]);
+      $index = array_search($key, array_keys($update_columns));
+
+      if ($index + 1 < count(array_keys($update_columns))) {
+        // Append a space to all updated columns apart from the last
+        $updates .= ', ';
+      }
+    }
+
+    $statement = $this->__pdo->prepare("UPDATE $table SET $updates WHERE $conditions");
+
+    for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+      // Safely bind selection parameters with input values
+      $statement->bindParam($select_params[$i], $select_values[$i]);
+    }
+
+    for ($i = 0; $i < count(array_keys($update_columns)); $i += 1) {
+      // Safely bind update parameters with input values
+      $statement->bindParam($update_params[$i], $update_values[$i]);
+    }
+
+    if ($statement->execute()) {
+      // If successful
+      return true;
+    }
+
+    // If unsuccessful
+    return false;
+  }
+
+  /**
    * Gets the PDO holding the database connection.
    *
    * @return void

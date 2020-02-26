@@ -309,4 +309,36 @@ class UserManager {
 
     return $GLOBALS['app']->getDB()->selectJoin('account', 'patient', 'account.id = patient.id', $columns);
   }
+
+  /**
+   * Verifies the patient using the given account id.
+   *
+   * @param $id
+   * @return void
+   */
+  public static function verifyPatient($id) {
+    $selections = array(
+      'id' => array(
+        'comparison' => '=',
+        'param' => ':id',
+        'value' => $id,
+      ),
+    );
+
+    $update_columns = array(
+      'verified' => array(
+        'param' => ':verified',
+        'value' => true,
+      ),
+    );
+
+    $verify_result = $GLOBALS['app']->getDB()->updateWhere('account', $selections, $update_columns);
+
+    if ($verify_result) {
+      // Redirect the user to the patient accounts page
+      $GLOBALS['app']->redirect('patient-accounts.php');
+    } else {
+      $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check the patient you selected and try again.';
+    }
+  }
 }
