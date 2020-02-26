@@ -58,7 +58,7 @@ NOTE: With local MySQL installations, the path to the MySQL binary may need to b
 
 ```
 c:/xampp/mysql/bin/mysql -u root -p < back-end/database/database.sql
-c:/xampp/mysql/bin/mysql -u root -p < appointment_booking_system  < back-end/database/test_data.sql
+c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system  < back-end/database/test_data.sql
 ```
 
 #### Using phpMyAdmin
