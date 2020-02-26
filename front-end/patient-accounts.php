@@ -45,8 +45,8 @@ if (!isset($_SESSION['user'])) {
   <h2>User Accounts</h2>
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
 
-    <button>Verified</button>
-    <button>Unverified</button>
+    <button id="verified-btn">Verified</button>
+    <button id="unverified-btn">Unverified</button>
 
     <section id="verified-patients">
       <h2>Verified Patients</h2>
@@ -88,5 +88,7 @@ if (!isset($_SESSION['user'])) {
       <?php endif?>
     </section>
   </main>
+
+  <script src="js/patientAccount.js"></script>
 </body>
 </html>
