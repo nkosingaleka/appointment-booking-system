@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `patient_id` INT,    
   PRIMARY KEY (`id`),
   FOREIGN KEY (`reviewer_id`) REFERENCES `staff` (`id`),
-  FOREIGN KEY (`patient_id`) REFERENCES `appointment` (`request_id`)
+  FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
 );
 
 
