@@ -79,7 +79,22 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `next_of_kin` VARCHAR(36) NOT NULL,
   `NHS_no` CHAR(10) UNIQUE,
   `HC_no` CHAR(10) UNIQUE,
+  'contact_by_email' BOOLEAN,
+  'contact_by_text' BOOLEAN,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id`) REFERENCES `account` (`id`),
   FOREIGN KEY (`next_of_kin`) REFERENCES `next_of_kin` (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `request` (
+  `id` VARCHAR(36),
+  'p_cancellation_reason' VARCHAR(256),
+  'r_cancellation_reason' VARCHAR(256),
+  'reviewer_id' INT,
+  'patient_id' INT,    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`reviewer_id`) REFERENCES `staff` (`id`),
+  FOREIGN KEY (`patient_id`) REFERENCES `appointment` (`request_id`)
+);
+
+
