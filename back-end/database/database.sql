@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `room` (
   `id` VARCHAR(36),
   `title` VARCHAR(35),
   `notes` TEXT,
-  `facility_id` INT,    
+  `facility_id` VARCHAR(36),    
   PRIMARY KEY (`id`),
   FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
 );
