@@ -105,3 +105,13 @@ CREATE TABLE IF NOT EXISTS `room` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` VARCHAR(36),
+  `appointment_id` VARCHAR(36),
+  `staff_id` VARCHAR(36),    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`)
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
+);
+
