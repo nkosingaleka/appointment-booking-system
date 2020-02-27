@@ -115,3 +115,11 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `availability` (
+  `id` VARCHAR(36),
+  `staff_id` VARCHAR(36),    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
+);
+
+
