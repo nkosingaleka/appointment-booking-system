@@ -97,4 +97,29 @@ CREATE TABLE IF NOT EXISTS `request` (
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `room` (
+  `id` VARCHAR(36),
+  `title` VARCHAR(35),
+  `notes` TEXT,
+  `facility_id` VARCHAR(36),    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` VARCHAR(36),
+  `appointment_id` VARCHAR(36),
+  `staff_id` VARCHAR(36),    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `availability` (
+  `id` VARCHAR(36),
+  `staff_id` VARCHAR(36),    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
+);
+
 
