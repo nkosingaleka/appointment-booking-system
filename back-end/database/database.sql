@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `request` (
   `id` VARCHAR(36),
   `p_cancellation_reason` VARCHAR(255),
   `r_cancellation_reason` VARCHAR(255),
-  `reviewer_id` INT,
-  `patient_id` INT,    
+  `reviewer_id` VARCHAR(36),
+  `patient_id` VARCHAR(36),    
   PRIMARY KEY (`id`),
   FOREIGN KEY (`reviewer_id`) REFERENCES `staff` (`id`),
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
