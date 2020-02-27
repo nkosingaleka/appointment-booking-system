@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS `patient` (
 
 CREATE TABLE IF NOT EXISTS `request` (
   `id` VARCHAR(36),
-  `p_cancellation_reason` VARCHAR(256),
-  `r_cancellation_reason` VARCHAR(256),
+  `p_cancellation_reason` VARCHAR(255),
+  `r_cancellation_reason` VARCHAR(255),
   `reviewer_id` INT,
   `patient_id` INT,    
   PRIMARY KEY (`id`),
