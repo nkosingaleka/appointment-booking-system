@@ -1,5 +1,7 @@
 <?php
 
+require 'data/UserManagerTestData.php';
+
 use PHPUnit\Framework\TestCase;
 
 class UserManagerTest extends TestCase {
@@ -28,7 +30,7 @@ class UserManagerTest extends TestCase {
   }
 
   public function testLoginDoesNotValidateEmptyPassword() {
-    $email = 'as1@test.com';
+    $email = $GLOBALS['email_valid'];
     $password = '';
 
     UserManager::login($email, $password);
@@ -39,7 +41,7 @@ class UserManagerTest extends TestCase {
 
   public function testLoginDoesNotValidateNonExistingEmail() {
     $email = 'nonexistent@invalid.com';
-    $password = 'test123';
+    $password = $GLOBALS['password_valid'];
 
     UserManager::login($email, $password);
 
@@ -49,40 +51,10 @@ class UserManagerTest extends TestCase {
   public function testRegistrationDoesNotValidateExistingEmail() {
     // NOTE: Ensure email actually exists
     $data = array(
-      'email' => 'as1@test.com',
-      'password' => 'test123',
-      'patient' => array(
-        'title' => 'Mr',
-        'forename' => 'David',
-        'surname' => 'Bowden',
-        'sex' => 'M',
-        'date_of_birth' => '1990-01-26',
-        'house_name' => '',
-        'house_no' => '12',
-        'street' => 'Meyrick Road',
-        'city' => 'Portsmouth',
-        'county' => 'Hampshire',
-        'postcode' => 'PO2 RJF',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-        'next_of_kin' => 'nk-5e4693079a5e18.63580261',
-        'nhs_no' => '4562594365',
-        'hc_no' => '',
-      ),
-      'next_of_kin' => array(
-        'relationship' => 'Father',
-        'title' => 'Mr',
-        'forename' => 'Nerti',
-        'surname' => 'Philson',
-        'house_name' => '',
-        'house_no' => '7',
-        'street' => 'London Road',
-        'city' => 'Southampton',
-        'county' => 'Hampshire',
-        'postcode' => 'SO15 2AE',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-      ),
+      'email' => $GLOBALS['email_valid'],
+      'password' => $GLOBALS['password_valid'],
+      'patient' => $GLOBALS['patient_filled'],
+      'next_of_kin' => $GLOBALS['nok_filled'],
     );
 
     UserManager::register($data);
@@ -93,39 +65,9 @@ class UserManagerTest extends TestCase {
   public function testRegistrationDoesNotValidateEmptyEmail() {
     $data = array(
       'email' => '',
-      'password' => 'test123',
-      'patient' => array(
-        'title' => 'Mr',
-        'forename' => 'David',
-        'surname' => 'Bowden',
-        'sex' => 'M',
-        'date_of_birth' => '1990-01-26',
-        'house_name' => '',
-        'house_no' => '12',
-        'street' => 'Meyrick Road',
-        'city' => 'Portsmouth',
-        'county' => 'Hampshire',
-        'postcode' => 'PO2 RJF',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-        'next_of_kin' => 'nk-5e4693079a5e18.63580261',
-        'nhs_no' => '4562594365',
-        'hc_no' => '',
-      ),
-      'next_of_kin' => array(
-        'relationship' => 'Father',
-        'title' => 'Mr',
-        'forename' => 'Nerti',
-        'surname' => 'Philson',
-        'house_name' => '',
-        'house_no' => '7',
-        'street' => 'London Road',
-        'city' => 'Southampton',
-        'county' => 'Hampshire',
-        'postcode' => 'SO15 2AE',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-      ),
+      'password' => $GLOBALS['password_valid'],
+      'patient' => $GLOBALS['patient_filled'],
+      'next_of_kin' => $GLOBALS['nok_filled'],
     );
 
     UserManager::register($data);
@@ -138,38 +80,8 @@ class UserManagerTest extends TestCase {
     $data = array(
       'email' => 'new@test.com',
       'password' => '',
-      'patient' => array(
-        'title' => 'Mr',
-        'forename' => 'David',
-        'surname' => 'Bowden',
-        'sex' => 'M',
-        'date_of_birth' => '1990-01-26',
-        'house_name' => '',
-        'house_no' => '12',
-        'street' => 'Meyrick Road',
-        'city' => 'Portsmouth',
-        'county' => 'Hampshire',
-        'postcode' => 'PO2 RJF',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-        'next_of_kin' => 'nk-5e4693079a5e18.63580261',
-        'nhs_no' => '4562594365',
-        'hc_no' => '',
-      ),
-      'next_of_kin' => array(
-        'relationship' => 'Father',
-        'title' => 'Mr',
-        'forename' => 'Nerti',
-        'surname' => 'Philson',
-        'house_name' => '',
-        'house_no' => '7',
-        'street' => 'London Road',
-        'city' => 'Southampton',
-        'county' => 'Hampshire',
-        'postcode' => 'SO15 2AE',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-      ),
+      'patient' => $GLOBALS['patient_filled'],
+      'next_of_kin' => $GLOBALS['nok_filled'],
     );
 
     UserManager::register($data);
@@ -181,39 +93,9 @@ class UserManagerTest extends TestCase {
   public function testRegistrationDoesNotValidateEmptyPatientDetails() {
     $data = array(
       'email' => 'new@test.com',
-      'password' => 'test123',
-      'patient' => array(
-        'title' => '',
-        'forename' => '',
-        'surname' => '',
-        'sex' => '',
-        'date_of_birth' => '',
-        'house_name' => '',
-        'house_no' => '',
-        'street' => '',
-        'city' => '',
-        'county' => '',
-        'postcode' => '',
-        'tel_no' => '',
-        'mob_no' => '',
-        'next_of_kin' => '',
-        'nhs_no' => '',
-        'hc_no' => '',
-      ),
-      'next_of_kin' => array(
-        'relationship' => 'Father',
-        'title' => 'Mr',
-        'forename' => 'Nerti',
-        'surname' => 'Philson',
-        'house_name' => '',
-        'house_no' => '7',
-        'street' => 'London Road',
-        'city' => 'Southampton',
-        'county' => 'Hampshire',
-        'postcode' => 'SO15 2AE',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-      ),
+      'password' => $GLOBALS['password_valid'],
+      'patient' => $GLOBALS['patient_empty'],
+      'next_of_kin' => $GLOBALS['nok_filled'],
     );
 
     UserManager::register($data);
@@ -236,39 +118,9 @@ class UserManagerTest extends TestCase {
   public function testRegistrationDoesNotValidateEmptyNextOfKinDetails() {
     $data = array(
       'email' => 'new@test.com',
-      'password' => 'test123',
-      'patient' => array(
-        'title' => 'Mr',
-        'forename' => 'David',
-        'surname' => 'Bowden',
-        'sex' => 'M',
-        'date_of_birth' => '1990-01-26',
-        'house_name' => '',
-        'house_no' => '12',
-        'street' => 'Meyrick Road',
-        'city' => 'Portsmouth',
-        'county' => 'Hampshire',
-        'postcode' => 'PO2 RJF',
-        'tel_no' => '+447691014037',
-        'mob_no' => '+448865738896',
-        'next_of_kin' => 'nk-5e4693079a5e18.63580261',
-        'nhs_no' => '4562594365',
-        'hc_no' => '',
-      ),
-      'next_of_kin' => array(
-        'relationship' => '',
-        'title' => '',
-        'forename' => '',
-        'surname' => '',
-        'house_name' => '',
-        'house_no' => '',
-        'street' => '',
-        'city' => '',
-        'county' => '',
-        'postcode' => '',
-        'tel_no' => '',
-        'mob_no' => '',
-      ),
+      'password' => $GLOBALS['password_valid'],
+      'patient' => $GLOBALS['patient_filled'],
+      'next_of_kin' => $GLOBALS['nok_empty'],
     );
 
     UserManager::register($data);
