@@ -13,7 +13,7 @@ class UserManager {
    */
   public static function login($email, $password) {
     // Validate the user's email address and password
-    $valid = self::__validateUserDetails($email, $password);
+    $valid = self::validateUserDetails($email, $password);
 
     if ($valid) {
       try {
@@ -69,9 +69,9 @@ class UserManager {
    */
   public static function register($data) {
     // Validate account, personal, and next of kin details
-    $valid_account = self::__validateUserDetails($data['email'], $data['password']);
-    $valid_patient = self::__validatePatientDetails($data['patient']);
-    $valid_nok = self::__validateNextOfKinDetails($data['next_of_kin']);
+    $valid_account = self::validateUserDetails($data['email'], $data['password']);
+    $valid_patient = self::validatePatientDetails($data['patient']);
+    $valid_nok = self::validateNextOfKinDetails($data['next_of_kin']);
 
     if ($valid_account && $valid_patient && $valid_nok) {
       try {
@@ -192,7 +192,7 @@ class UserManager {
    * @param $password
    * @return boolean
    */
-  private static function __validateUserDetails($email, $password) {
+  private static function validateUserDetails($email, $password) {
     if (empty($email) || (!filter_var($email, FILTER_VALIDATE_EMAIL))) {
       $GLOBALS['errors'][] = 'Please enter a valid email address.';
     } else if (empty($password)) {
@@ -210,7 +210,7 @@ class UserManager {
    * @param $details
    * @return boolean
    */
-  private static function __validatePatientDetails($details) {
+  private static function validatePatientDetails($details) {
     $excluded = array('house_name', 'house_no', 'mob_no', 'tel_no', 'nhs_no', 'hc_no');
 
     foreach (array_keys($details) as $detail) {
@@ -250,7 +250,7 @@ class UserManager {
    * @param $details
    * @return boolean
    */
-  private static function __validateNextOfKinDetails($details) {
+  private static function validateNextOfKinDetails($details) {
     $excluded = array('house_name', 'house_no', 'mob_no', 'tel_no');
 
     foreach (array_keys($details) as $detail) {
