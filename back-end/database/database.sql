@@ -108,16 +108,69 @@ CREATE TABLE IF NOT EXISTS `room` (
 
 CREATE TABLE IF NOT EXISTS `attendance` (
   `id` VARCHAR(36),
+  `appointment_id` VARCHAR(36),
   `staff_id` VARCHAR(36),    
   PRIMARY KEY (`id`),
+  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`request_id`)
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `availability` (
   `id` VARCHAR(36),
-  `staff_id` VARCHAR(36),    
+  `staff_id` VARCHAR(36),   
+  `slot_id` VARCHAR(36),  
   PRIMARY KEY (`id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
+  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`slot_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `slot` (
+  `id` VARCHAR(36),
+  `staff_id` VARCHAR(36),   
+  `slot_id` VARCHAR(36),  
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
+  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`slot_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `appointment` (
+  `id` VARCHAR(36),   
+  `b_cancellation_reason` VARCHAR(255),
+  `a_cancellation_reason` VARCHAR(255),
+  `availability_id` VARCHAR(36),
+  `request_id` INT,
+  `room_id` INT,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
+  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`slot_id`),
+  FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
+  FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` VARCHAR(36),
+  `appointment_id` VARCHAR(36),   
+  `staff_id` VARCHAR(36),  
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `facility_language` (
+  `id` VARCHAR(36),
+  `facility_id` VARCHAR(36),   
+  `language_id` VARCHAR(36),  
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`),
+  FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `language` (
+  `id` VARCHAR(36),
+  `name` VARCHAR(70),   
+  `language_id` VARCHAR(36),  
+  PRIMARY KEY (`id`)
+);
+
 
 
