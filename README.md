@@ -27,26 +27,15 @@ Before installing the project, choose the installation folder. When using XAMPP 
 git clone https://github.com/lewisknewton/setp.git
 ```
 
-Open the project folder using its name i.e. *setp*:
-```
-cd setp
-```
+Open the project folder using its name e.g. `cd setp`.
 
 #### Dependencies
 
 The project uses Composer and npm dependencies for automatic testing.
 
-To install Composer dependencies, navigate to the *back-end* directory and run:
+To install Composer dependencies, navigate to the *back-end* directory and run `composer install`:
 
-```
-composer install
-```
-
-To install npm dependices, navigate to the *front-end* directory and run:
-
-```
-npm i
-```
+To install npm dependices, navigate to the *front-end* directory and run `npm i`.
 
 ### Using XAMPP
 
