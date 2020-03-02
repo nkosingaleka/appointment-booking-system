@@ -106,15 +106,6 @@ CREATE TABLE IF NOT EXISTS `room` (
   FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `attendance` (
-  `id` VARCHAR(36),
-  `appointment_id` VARCHAR(36),
-  `staff_id` VARCHAR(36),    
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`request_id`),
-  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
-);
-
 CREATE TABLE IF NOT EXISTS `slot` (
   `id` VARCHAR(36),
   `start_time` DATETIME,
@@ -145,6 +136,16 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   FOREIGN KEY (`slot_id`) REFERENCES `slot` (`slot_id`),
   FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
+);
+
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` VARCHAR(36),
+  `appointment_id` VARCHAR(36),
+  `staff_id` VARCHAR(36),    
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`request_id`),
+  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `attendance` (
