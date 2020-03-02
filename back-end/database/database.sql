@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `room_id` INT,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
-  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`slot_id`),
+  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`),
   FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
