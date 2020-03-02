@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `availability` (
   `slot_id` VARCHAR(36),  
   PRIMARY KEY (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
-  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`slot_id`)
+  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `appointment` (
