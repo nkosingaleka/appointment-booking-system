@@ -83,3 +83,11 @@ c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/databa
 2. Copy and paste the contents of *back-end/database/database.sql* into the text area.
 3. Navigate to the *SQL* tab (now under the *appointment_booking_system* database).
 4. Copy and paste the contents of *back-end/database/test_data.sql* into the text area.
+
+## Testing
+
+> **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases.
+
+To run the PHPUnit and Jest test cases, run the `run-test.sh` script in the project root folder. This will execute the `phpunit` and `npm test` commands.
+
+Alternatively, you can run either `phpunit` or `npm test` yourself in the respective directory.
