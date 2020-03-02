@@ -32,6 +32,22 @@ Open the project folder using its name i.e. *setp*:
 cd setp
 ```
 
+#### Dependencies
+
+The project uses Composer and npm dependencies for automatic testing.
+
+To install Composer dependencies, navigate to the *back-end* directory and run:
+
+```
+composer install
+```
+
+To install npm dependices, navigate to the *front-end* directory and run:
+
+```
+npm i
+```
+
 ### Using XAMPP
 
 1. Ensure the project folder is in the *htdocs/* folder (usually in *c://xampp/htdocs/*).
