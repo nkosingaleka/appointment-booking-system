@@ -33,9 +33,7 @@ Open the project folder using its name e.g. `cd setp`.
 
 The project uses Composer and npm dependencies for automatic testing.
 
-To install Composer dependencies, navigate to the *back-end* directory and run `composer install`:
-
-To install npm dependices, navigate to the *front-end* directory and run `npm i`.
+To install these dependencies, navigate to the *back-end* directory and run `composer install`. Then, navigate to the *front-end* directory and run `npm i`.
 
 ### Using XAMPP
 
