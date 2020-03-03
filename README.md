@@ -73,7 +73,7 @@ c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/databa
 
 ## Testing
 
-> **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases.
+> **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases, and a server with the MySQL service must be running. If using XAMPP, please start the *Apache* and *MySQL* modules.
 
 To run the PHPUnit and Jest test cases, run the `run-test.sh` script in the project root folder. This will execute the `phpunit` and `npm test` commands.
 
