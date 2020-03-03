@@ -6,7 +6,13 @@ session_start();
 // Redirect users who are not already logged in to the login page
 if (!isset($_SESSION['user'])) {
   $GLOBALS['app']->redirect('login.php');
+} else {
+  // Redirect users who are not patients
+  if ($_SESSION['user']->role_id != PATIENT_ROLE) {
+    $GLOBALS['app']->redirect('index.php');
 }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +69,9 @@ if (!isset($_SESSION['user'])) {
       </label>
     </form>
 
-    <table>
+    <table id="slots-table">
+      <thead>
+      </thead>
       <tr>
         <th></th>
         <th>Mon (01/01/20)</th>
@@ -86,6 +94,8 @@ if (!isset($_SESSION['user'])) {
       </tr>
     </table>
   </main>
+
+  <script src="js/request-appointment.js"></script>
 </body>
 
 </html>
