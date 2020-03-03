@@ -89,6 +89,6 @@ if (!isset($_SESSION['user'])) {
     </section>
   </main>
 
-  <script src="js/patientAccount.js"></script>
+  <script src="js/patient-accounts.js"></script>
 </body>
 </html>
