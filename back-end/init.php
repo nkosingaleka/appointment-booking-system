@@ -24,3 +24,8 @@ spl_autoload_register('autoloadClasses');
 $GLOBALS['app'] = new App();
 
 $GLOBALS['errors'] = array();
+
+// Define user roles (administrative staff, medical staff, and patient)
+define('ADMINISTRATIVE_ROLE', 1);
+define('MEDICAL_ROLE', 2);
+define('PATIENT_ROLE', 3);

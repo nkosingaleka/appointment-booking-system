@@ -9,7 +9,7 @@ if (!isset($_SESSION['user'])) {
   $GLOBALS['app']->redirect('login.php');
 } else {
   // Redirect people who are not admin staff
-  if ($_SESSION['user']->role_id != 1) {
+  if ($_SESSION['user']->role_id != ADMINISTRATIVE_ROLE) {
     $GLOBALS['app']->redirect('index.php');
 
   } else {
