@@ -72,16 +72,7 @@ if (!isset($_SESSION['user'])) {
     <table id="slots-table">
       <thead>
       </thead>
-      <tr>
-        <th></th>
-        <th>Mon (01/01/20)</th>
-        <th>Tue (02/01/20)</th>
-        <th>Wed (03/01/20)</th>
-        <th>Thu (04/01/20)</th>
-        <th>Fri (05/01/20)</th>
-        <th>Sat (06/01/20)</th>
-        <th>Sun (07/01/20)</th>
-      </tr>
+      <tbody>
       <tr>
         <td>09:00</td>
         <td></td>
@@ -92,6 +83,7 @@ if (!isset($_SESSION['user'])) {
         <td></td>
         <td></td>
       </tr>
+      </tbody>
     </table>
   </main>
 
