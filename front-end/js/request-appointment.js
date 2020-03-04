@@ -1,4 +1,5 @@
 const slotsTable = document.querySelector('#slots-table');
+const slotData = getSlots();
 
 const today = new Date();
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -30,14 +31,8 @@ function selectWeek(startDate) {
  * @param {Array} week The days in the week.
  */
 function displayWeek(week) {
-  const slotsTableHead = slotsTable.querySelector('thead');
-  const headerRow = document.createElement('tr');
-
-  // Add empty header column (for times)
-  headerRow.append(document.createElement('th'));
-
-  // Add a header column for each day of the week
   for (const day of week) {
+    // Add a header column for each day of the week
     let dayDate = day.getDate();
     const dayName = weekdays[day.getDay()];
 
@@ -46,13 +41,48 @@ function displayWeek(week) {
       dayDate = `0${dayDate}`;
     }
 
-    const th = document.createElement('th');
-    th.textContent = `${dayName} ${dayDate}`;
+    const dayColumn = document.createElement('div');
+    const heading = document.createElement('h2');
 
-    headerRow.append(th);
+    // Add human-readable date to headings
+    heading.textContent = `${dayName} ${dayDate}`;
+
+    dayColumn.append(heading);
+    slotsTable.append(dayColumn);
+
+    slotData.then(slots => {
+      for (const slot of slots) {
+        const startTime = new Date(slot['start_time']);
+        const endTime = new Date(slot['end_time']);
+
+        // Extract human-readable date for comparison with headings
+        const slotDate = `${startTime.toString().split(' ')[0]} ${startTime.toString().split(' ')[2]}`;
+
+        // Extract hours and minutes
+        const shortStartTime = startTime.toString().split(' ')[4].substr(0, 5);
+        const shortEndTime = endTime.toString().split(' ')[4].substr(0, 5);
+
+        // Add clickable buttons to request appointment bookings
+        const slotEntry = document.createElement('button');
+        slotEntry.textContent = `${shortStartTime} – ${shortEndTime}`;
+
+        // Append slots to each day under their respective headings
+        if (slotDate === heading.textContent) {
+          heading.after(slotEntry);
+        }
+      }
+    });
   }
+}
 
-  slotsTableHead.append(headerRow);
+/**
+ * Retrieves the available time slots for which appointment booking requests can be made.
+ * @return {Object} The slots available.
+ */
+async function getSlots() {
+  const res = await fetch('get-slots.php');
+
+  return await res.json();
 }
 
 displayWeek(selectWeek(today));

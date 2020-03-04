@@ -110,3 +110,13 @@ input[type="text"] {
   grid-area: alt-link;
   max-width: fit-content;
 }
+
+#slots-table {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+#slots-table > div {
+  display: flex;
+  flex-direction: column;
+}
