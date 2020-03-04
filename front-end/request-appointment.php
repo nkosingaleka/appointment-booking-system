@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
   // Redirect users who are not patients
   if ($_SESSION['user']->role_id != PATIENT_ROLE) {
     $GLOBALS['app']->redirect('index.php');
-}
+  }
 }
 
 ?>
@@ -32,12 +32,6 @@ if (!isset($_SESSION['user'])) {
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
 
     <form method="post" id="request-form">
-      <label for="email">
-        Email Address
-        <input type="email" name="email" id="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>"
-          required>
-      </label>
-
       <label for="period_choice">
         Period
         <select name="period_choice" id="period_choice" required>
@@ -69,22 +63,8 @@ if (!isset($_SESSION['user'])) {
       </label>
     </form>
 
-    <table id="slots-table">
-      <thead>
-      </thead>
-      <tbody>
-      <tr>
-        <td>09:00</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      </tbody>
-    </table>
+    <div id="slots-table">
+    </div>
   </main>
 
   <script src="js/request-appointment.js"></script>
