@@ -11,7 +11,7 @@ matrix:
       before_script:
         - cd back-end
         - composer install
-      script: phpunit --configuration phpunit.xml
+      script: back-end/vendor/bin/phpunit --configuration phpunit.xml
 
     - language: node_js
       node_js: "node"
