@@ -30,7 +30,7 @@ class UserManager {
         $projections = array('id', 'email', 'password', 'role_id', 'verified');
 
         // Retrieve any record whose email address matches the user's
-        $result = $GLOBALS['app']->getDB()->selectWhere('account', $selections, $projections);
+        $result = $GLOBALS['app']->getDB()->selectOneWhere('account', $selections, $projections);
 
         if (isset($result['email']) && $result['email'] === $email) {
           if (password_verify($password, $result['password'])) {
@@ -99,10 +99,10 @@ class UserManager {
         );
 
         // Retrieve any record whose email address matches the user's
-        $account_result = $GLOBALS['app']->getDB()->selectWhere('account', $account_selections, ['email']);
+        $account_result = $GLOBALS['app']->getDB()->selectOneWhere('account', $account_selections, ['email']);
 
         // Retrieve any record whose NHS and/or Health and Care number matches the user's
-        $patient_result = $GLOBALS['app']->getDB()->selectWhere('patient', $patient_selections, ['NHS_no', 'HC_no']);
+        $patient_result = $GLOBALS['app']->getDB()->selectOneWhere('patient', $patient_selections, ['NHS_no', 'HC_no']);
 
         if (isset($account_result['email'])) {
           $GLOBALS['errors'][] = 'Sorry, the email address you entered has already been taken. Please try again.';

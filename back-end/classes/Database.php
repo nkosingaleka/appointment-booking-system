@@ -69,7 +69,7 @@ class Database {
    * @param $projections
    * @return array
    */
-  public function selectWhere($table, $selections, $projections = ['*']) {
+  public function selectOneWhere($table, $selections, $projections = ['*']) {
     // Append database name to table name to avoid ambiguity
     $table = $this->__name . '.' . $table;
 

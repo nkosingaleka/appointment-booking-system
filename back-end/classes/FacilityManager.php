@@ -21,7 +21,7 @@ class FacilityManager {
 
     $projections = array('name', 'building_name', 'building_no', 'street', 'city', 'county', 'postcode', 'tel_no');
 
-    $result = $GLOBALS['app']->getDB()->selectWhere('facility', $selections, $projections);
+    $result = $GLOBALS['app']->getDB()->selectOneWhere('facility', $selections, $projections);
 
     return $result;
   }
