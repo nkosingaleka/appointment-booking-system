@@ -36,6 +36,8 @@ const nokPostcode = document.querySelector('#nok_postcode');
 const nokTelNo = document.querySelector('#nok_tel_no');
 const nokMobNo = document.querySelector('#nok_mob_no');
 
+const consentBoxCheck = document.querySelector('#consent_check');
+
 const errors = [];
 
 // Validate input when the form is submitted
@@ -159,6 +161,11 @@ registerForm.addEventListener('submit', (e) => {
   if ((nokTelNo.value == '' || nokTelNo.value == null) || (nokMobNo.value == '' || nokMobNo.value == null)) {
     e.preventDefault();
     errors.push('Please enter a valid telephone or mobile number.');
+  }
+
+  if (!consentBoxCheck.checked) {
+    e.preventDefault();
+    errors.push('Please tick the consent box.');
   }
 
   // If there are errors

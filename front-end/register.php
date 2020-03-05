@@ -8,7 +8,7 @@ if (isset($_SESSION['user'])) {
 
 // Check if the register form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['email'], $_POST['password'])) {
+  if (isset($_POST['email'], $_POST['password'], $_POST['consent_check'])) {
     // Sanitise the user's account inputs
     $data['email'] = trim(htmlspecialchars($_POST['email']));
     $data['password'] = htmlspecialchars($_POST['password']);
@@ -200,6 +200,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="nok_mob_no">
           Mobile Number
           <input type="text" name="next_of_kin[mob_no]" id="nok_mob_no" value="<?php echo isset($data['next_of_kin']['mob_no']) ? $data['next_of_kin']['mob_no'] : '' ?>" minlength="10" maxlength="15">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Final Consent</legend>
+
+        <label for="consent_check">
+          By ticking this box, I am consenting to have my personal information being used by this medical institute.
+          <input type="checkbox" name="consent_check" id="consent_check">
         </label>
       </fieldset>
 
