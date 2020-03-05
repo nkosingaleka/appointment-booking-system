@@ -1,6 +1,7 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 
 require dirname(__FILE__) . '/../vendor/autoload.php';
 
@@ -355,22 +356,31 @@ class UserManager {
     $mail = new PHPMailer;
 
     // Enable verbose error outputs
-    $mail->SMTPDebug = 2;
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
     $mail->IsSMTP();
+    $mail->SMTPOptions = array(
+      'ssl' => array(
+      'verify_peer' => false,
+      'verify_peer_name' => false,
+      'allow_self_signed' => true
+      )
+      );
     $mail->Host = 'smtp.gmail.com';
+    // $mail->Host = gethostbyname('smtp.gmail.com'); // if server doesnt allow ipv6
     $mail->SMTPAuth = true;
-    $mail->Username = 'EMAIL';
-    $mail->Password = 'PASSWORD';
+    $mail->Username = 'team9c.abs@gmail.com';
+    $mail->Password = '39ThiS4is23A8SeCuRE215PassWoRd234';
     $mail->SMTPSecure = 'ssl';
-    $mail->Port = 465;
+    $mail->Port = 587; // 465 or 587
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->IsHTML(true);
 
     // Add sender
-    $mail->SetFrom('EMAIL', 'MEDICAL_FACILITY');
+    $mail->SetFrom('team9c.abs@gmail.com', 'MEDICAL_FACILITY');
   
     // Add recipient
-    $mail->AddAddress('PATIENT_EMAIL', 'PATIENT_NAME');
+    $mail->AddAddress('up734426@myport.ac.uk', 'PATIENT_NAME');
 
     $mail->Subject = 'This is a test email';
     $mail->Body = 'This is the HTML message body <b>in bold!</b>';
