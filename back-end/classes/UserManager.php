@@ -369,15 +369,15 @@ class UserManager {
     $mail->Host = 'smtp.gmail.com';
     // $mail->Host = gethostbyname('smtp.gmail.com'); // if server doesnt allow ipv6
     $mail->SMTPAuth = true;
-    $mail->Username = 'jakelove15s@gmail.com';
-    $mail->Password = '78RanGers01FuckOfF678';
+    $mail->Username = 'team9c.abs@gmail.com';
+    $mail->Password = '39ThiS4is23A8SeCuRE215PassWoRd234';
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 587; // 465 or 587
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->IsHTML(true);
 
     // Add sender
-    $mail->SetFrom('jakelove15s@gmail.com', 'MEDICAL_FACILITY');
+    $mail->SetFrom('team9c.abs@gmail.com', 'MEDICAL_FACILITY');
   
     // Add recipient
     $mail->AddAddress('up734426@myport.ac.uk', 'PATIENT_NAME');
