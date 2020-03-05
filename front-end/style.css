@@ -84,7 +84,8 @@ input[type="text"] {
 }
 
 #login-form > label,
-#registration-form label {
+#registration-form label,
+#request-form label {
   display: flex;
   flex-direction: column;
   margin: 0.5em 0;
@@ -117,6 +118,16 @@ input[type="text"] {
 }
 
 #slots-table > div {
+  display: flex;
+  flex-direction: column;
+}
+
+#request-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+#request-form {
   display: flex;
   flex-direction: column;
 }

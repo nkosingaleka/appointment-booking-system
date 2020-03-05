@@ -30,8 +30,9 @@ if (!isset($_SESSION['user'])) {
 
   <main>
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
-
-    <form method="post" id="request-form">
+    
+    <div id = "request-section">
+      <form method="post" id="request-form">
       <label for="period_choice">
         Period
         <select name="period_choice" id="period_choice" required>
@@ -63,8 +64,12 @@ if (!isset($_SESSION['user'])) {
       </label>
     </form>
 
-    <div id="slots-table">
-    </div>
+
+  <div id="slots-table">
+</div>
+
+</div>
+
   </main>
 
   <script src="js/request-appointment.js"></script>
