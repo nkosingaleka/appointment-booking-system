@@ -62,11 +62,13 @@ if (!isset($_SESSION['user'])) {
           <option value="">Dr Who</option>
         </select>
       </label>
+
+      <input name="confirm" id="confirm" type="submit" value="Confirm">
     </form>
 
-  <div id="slots-table">
-</div>
-</div>
+    <div id="slots-table">
+    </div>
+  </div>
   </main>
 
   <script src="js/request-appointment.js"></script>
