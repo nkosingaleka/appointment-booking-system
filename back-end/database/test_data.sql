@@ -230,3 +230,27 @@ INSERT INTO `slot` (`id`, `start_time`, `end_time`)
   VALUES ('5e5f9bd47006d7.82257086', TIMESTAMP(CONCAT(SUBDATE(CURDATE(), WEEKDAY(CURDATE()) - 6), ' 10:40:00')), TIMESTAMP(CONCAT(SUBDATE(CURDATE(), WEEKDAY(CURDATE()) - 6), ' 10:50:00')));
 INSERT INTO `slot` (`id`, `start_time`, `end_time`) 
   VALUES ('5e5f9bd47006e4.04775992', TIMESTAMP(CONCAT(SUBDATE(CURDATE(), WEEKDAY(CURDATE()) - 6), ' 10:50:00')), TIMESTAMP(CONCAT(SUBDATE(CURDATE(), WEEKDAY(CURDATE()) - 6), ' 11:00:00')));
+
+/* Language: Example languages for selecting translation services */
+INSERT INTO `language` (`id`, `name`) VALUES ('5e6274fe2da8e7.62206293', 'Welsh');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e627504477ac0.53112804', 'Polish');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e62752a775762.64611390', 'Bengali');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e62752a775924.80449764', 'Gujarati');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e62752a775a30.18919537', 'Arabic');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e62752a775a78.73040756', 'Urdu');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e62752a775aa8.85707788', 'French');
+INSERT INTO `language` (`id`, `name`) VALUES ('5e62752a775ae7.54844103', 'Romanian');
+
+/* Facility_Language: Example languages offered by facilities */
+INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
+  VALUES ('5e627634038156.50370377', '5e4a83211ffd59.63214101', '5e6274fe2da8e7.62206293');
+INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
+  VALUES ('5e627634038285.25464470', '5e4a83211ffd59.63214101', '5e627504477ac0.53112804');
+INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
+  VALUES ('5e6276340382d6.44937900', '5e4a83211ffd59.63214101', '5e62752a775762.64611390');
+INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
+  VALUES ('5e627634038309.12561632', '5e4a83211ffd59.63214101', '5e62752a775a30.18919537');
+INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
+  VALUES ('5e627634038339.11156979', '5e4a83211ffd59.63214101', '5e62752a775aa8.85707788');
+INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
+  VALUES ('5e627634038370.51360289', '5e4a83211ffd59.63214101', '5e62752a775ae7.54844103');
