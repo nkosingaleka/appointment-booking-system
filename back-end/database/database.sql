@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `p_cancellation_reason` VARCHAR(255),
   `r_cancellation_reason` VARCHAR(255),
   `reviewer_id` VARCHAR(36),
-  `patient_id` VARCHAR(36),    
+  `patient_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`reviewer_id`) REFERENCES `staff` (`id`),
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `room` (
   `id` VARCHAR(36),
   `title` VARCHAR(35),
   `notes` TEXT,
-  `facility_id` VARCHAR(36),    
+  `facility_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
 );
@@ -109,25 +109,25 @@ CREATE TABLE IF NOT EXISTS `room` (
 CREATE TABLE IF NOT EXISTS `slot` (
   `id` VARCHAR(36),
   `start_time` DATETIME,
-  `end_time` DATETIME,  
+  `end_time` DATETIME,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `availability` (
   `id` VARCHAR(36),
-  `staff_id` VARCHAR(36),   
-  `slot_id` VARCHAR(36),  
+  `staff_id` VARCHAR(36),
+  `slot_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
   FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `appointment` (
-  `id` VARCHAR(36),   
+  `id` VARCHAR(36),
   `b_cancellation_reason` VARCHAR(255),
   `a_cancellation_reason` VARCHAR(255),
-  `staff_id` VARCHAR(36), 
-  `slot_id` VARCHAR(36), 
+  `staff_id` VARCHAR(36),
+  `slot_id` VARCHAR(36),
   `availability_id` VARCHAR(36),
   `request_id` VARCHAR(36),
   `room_id` VARCHAR(36),
@@ -138,11 +138,10 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
 
-
 CREATE TABLE IF NOT EXISTS `attendance` (
   `id` VARCHAR(36),
   `appointment_id` VARCHAR(36),
-  `staff_id` VARCHAR(36),    
+  `staff_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`request_id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
@@ -150,8 +149,8 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 
 CREATE TABLE IF NOT EXISTS `attendance` (
   `id` VARCHAR(36),
-  `appointment_id` VARCHAR(36),   
-  `staff_id` VARCHAR(36),  
+  `appointment_id` VARCHAR(36),
+  `staff_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
@@ -159,20 +158,16 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 
 CREATE TABLE IF NOT EXISTS `language` (
   `id` VARCHAR(36),
-  `name` VARCHAR(70),   
-  `language_id` VARCHAR(36),  
+  `name` VARCHAR(70),
+  `language_id` VARCHAR(36),
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `facility_language` (
   `id` VARCHAR(36),
-  `facility_id` VARCHAR(36),   
-  `language_id` VARCHAR(36),  
+  `facility_id` VARCHAR(36),
+  `language_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`),
   FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
 );
-
-
-
-
