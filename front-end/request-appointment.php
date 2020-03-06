@@ -54,7 +54,7 @@ if (!isset($_SESSION['user'])) {
       </label>
 
       <label for="staff_choice">
-        Preffered Staff
+        Preferred Staff
         <select name="staff_choice" id="staff_choice" required>
           <option value="">Choose Staff</option>
           <option value="">Dr Pepper </option>
@@ -64,12 +64,9 @@ if (!isset($_SESSION['user'])) {
       </label>
     </form>
 
-
   <div id="slots-table">
 </div>
-
 </div>
-
   </main>
 
   <script src="js/request-appointment.js"></script>
