@@ -21,15 +21,15 @@ if (!isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?=$GLOBALS['app']->title?> &mdash; Request Appointment</title>
+  <title><?=$GLOBALS['app']->title ?> &mdash; Request Appointment</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
+  <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php'; ?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php'; ?>
     
     <div id = "request-section">
       <form method="post" id="request-form">
