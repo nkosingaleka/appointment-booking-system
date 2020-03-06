@@ -40,6 +40,10 @@ select {
   height: 2em;
 }
 
+textarea {
+  height: 6em;
+}
+
 input[type="text"] {
   padding: 0.5em;
 }
@@ -125,11 +129,16 @@ input[type="text"] {
 #request-section {
   display: flex;
   justify-content: space-between;
-  max-width: 75%;
+  max-width: 80%;
   margin: 0 auto;
 }
 
 #request-form {
   display: flex;
   flex-direction: column;
+  width: 15em;
+}
+
+#request-form select {
+  max-width: 75%;
 }
