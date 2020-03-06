@@ -159,7 +159,6 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 CREATE TABLE IF NOT EXISTS `language` (
   `id` VARCHAR(36),
   `name` VARCHAR(70),
-  `language_id` VARCHAR(36),
   PRIMARY KEY (`id`)
 );
 
