@@ -13,6 +13,9 @@ if (!isset($_SESSION['user'])) {
   }
 }
 
+// Retrieve language options
+$languages = $GLOBALS['app']->getDB()->selectJoin('facility_language', 'language', 'facility_language.language_id = language.id', ['name']);
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +33,7 @@ if (!isset($_SESSION['user'])) {
 
   <main>
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php'; ?>
-    
+
     <div id = "request-section">
       <form method="post" id="request-form">
       <label for="period_choice">
@@ -48,8 +51,13 @@ if (!isset($_SESSION['user'])) {
       <label for="translation_choice">
         Translation required
         <select name="translation_choice" id="translation_choice" required>
-          <option value="">Choose Language</option>
-          <option value="">No (English)</option>
+          <option value="none" selected>None (English)</option>
+          <?php if (count($languages) > 0): ?>
+            <?php foreach ($languages as $language): ?>
+              <option value="<?=$language['name'] ?>"><?=$language['name'] ?></option>
+            <?php endforeach ?>
+          <?php endif ?>
+          <option value="other">Other</option>
         </select>
       </label>
 
