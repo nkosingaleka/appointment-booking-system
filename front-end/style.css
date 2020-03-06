@@ -114,7 +114,7 @@ input[type="text"] {
 
 #slots-table {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(7, 1fr);
 }
 
 #slots-table > div {
@@ -125,6 +125,8 @@ input[type="text"] {
 #request-section {
   display: flex;
   justify-content: space-between;
+  max-width: 75%;
+  margin: 0 auto;
 }
 
 #request-form {
