@@ -16,6 +16,18 @@ if (!isset($_SESSION['user'])) {
 // Retrieve language options
 $languages = $GLOBALS['app']->getDB()->selectJoin('facility_language', 'language', 'facility_language.language_id = language.id', ['name']);
 
+$staff_selections = array(
+  'role_id' => array(
+    'comparison' => '=',
+    'param' => ':role_id',
+    'value' => MEDICAL_ROLE,
+  ),
+);
+
+$staff_projections = array('staff.id', 'title', 'forename', 'surname');
+
+// Retrieve staff
+$staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', 'account', 'account.id = staff.id', $staff_selections, $staff_projections);
 ?>
 
 <!DOCTYPE html>
@@ -65,9 +77,11 @@ $languages = $GLOBALS['app']->getDB()->selectJoin('facility_language', 'language
         Preferred Staff
         <select name="staff_choice" id="staff_choice" required>
           <option value="">Choose Staff</option>
-          <option value="">Dr Pepper </option>
-          <option value="">Dr Strange</option>
-          <option value="">Dr Who</option>
+          <?php if (count($staff) > 0): ?>
+            <?php foreach ($staff as $member): ?>
+              <option value="<?=$member['id'] ?>"><?="{$member['title']} {$member['forename']} {$member['surname']}" ?></option>
+            <?php endforeach ?>
+          <?php endif ?>
         </select>
       </label>
 
