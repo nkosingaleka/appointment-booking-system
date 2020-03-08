@@ -3,7 +3,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
-require dirname(__FILE__) . '/../vendor/autoload.php';
+require dirname(__FILE__) . '/../../vendor/autoload.php';
 
 /**
  * Represents the component for handling user-related actions.
