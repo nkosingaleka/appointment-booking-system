@@ -33,7 +33,7 @@ Open the project folder using its name e.g. `cd setp`.
 
 The project uses Composer and npm dependencies for automatic testing.
 
-To install these dependencies, navigate to the *back-end* directory and run `composer install`. Then, navigate to the *front-end* directory and run `npm i`.
+To install these dependencies, run `composer install` and `npm i`.
 
 ### Using XAMPP
 
@@ -77,4 +77,4 @@ c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/databa
 
 To run the PHPUnit and Jest test cases, run the `run-test.sh` script in the project root folder. This will execute the `phpunit` and `npm test` commands.
 
-Alternatively, you can run either `phpunit` or `npm test` yourself in the respective directory.
+Alternatively, you can run either `phpunit` or `npm test` yourself.

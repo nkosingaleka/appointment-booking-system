@@ -1,4 +1,4 @@
-<phpunit bootstrap="init.php" colors="true">
+<phpunit bootstrap="back-end/init.php" colors="true">
   <testsuites>
     <testsuite name="Class Test Suite">
       <directory>tests</directory>

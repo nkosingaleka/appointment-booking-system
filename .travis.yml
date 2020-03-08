@@ -9,12 +9,10 @@ matrix:
         - mysql -u root --password="" appointment_booking_system  < back-end/database/test_data.sql
         - composer self-update
       before_script:
-        - cd back-end
         - composer install
       script: vendor/bin/phpunit --configuration phpunit.xml
 
     - language: node_js
       node_js: "node"
       before_script:
-        - cd front-end
         - npm i
