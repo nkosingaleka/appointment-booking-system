@@ -10,7 +10,10 @@ class App {
   /**
    * Creates a new App using the given configuration parameters.
    * The configuration should, at minimum, include parameters for database creation.
+   * 
+   * @return void
    */
+
   public function __construct() {
     $this->__startDatabase();
   }

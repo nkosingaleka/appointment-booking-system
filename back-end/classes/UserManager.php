@@ -12,8 +12,8 @@ class UserManager {
   /**
    * Logs the user into their account using their email address and password.
    *
-   * @param $email
-   * @param $password
+   * @param string $email Email of the user to allow login.
+   * @param string $password Password of the user to allow login.
    * @return void
    */
   public static function login($email, $password) {
@@ -69,7 +69,7 @@ class UserManager {
   /**
    * Creates a new account for the user using their provided account, personal, and next of kin details.
    *
-   * @param $data
+   * @param array $data Details for account registeration.
    * @return void
    */
   public static function register($data) {
@@ -193,9 +193,9 @@ class UserManager {
   /**
    * Checks whether the user's email address and password are in the expected format.
    *
-   * @param $email
-   * @param $password
-   * @return boolean
+   * @param string $email Email of the user to allow login.
+   * @param string $password Password of the user to allow login.
+   * @return boolean Whether the registering patients email address and password pass (true) or fail (false) validation.
    */
   private static function validateUserDetails($email, $password) {
     if (empty($email) || (!filter_var($email, FILTER_VALIDATE_EMAIL))) {
@@ -212,8 +212,8 @@ class UserManager {
   /**
    * Checks whether the user's personal details are in the expected format.
    *
-   * @param $details
-   * @return boolean
+   * @param array $details Details about the registeration patients.
+   * @return boolean Whether the registering patients details pass (true) or fail (false) validation.
    */
   private static function validatePatientDetails($details) {
     $excluded = array('house_name', 'house_no', 'mob_no', 'tel_no', 'nhs_no', 'hc_no');
@@ -252,8 +252,8 @@ class UserManager {
   /**
    * Checks whether the user's next of kin details are in the expected format.
    *
-   * @param $details
-   * @return boolean
+   * @param array $details Details about the user's next of kin.
+   * @return boolean Whether the registering patients next of kin details pass (true) or fail (false) validation.
    */
   private static function validateNextOfKinDetails($details) {
     $excluded = array('house_name', 'house_no', 'mob_no', 'tel_no');
@@ -287,7 +287,7 @@ class UserManager {
   /**
    * Retrieves patient details from the database.
    *
-   * @return array
+   * @return array Collection of patients details.
    */
   public static function getPatients() {
     $columns = array(
@@ -318,7 +318,7 @@ class UserManager {
   /**
    * Verifies the patient using the given account id.
    *
-   * @param $id
+   * @param string $id ID of the patients account.
    * @return void
    */
   public static function verifyPatient($id) {

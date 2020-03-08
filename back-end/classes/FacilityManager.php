@@ -7,8 +7,8 @@ class FacilityManager {
   /**
    * Retrieves Facililty contact details using a given id.
    *
-   * @param $facility_id
-   * @return array
+   * @param string $facility_id ID of the facility contact details.
+   * @return array Retrieved facility contact details.
    */
   public static function getContactDetails($facility_id) {
     $selections = array(

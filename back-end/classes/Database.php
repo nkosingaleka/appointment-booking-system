@@ -14,6 +14,7 @@ class Database {
   /**
    * Creates a new Database using the given configuration parameters.
    *
+   * @return void
    */
   public function __construct() {
     $config = array();
@@ -64,10 +65,10 @@ class Database {
    * Selects data from the database using the given table name,
    * selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
-   * @param $table
-   * @param $selections
-   * @param $projections
-   * @return array
+   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param array $selections Conditions to check against, as specified after the WHERE clause.
+   * @param array $projections Attributes to select, as specifed after the SELECT clause.
+   * @return array Selected data.
    */
   public function selectOneWhere($table, $selections, $projections = ['*']) {
     // Append database name to table name to avoid ambiguity
@@ -167,11 +168,11 @@ class Database {
    * Selects data from the database using the given table name,
    * join table, join condition, and (optional) projections (e.g. attribute names).
    *
-   * @param $table
-   * @param $join_table
-   * @param $join_condition
-   * @param $projections
-   * @return array
+   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $join_table Name of the table on which to join the first table, as specified after the JOIN clause.
+   * @param string $join_condition Condition on which to join the tables, as specified after the ON clause.
+   * @param array $projections Attributes to select, as specifed after the SELECT clause.
+   * @return array Selected data.
    */
   public function selectJoin($table, $join_table, $join_condition, $projections = ['*']) {
     // Append database name to table names to avoid ambiguity
@@ -202,7 +203,7 @@ class Database {
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @param boolean $bind Option to safely bind input parameters (default: true).
-   * @return array
+   * @return array Selected data.
    */
   public function selectJoinWhere($table, $join_table, $join_condition, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table names to avoid ambiguity
@@ -251,9 +252,9 @@ class Database {
   /**
    * Inserts data into the database using the given table name and data values.
    *
-   * @param $table
-   * @param $data
-   * @return boolean
+   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param array $data Data inserted into given table name and data values, as specified after the VALUES clause.
+   * @return boolean Whether the statement is valid (true) or invalid (false) for execution.
    */
   public function insert($table, $data) {
     $params = $values = array();
@@ -292,10 +293,10 @@ class Database {
    * Updates data from the database using the given table name,
    * selections (e.g. comparions), and columns to be updated.
    *
-   * @param $table
-   * @param $selections
-   * @param $update_columns
-   * @return boolean
+   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param array $selections Conditions to check against, as specified after the WHERE clause.
+   * @param array $update_columns Columns updated into given table names with updated data. as specified after the VALUES clause.
+   * @return boolean Whether the statement is valid (true) or invalid (false) for execution.
    */
   public function updateWhere($table, $selections, $update_columns) {
     // Append database name to table name to avoid ambiguity
