@@ -4,7 +4,7 @@
 
 Project created by Team 9C for the Software Engineering Theory and Practice module (2019-2020). Please reference the linked [project board](https://github.com/users/lewisknewton/projects/1).
 
-XAMPP was used as the local development and testing environment. Therefore, it is recommended that the project continues to be tested in the same way.
+XAMPP was used as the local development and testing environment, with [http://localhost/uni/setp](http://localhost/uni/setp) as the URL. Therefore, it is recommended that the project continues to be tested in the same way.
 
 ## The Team
 
@@ -75,6 +75,12 @@ c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/databa
 
 > **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases, and a server with the MySQL service must be running. If using XAMPP, please start the *Apache* and *MySQL* modules.
 
-To run the PHPUnit and Jest test cases, run the `run-test.sh` script in the project root folder. This will execute the `phpunit` and `npm test` commands.
+Automated testing is available using PHPUnit for the *back-end* scripts and Jest and Selenium WebDriver for interactivity.
+
+To run these test cases, run the `run-test.sh` script in the project root folder. This will execute the `phpunit` and `npm test` commands.
 
 Alternatively, you can run either `phpunit` or `npm test` yourself.
+
+### Default URL
+
+The default URL at which to access the system is [http://localhost/uni/setp](http://localhost/uni/setp). If your server does not serve files at this URL, [http://localhost](http://localhost) is assumed instead.
