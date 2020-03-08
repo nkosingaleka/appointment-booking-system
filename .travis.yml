@@ -12,8 +12,8 @@ matrix:
         - composer install
       script: vendor/bin/phpunit --configuration phpunit.xml
 
-    - language: node_js
-      node_js: "node"
-      before_script:
-        - npm i
-      script: http-server -p 80 & npm test &
+    # - language: node_js
+    #   node_js: "node"
+    #   before_script:
+    #     - npm i
+    #   script: http-server -p 80 & npm test &
