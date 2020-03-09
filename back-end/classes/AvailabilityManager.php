@@ -5,18 +5,19 @@
  */
 class AvailabilityManager {
   /**
-   * Retrieves all bookable slots for the current week.
+   * Retrieves all bookable slots for the current date.
    *
    * @return array Collection of bookable time slots.
    */
   public static function getSlots() {
+    // Define the available booking period (3 weeks from current date)
+    $period = 'WEEK(CURDATE(), 1) + 3';
+    
     // Define conditions to be checked in query
-    $current_week = 'WEEK(CURDATE(), 1)';
-
     $selections = array(
       'WEEK(start_time, 1)' => array(
-        'comparison' => '=',
-        'param' => $current_week,
+        'comparison' => '<=',
+        'param' => $period,
         'value' => '',
         'after' => 'ORDER BY start_time DESC',
       ),

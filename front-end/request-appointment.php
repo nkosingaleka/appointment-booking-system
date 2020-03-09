@@ -50,8 +50,7 @@ $staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', 'account', 'account.
       <form method="post" id="request-form">
       <label for="period_choice">
         Period
-        <select name="period_choice" id="period_choice" required>
-          <option value="">Choose period</option>
+        <select name="period_choice" id="period_choice">
         </select>
       </label>
 

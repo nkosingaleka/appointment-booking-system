@@ -1,4 +1,5 @@
 const slotsTable = document.querySelector('#slots-table');
+const slotsPeriodSelector = document.querySelector('#period_choice');
 const slotData = getSlots();
 
 const today = new Date();
@@ -27,10 +28,55 @@ function selectWeek(startDate) {
 }
 
 /**
+ * Displays the available booking periods (weeks), up to three weeks from the current date.
+ * @param {Array} week The days in the week.
+ */
+function displayPeriods(startDate) {
+  // Retrieve next 3 weeks
+  for (let i = 0; i <= 3; i += 1) {
+    // Retrieve one week ahead from the start date
+    const dateWeekAhead = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + (7 * i));
+    const weekAhead = selectWeek(dateWeekAhead);
+
+    // Extract human-readable date format from the start and end of the week
+    mon = {
+      day: weekAhead[0].getDate() < 10
+        ? `0${weekAhead[0].getDate()}` : weekAhead[0].getDate(),
+      month: weekAhead[0].getMonth() < 10
+        ? `0${weekAhead[0].getMonth()}` : weekAhead[0].getMonth(),
+      year: weekAhead[0].getFullYear(),
+    };
+
+    sun = {
+      day: weekAhead[weekAhead.length - 1].getDate() < 10
+        ? `0${weekAhead[weekAhead.length - 1].getDate()}` : weekAhead[weekAhead.length - 1].getDate(),
+      month: weekAhead[weekAhead.length - 1].getMonth() < 10
+        ? `0${weekAhead[weekAhead.length - 1].getMonth()}` : weekAhead[weekAhead.length - 1].getMonth(),
+      year: weekAhead[weekAhead.length - 1].getFullYear(),
+    };
+
+    // Add option for each period ahead
+    const period = document.createElement('option');
+    period.value,
+      period.textContent = `${mon.day}/${mon.month}/${mon.year} – ${sun.day}/${sun.month}/${sun.year}`;
+
+    slotsPeriodSelector.append(period);
+  }
+
+  // Select the period for the current week
+  slotsPeriodSelector[0].selected = true;
+
+  // Show slots for the week
+  displayWeek(selectWeek(startDate));
+}
+
+/**
  * Displays the days of the week on the appointment bookings request page.
  * @param {Array} week The days in the week.
  */
 function displayWeek(week) {
+  slotsTable.innerHTML = '';
+
   for (const day of week) {
     // Add a header column for each day of the week
     let dayDate = day.getDate();
@@ -85,4 +131,20 @@ async function getSlots() {
   return await res.json();
 }
 
-displayWeek(selectWeek(today));
+/**
+ * Sets up the page once it has fully loaded.
+ */
+function init() {
+  displayPeriods(today);
+
+  slotsPeriodSelector.addEventListener('input', (e) => {
+    // Extract day, month, and year from dd/mm/yyyy format
+    const startDateParts = e.target.selectedOptions[0].value.split(' ')[0].split('/');
+    const startDate = new Date(startDateParts[2], startDateParts[1], startDateParts[0]);
+
+    // Show slots for the week
+    displayWeek(selectWeek(startDate));
+  });
+}
+
+window.addEventListener('load', init);
