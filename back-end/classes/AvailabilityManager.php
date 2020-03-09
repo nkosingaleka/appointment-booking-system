@@ -24,7 +24,7 @@ class AvailabilityManager {
     );
 
     // Define columns to select
-    $projections = array('start_time', 'end_time');
+    $projections = array('id', 'start_time', 'end_time');
 
     // Retrieve slots for the current week
     return $GLOBALS['app']->getDB()->selectWhere('slot', $selections, $projections, false);

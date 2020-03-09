@@ -2,6 +2,9 @@ const slotsTable = document.querySelector('#slots-table');
 const slotsPeriodSelector = document.querySelector('#period_choice');
 const slotData = getSlots();
 
+const selected = [];
+const REQUESTS_LIMIT = 5;
+
 const today = new Date();
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -114,14 +117,12 @@ function displayWeek(week) {
 
         const slotEntryCheck = document.createElement('input');
         slotEntryCheck.setAttribute('type', 'checkbox');
-        slotEntryCheck.id =
-          `${startTime.getDate()}-${startTime.getMonth() + 1}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`;
+        slotEntryCheck.id = `${slot['id']}`;
         slotEntryCheck.value = `${shortStartTime} – ${shortEndTime}`;
 
         const slotEntryLabel = document.createElement('label');
         slotEntryLabel.textContent = `${shortStartTime} – ${shortEndTime}`;
-        slotEntryLabel.setAttribute('for',
-          `${startTime.getDate()}-${startTime.getMonth() + 1}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`);
+        slotEntryLabel.setAttribute('for', `${slot['id']}`);
 
         slotEntry.append(slotEntryCheck);
         slotEntry.append(slotEntryLabel);
@@ -129,6 +130,35 @@ function displayWeek(week) {
         // Append slots to each day under their respective headings
         if (slotDate === heading.textContent) {
           heading.after(slotEntry);
+        }
+
+        slotEntry.addEventListener('click', (e) => {
+          // Select clicked slots if within the requests limit (5)
+          if (selected.length <= REQUESTS_LIMIT) {
+            selectSlot(slotEntryCheck.id);
+          } else {
+            // Prevent checkbox from being checked
+            e.preventDefault();
+          }
+        });
+
+        // Retrieve previously-selected slots
+        const urlParams = window.location.search.split('slots[]');
+
+        for (let param of urlParams) {
+          // Remove unneeded charactes from IDs
+          param = param.replace('=', '');
+          param = param.replace('&', '');
+
+          if (param === slot['id']) {
+            // Check the checkbox for the relevant slot
+            slotEntryCheck.checked = true;
+
+            // Select any slots already selected (e.g. from other period or form submission)
+            if (selected.length <= REQUESTS_LIMIT && !selected.includes(slot['id'])) {
+              selectSlot(slot['id']);
+            }
+          }
         }
       }
     });
@@ -143,6 +173,31 @@ async function getSlots() {
   const res = await fetch('get-slots.php');
 
   return await res.json();
+}
+
+/**
+ * Selects the clicked slot.
+ * @param {String} id 
+ */
+function selectSlot(id) {
+  if (!selected.includes(id)) {
+    // Add the slot if it has not already been selected
+    selected.push(id);
+  } else {
+    let slotIds = '';
+
+    for (const slot of selected) {
+      // Construct query string with slot IDs
+      if (selected.indexOf(slot) < selected.length - 1) {
+        slotIds += `slots[]=${slot}&`;
+      } else {
+        slotIds += `slots[]=${slot}`;
+      }
+    }
+
+    // Add query string for accessing slot IDs
+    window.history.replaceState({}, '', `${location.pathname}?${slotIds}`);
+  }
 }
 
 /**
