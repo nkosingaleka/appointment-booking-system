@@ -2,7 +2,7 @@ CREATE DATABASE appointment_booking_system;
 
 USE `appointment_booking_system`;
 
-CREATE TABLE `facility` (
+CREATE TABLE IF NOT EXISTS `facility` (
   `id` VARCHAR(36),
   `name` VARCHAR(70) NOT NULL,
   `building_name` VARCHAR(35),
