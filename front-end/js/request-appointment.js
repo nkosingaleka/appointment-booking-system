@@ -135,7 +135,7 @@ function displayWeek(week) {
         slotEntry.addEventListener('click', (e) => {
           // Select clicked slots if within the requests limit (5)
           if (selected.length <= REQUESTS_LIMIT) {
-            selectSlot(slotEntryCheck.id);
+            selectSlot(slot['id']);
           } else {
             // Prevent checkbox from being checked
             e.preventDefault();
