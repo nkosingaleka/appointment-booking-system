@@ -42,16 +42,16 @@ function displayPeriods(startDate) {
     mon = {
       day: weekAhead[0].getDate() < 10
         ? `0${weekAhead[0].getDate()}` : weekAhead[0].getDate(),
-      month: weekAhead[0].getMonth() < 10
-        ? `0${weekAhead[0].getMonth()}` : weekAhead[0].getMonth(),
+      month: weekAhead[0].getMonth() + 1 < 10
+        ? `0${weekAhead[0].getMonth() + 1}` : weekAhead[0].getMonth() + 1,
       year: weekAhead[0].getFullYear(),
     };
 
     sun = {
       day: weekAhead[weekAhead.length - 1].getDate() < 10
         ? `0${weekAhead[weekAhead.length - 1].getDate()}` : weekAhead[weekAhead.length - 1].getDate(),
-      month: weekAhead[weekAhead.length - 1].getMonth() < 10
-        ? `0${weekAhead[weekAhead.length - 1].getMonth()}` : weekAhead[weekAhead.length - 1].getMonth(),
+      month: weekAhead[weekAhead.length - 1].getMonth() + 1 < 10
+        ? `0${weekAhead[weekAhead.length - 1].getMonth() + 1}` : weekAhead[weekAhead.length - 1].getMonth() + 1,
       year: weekAhead[weekAhead.length - 1].getFullYear(),
     };
 
@@ -115,13 +115,13 @@ function displayWeek(week) {
         const slotEntryCheck = document.createElement('input');
         slotEntryCheck.setAttribute('type', 'checkbox');
         slotEntryCheck.id =
-          `${startTime.getDate()}-${startTime.getMonth()}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`;
+          `${startTime.getDate()}-${startTime.getMonth() + 1}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`;
         slotEntryCheck.value = `${shortStartTime} – ${shortEndTime}`;
 
         const slotEntryLabel = document.createElement('label');
         slotEntryLabel.textContent = `${shortStartTime} – ${shortEndTime}`;
         slotEntryLabel.setAttribute('for',
-          `${startTime.getDate()}-${startTime.getMonth()}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`);
+          `${startTime.getDate()}-${startTime.getMonth() + 1}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`);
 
         slotEntry.append(slotEntryCheck);
         slotEntry.append(slotEntryLabel);
@@ -154,7 +154,7 @@ function init() {
   slotsPeriodSelector.addEventListener('input', (e) => {
     // Extract day, month, and year from dd/mm/yyyy format
     const startDateParts = e.target.selectedOptions[0].value.split(' ')[0].split('/');
-    const startDate = new Date(startDateParts[2], startDateParts[1], startDateParts[0]);
+    const startDate = new Date(startDateParts[2], startDateParts[1] - 1, startDateParts[0]);
 
     // Show slots for the week
     displayWeek(selectWeek(startDate));
