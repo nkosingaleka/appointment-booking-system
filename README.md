@@ -64,6 +64,8 @@ c:/xampp/mysql/bin/mysql -u root -p < back-end/database/database.sql
 c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/database/test_data.sql
 ```
 
+You will be asked to enter your password. If you are using the default root user account, this should be empty and you should be able to simply press the enter key.
+
 #### Using phpMyAdmin
 
 1. Navigate to the *SQL* tab.
