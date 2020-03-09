@@ -118,6 +118,7 @@ input[type="text"] {
 
 #slots-table {
   display: grid;
+  grid-area: slots-table;
   grid-template-columns: repeat(7, 1fr);
 }
 
@@ -178,16 +179,24 @@ input[type="text"] {
 }
 
 #request-section {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas:
+    "null title"
+    "form slots-table";
   max-width: 80%;
   margin: 0 auto;
+}
+
+#request-section h2 {
+  grid-area: title;
+  text-align: center;
 }
 
 #request-form {
   display: flex;
   flex-direction: column;
   width: 15em;
+  grid-area: form;
 }
 
 #request-form select {

@@ -47,6 +47,8 @@ $staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', 'account', 'account.
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php'; ?>
 
     <div id = "request-section">
+      <h2>Request Appointment</h2>
+
       <form method="post" id="request-form">
       <label for="period_choice">
         Period
