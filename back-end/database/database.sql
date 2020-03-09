@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `slot` (
   `id` VARCHAR(36),
   `start_time` DATETIME,
   `end_time` DATETIME,
+  `reserved` BOOLEAN,
   PRIMARY KEY (`id`)
 );
 
