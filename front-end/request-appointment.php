@@ -58,7 +58,7 @@ $staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', 'account', 'account.
 
       <label for="appointment_reason">
         Reason (optional)
-        <textarea name="appointment_reason" id="appointment_reason"></textarea>
+        <textarea name="appointment_reason" id="appointment_reason"><?= isset($_POST['appointment_reason']) ? $_POST['appointment_reason'] : '' ?></textarea>
       </label>
 
       <label for="translation_choice">
