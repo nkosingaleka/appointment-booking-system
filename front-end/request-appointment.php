@@ -28,6 +28,30 @@ $staff_projections = array('staff.id', 'title', 'forename', 'surname');
 
 // Retrieve staff
 $staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', 'account', 'account.id = staff.id', $staff_selections, $staff_projections);
+
+// Check if the request form has been submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['appointment_reason'], $_POST['translation_choice'], $_POST['staff_choice'], $_GET['slots'])) {
+    // Sanitise the user's preferences
+    $sanitise = function ($item) {
+      return trim(htmlspecialchars($item));
+    };
+
+    $data = array(
+      'appointment_reason' => $_POST['appointment_reason'],
+      'translation_choice' => $_POST['translation_choice'],
+      'staff_choice' => $_POST['staff_choice'],
+    );
+
+    array_map($sanitise, $data);
+    $data['slots'] = array_map($sanitise, $_GET['slots']);
+
+    RequestManager::makeRequest($data);
+  } else {
+    $GLOBALS['errors'][] = 'Please enter all required fields and select at least one time slot.';
+  }
+}
+
 ?>
 
 <!DOCTYPE html>

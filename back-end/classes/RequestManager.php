@@ -24,13 +24,22 @@ class RequestManager {
       $GLOBALS['errors'][] = 'Sorry, your details were in an incorrect format. Please check your input and try again.';
     }
   }
+
   /**
    * Checks whether the patient's appointment booking request details are in the expected format.
    *
    * @param array $data Details about the appointment booking request.
-   * @return boolean
+   * @return boolean Whether the patient's appointment booking request details pass (true) or fail (false) validation.
    */
   private static function validateRequest($data) {
+    if (empty($data['staff_choice'])) {
+      $GLOBALS['errors'][] = 'Please select a staff member.';
+    } else if (empty($data['slots'])) {
+      $GLOBALS['errors'][] = 'Please select at least one time slot.';
+    } else {
+      return true;
+    }
 
+    return false;
   }
 }
