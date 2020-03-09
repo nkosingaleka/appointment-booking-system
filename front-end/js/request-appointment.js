@@ -109,8 +109,22 @@ function displayWeek(week) {
         const shortEndTime = endTime.toString().split(' ')[4].substr(0, 5);
 
         // Add clickable buttons to request appointment bookings
-        const slotEntry = document.createElement('button');
-        slotEntry.textContent = `${shortStartTime} – ${shortEndTime}`;
+        const slotEntry = document.createElement('div');
+        slotEntry.classList.add('slot');
+
+        const slotEntryCheck = document.createElement('input');
+        slotEntryCheck.setAttribute('type', 'checkbox');
+        slotEntryCheck.id =
+          `${startTime.getDate()}-${startTime.getMonth()}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`;
+        slotEntryCheck.value = `${shortStartTime} – ${shortEndTime}`;
+
+        const slotEntryLabel = document.createElement('label');
+        slotEntryLabel.textContent = `${shortStartTime} – ${shortEndTime}`;
+        slotEntryLabel.setAttribute('for',
+          `${startTime.getDate()}-${startTime.getMonth()}-${startTime.getFullYear()}-${shortStartTime}-${shortEndTime}`);
+
+        slotEntry.append(slotEntryCheck);
+        slotEntry.append(slotEntryLabel);
 
         // Append slots to each day under their respective headings
         if (slotDate === heading.textContent) {

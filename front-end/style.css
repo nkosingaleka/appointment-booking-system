@@ -124,6 +124,57 @@ input[type="text"] {
 #slots-table > div {
   display: flex;
   flex-direction: column;
+  text-align: center;
+}
+
+#slots-table h2 {
+  font-size: 1.25em;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
+  padding: 0.5em;
+  border: thin solid black;
+  width: 100%;
+}
+
+#slots-table .slot {
+  overflow: hidden;
+  position: relative;
+}
+
+#slots-table .slot label {
+  display: inline-block;
+  width: 100%;
+  border-left: thin solid black;
+  border-right: thin solid black;
+  border-bottom: thin solid black;
+  padding: 0.1em 0.2em;
+  background: #dfdfdf;
+}
+
+#slots-table .slot label:hover {
+  display: inline-block;
+  width: 100%;
+}
+
+#slots-table .slot input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  position: absolute;
+}
+
+#slots-table .slot input:hover + label {
+  background: #f5f5f5;
+}
+
+#slots-table .slot input:active + label {
+  background: #969696;
+}
+
+#slots-table .slot input:checked + label {
+  background: #b1b1b1;
 }
 
 #request-section {
