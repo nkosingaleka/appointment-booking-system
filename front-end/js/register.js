@@ -43,37 +43,37 @@ const errors = [];
 // Validate input when the form is submitted
 registerForm.addEventListener('submit', (e) => {
   // Check if the inputs are empty
-  if (email.value == '' && email.value == null) {
+  if (email.value == '' || email.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid email address.');
   }
 
-  if (password.value == '' && password.value == null) {
+  if (password.value == '' || password.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid password.');
   }
 
-  if (pTitle.value == '' && pTitle.value == null) {
+  if (pTitle.value == '' || pTitle.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid title.');
   }
 
-  if (pForename.value == '' && pForename.value == null) {
+  if (pForename.value == '' || pForename.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid forename.');
   }
 
-  if (pSurname.value == '' && pSurname.value == null) {
+  if (pSurname.value == '' || pSurname.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid surname.');
   }
 
-  if (pSex.value == '' && pSex.value == null) {
+  if (pSex.value == '' || pSex.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid sex.');
   }
 
-  if (pDateOfBirth.value == '' && pDateOfBirth.value == null) {
+  if (pDateOfBirth.value == '' || pDateOfBirth.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid date of birth.');
   }
@@ -83,22 +83,22 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid house name or number.');
   }
 
-  if (pStreet.value == '' && pStreet.value == null) {
+  if (pStreet.value == '' || pStreet.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid street.');
   }
 
-  if (pCity.value == '' && pCity.value == null) {
+  if (pCity.value == '' || pCity.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid city.');
   }
 
-  if (pCounty.value == '' && pCounty.value == null) {
+  if (pCounty.value == '' || pCounty.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid county.');
   }
 
-  if (pPostcode.value == '' && pPostcode.value == null) {
+  if (pPostcode.value == '' || pPostcode.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid postcode.');
   }
@@ -113,22 +113,22 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid NHS or Health and Care number.');
   }
 
-  if (nokRelationship.value == '' && nokRelationship.value == null) {
+  if (nokRelationship.value == '' || nokRelationship.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid relationship.');
   }
 
-  if (nokTitle.value == '' && nokTitle.value == null) {
+  if (nokTitle.value == '' || nokTitle.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid title.');
   }
 
-  if (nokForename.value == '' && nokForename.value == null) {
+  if (nokForename.value == '' || nokForename.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid forename.');
   }
 
-  if (nokSurname.value == '' && nokSurname.value == null) {
+  if (nokSurname.value == '' || nokSurname.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid surname.');
   }
@@ -138,22 +138,22 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid house name or number.');
   }
 
-  if (nokStreet.value == '' && nokStreet.value == null) {
+  if (nokStreet.value == '' || nokStreet.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid street.');
   }
 
-  if (nokCity.value == '' && nokCity.value == null) {
+  if (nokCity.value == '' || nokCity.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid city.');
   }
 
-  if (nokCounty.value == '' && nokCounty.value == null) {
+  if (nokCounty.value == '' || nokCounty.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid county.');
   }
 
-  if (nokPostcode.value == '' && nokPostcode.value == null) {
+  if (nokPostcode.value == '' || nokPostcode.value == null) {
     e.preventDefault();
     errors.push('Please enter a valid postcode.');
   }
