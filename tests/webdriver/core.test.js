@@ -1,3 +1,4 @@
+
 const path = require('path');
 const chromedriver = require('chromedriver');
 const { Builder } = require('selenium-webdriver');
@@ -35,3 +36,58 @@ module.exports = {
   driver,
   chromedriver,
 };
+
+SeleniumServer = require("selenium-webdriver/remote").SeleniumServer;
+
+const {Builder1, By, Key1, util1} = require("selenium-webdriver");
+test('This will login in using the correct email and password', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.name('email')).sendKeys('as1@test.com');
+ driver.findElement(By.name('password')).sendKeys('test123');
+ driver.findElement(By.id("login")).click();
+})
+
+test('This test will login without the email being entered', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.name('email')).sendKeys('');
+ driver.findElement(By.name('password')).sendKeys('test123');
+ driver.findElement(By.id("login")).click();
+})
+
+test('This test will login without the password being entered', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.name('email')).sendKeys('as1@test.com');
+ driver.findElement(By.name('password')).sendKeys('');
+ driver.findElement(By.id("login")).click();
+})
+
+test('This test will login without the email or password being entered', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.id("login")).click();
+})
+
+test('This test will login with an incorrect emaul but correct password', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.name('email')).sendKeys('invalidEmail');
+ driver.findElement(By.name('password')).sendKeys('test123');
+ driver.findElement(By.id("login")).click();
+})
+
+test('This test will login with the correct email but incorrect password', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.name('email')).sendKeys('as1@test.com');
+ driver.findElement(By.name('password')).sendKeys('Test123');
+ driver.findElement(By.id("login")).click();
+})
+
+test('This test will take the user from the login page to the register page', async () => {
+ let driver = await new Builder().forBrowser("chrome").build();
+ await driver.get("http://localhost/setp/front-end/login.php");
+ driver.findElement(By.id("register")).click();
+})
