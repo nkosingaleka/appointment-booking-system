@@ -361,11 +361,11 @@ class UserManager {
     $mail->IsSMTP();
     $mail->SMTPOptions = array(
       'ssl' => array(
-      'verify_peer' => false,
-      'verify_peer_name' => false,
-      'allow_self_signed' => true
-      )
-      );
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true,
+      ),
+    );
     $mail->Host = 'smtp.gmail.com';
     // $mail->Host = gethostbyname('smtp.gmail.com'); // if server doesnt allow ipv6
     $mail->SMTPAuth = true;
@@ -378,7 +378,7 @@ class UserManager {
 
     // Add sender
     $mail->SetFrom('team9c.abs@gmail.com', 'MEDICAL_FACILITY');
-  
+
     // Add recipient
     $mail->AddAddress('up734426@myport.ac.uk', 'PATIENT_NAME');
 
@@ -387,10 +387,10 @@ class UserManager {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     if (!$mail->Send()) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+      echo 'Message could not be sent.';
+      echo 'Mailer Error: ' . $mail->ErrorInfo;
     } else {
-        echo 'Message has been sent';
+      echo 'Message has been sent';
     }
   }
 
