@@ -393,4 +393,31 @@ class UserManager {
         echo 'Message has been sent';
     }
   }
+
+  /**
+   * Retrieves the ID of the user's facility.
+   *
+   * @param string $userId The ID of the user's account.
+   * @return string|null The ID of the user's facility, or null if this cannot be found.
+   */
+  public static function getUserFacilityID($userId) {
+    // Define conditions to be checked in query
+    $selections = array(
+      'id' => array(
+        'comparison' => '=',
+        'param' => ':id',
+        'value' => $userId,
+      ),
+    );
+
+    // Retrieve the record containing the facility ID whose account ID matches the user's ID
+    $result = $GLOBALS['app']->getDB()->selectOneWhere('account', $selections, ['facility_id']);
+
+    if ($result) {
+      // Send back the facility ID on success
+      return $result['facility_id'];
+    }
+
+    return null;
+  }
 }

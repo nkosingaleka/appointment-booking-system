@@ -71,8 +71,8 @@ class RequestManager {
         $slot_result = !in_array(false, $slots_results, true);
 
         if ($request_result && $slot_result) {
-          // Redirect the user to the requests page
-          $GLOBALS['app']->redirect('request-appointment.php');
+          // Retrieve the ID of the patient's facility
+          $facilityId = UserManager::getUserFacilityID($data['patient_id']);
         } else {
           $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
         }
