@@ -17,6 +17,21 @@ CREATE TABLE IF NOT EXISTS `facility` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `language` (
+  `id` VARCHAR(36),
+  `name` VARCHAR(70),
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `facility_language` (
+  `id` VARCHAR(36),
+  `facility_id` VARCHAR(36),
+  `language_id` VARCHAR(36),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`),
+  FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `role` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(70),
@@ -98,11 +113,16 @@ CREATE TABLE IF NOT EXISTS `slot` (
 
 CREATE TABLE IF NOT EXISTS `request` (
   `id` VARCHAR(36),
+  `reason` TEXT,
+  `translation` VARCHAR(36),
+  `preferred_staff` VARCHAR(36),
   `p_cancellation_reason` VARCHAR(255),
   `r_cancellation_reason` VARCHAR(255),
   `reviewer_id` VARCHAR(36),
   `patient_id` VARCHAR(36),
   PRIMARY KEY (`id`),
+  FOREIGN KEY (`translation`) REFERENCES `language` (`id`),
+  FOREIGN KEY (`preferred_staff`) REFERENCES `staff` (`id`),
   FOREIGN KEY (`reviewer_id`) REFERENCES `staff` (`id`),
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
 );
@@ -164,19 +184,4 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `language` (
-  `id` VARCHAR(36),
-  `name` VARCHAR(70),
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `facility_language` (
-  `id` VARCHAR(36),
-  `facility_id` VARCHAR(36),
-  `language_id` VARCHAR(36),
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`),
-  FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
 );
