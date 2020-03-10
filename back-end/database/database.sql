@@ -88,6 +88,14 @@ CREATE TABLE IF NOT EXISTS `patient` (
   FOREIGN KEY (`next_of_kin`) REFERENCES `next_of_kin` (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `slot` (
+  `id` VARCHAR(36),
+  `start_time` DATETIME,
+  `end_time` DATETIME,
+  `reserved` BOOLEAN,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `request` (
   `id` VARCHAR(36),
   `p_cancellation_reason` VARCHAR(255),
@@ -99,6 +107,15 @@ CREATE TABLE IF NOT EXISTS `request` (
   FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `request_slot` (
+  `id` VARCHAR(36),
+  `request_id` VARCHAR(36),
+  `slot_id` VARCHAR(36),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
+  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `room` (
   `id` VARCHAR(36),
   `title` VARCHAR(35),
@@ -106,14 +123,6 @@ CREATE TABLE IF NOT EXISTS `room` (
   `facility_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `slot` (
-  `id` VARCHAR(36),
-  `start_time` DATETIME,
-  `end_time` DATETIME,
-  `reserved` BOOLEAN,
-  PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `availability` (
@@ -130,13 +139,11 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `b_cancellation_reason` VARCHAR(255),
   `a_cancellation_reason` VARCHAR(255),
   `staff_id` VARCHAR(36),
-  `slot_id` VARCHAR(36),
   `availability_id` VARCHAR(36),
   `request_id` VARCHAR(36),
   `room_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
-  FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`),
   FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
