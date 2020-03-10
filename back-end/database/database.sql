@@ -44,8 +44,10 @@ CREATE TABLE IF NOT EXISTS `account` (
   `password` VARCHAR(255) NOT NULL,
   `role_id` INT DEFAULT 3 NOT NULL,
   `verified` BOOLEAN DEFAULT FALSE,
+  `facility_id` VARCHAR(36),
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
+  FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `staff` (
@@ -55,10 +57,8 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `surname` VARCHAR(35) NOT NULL,
   `sex` CHAR(1) NOT NULL,
   `job_title` VARCHAR(70),
-  `facility_id` VARCHAR(36),
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id`) REFERENCES `account` (`id`),
-  FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
+  FOREIGN KEY (`id`) REFERENCES `account` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `next_of_kin` (

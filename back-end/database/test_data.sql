@@ -8,32 +8,32 @@ INSERT INTO `role` (`description`) VALUES ('medical_staff');
 INSERT INTO `role` (`description`) VALUES ('patient');
 
 /* Account: Different accounts for each role (password = 'test123') */
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('as-5e4685e3c899f1.04316598', 'as1@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 1, true);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('as-5e46873222d123.80231466', 'as2@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 1, true);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('ms-5e4685f6e57722.33264537', 'ms1@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 2, true);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('ms-5e46874b062833.95604018', 'ms2@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 2, true);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('pa-5e4686095092e0.76300630', 'pa1@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, true);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('pa-5e46875705e162.50418870', 'pa2@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, true);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('pa-5e46876f3d9332.22430483', 'pa3@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, false);
-INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`) 
-  VALUES ('pa-5e468774d36a40.10626920', 'pa4@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, false);
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('as-5e4685e3c899f1.04316598', 'as1@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 1, true, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('as-5e46873222d123.80231466', 'as2@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 1, true, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('ms-5e4685f6e57722.33264537', 'ms1@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 2, true, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('ms-5e46874b062833.95604018', 'ms2@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 2, true, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('pa-5e4686095092e0.76300630', 'pa1@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, true, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('pa-5e46875705e162.50418870', 'pa2@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, true, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('pa-5e46876f3d9332.22430483', 'pa3@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, false, '5e4a83211ffd59.63214101');
+INSERT INTO `account` (`id`, `email`, `password`, `role_id`, `verified`, `facility_id`) 
+  VALUES ('pa-5e468774d36a40.10626920', 'pa4@test.com', '$2y$10$vLmKOHyBeRKCaXap7Xt5nuxc5XoZ1hZjmlIMl/GwK2zL4D2MHpefK', 3, false, '5e4a83211ffd59.63214101');
 
 /* Staff: Different accounts for both roles */
-INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`, `facility_id`)
-  VALUES ('as-5e4685e3c899f1.04316598', 'Mr', 'Matthew', 'Johnson', 'M', 'Receptionist', '5e4a83211ffd59.63214101');
-INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`, `facility_id`)
-  VALUES ('as-5e46873222d123.80231466', 'Mrs', 'Stacey', 'Rhodes', 'F', 'Receptionist', '5e4a83211ffd59.63214101');
-INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`, `facility_id`)
-  VALUES ('ms-5e4685f6e57722.33264537', 'Dr', 'Jin', 'Xiao', 'M', 'General Practitioner', '5e4a83211ffd59.63214101');
-INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`, `facility_id`)
-  VALUES ('ms-5e46874b062833.95604018', 'Dr', 'Margaret', 'Christchurch', 'F', 'General Practitioner', '5e4a83211ffd59.63214101');
+INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`)
+  VALUES ('as-5e4685e3c899f1.04316598', 'Mr', 'Matthew', 'Johnson', 'M', 'Receptionist');
+INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`)
+  VALUES ('as-5e46873222d123.80231466', 'Mrs', 'Stacey', 'Rhodes', 'F', 'Receptionist');
+INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`)
+  VALUES ('ms-5e4685f6e57722.33264537', 'Dr', 'Jin', 'Xiao', 'M', 'General Practitioner');
+INSERT INTO `staff` (`id`, `title`, `forename`, `surname`, `sex`, `job_title`)
+  VALUES ('ms-5e46874b062833.95604018', 'Dr', 'Margaret', 'Christchurch', 'F', 'General Practitioner');
 
 /* Next of Kin: Records for each patient record */
 INSERT INTO `next_of_kin` (`id`, `relationship`, `title`, `forename`, `surname`, `house_name`, `house_no`, `street`, `city`, `county`, `postcode`, `tel_no`, `mob_no`)
