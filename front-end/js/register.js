@@ -78,7 +78,7 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid date of birth.');
   }
 
-  if ((pHouseName.value == '' && pHouseName.value == null) && (pHouseNo.value == '' && pHouseNo.value == null)){
+  if ((pHouseName.value == '' || pHouseName.value == null) && (pHouseNo.value == '' || pHouseNo.value == null)){
     e.preventDefault();
     errors.push('Please enter a valid house name or number.');
   }
@@ -103,12 +103,12 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid postcode.');
   }
 
-  if ((pTelNo.value == '' && pTelNo.value == null) && (pMobNo.value == '' && pMobNo.value == null)) {
+  if ((pTelNo.value == '' || pTelNo.value == null) && (pMobNo.value == '' || pMobNo.value == null)) {
     e.preventDefault();
     errors.push('Please enter a valid telephone or mobile number.');
   }
 
-  if ((pNHSNo.value == '' && pNHSNo.value == null) && (pHCNo.value == '' && pHCNo.value == null)) {
+  if ((pNHSNo.value == '' || pNHSNo.value == null) && (pHCNo.value == '' || pHCNo.value == null)) {
     e.preventDefault();
     errors.push('Please enter a valid NHS or Health and Care number.');
   }
@@ -133,7 +133,7 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid surname.');
   }
 
-  if ((nokHouseName.value == '' && nokHouseName.value == null) && (nokHouseNo.value == '' && nokHouseNo.value == null)) {
+  if ((nokHouseName.value == '' || nokHouseName.value == null) && (nokHouseNo.value == '' || nokHouseNo.value == null)) {
     e.preventDefault();
     errors.push('Please enter a valid house name or number.');
   }
@@ -158,7 +158,7 @@ registerForm.addEventListener('submit', (e) => {
     errors.push('Please enter a valid postcode.');
   }
 
-  if ((nokTelNo.value == '' && nokTelNo.value == null) && (nokMobNo.value == '' && nokMobNo.value == null)) {
+  if ((nokTelNo.value == '' || nokTelNo.value == null) && (nokMobNo.value == '' || nokMobNo.value == null)) {
     e.preventDefault();
     errors.push('Please enter a valid telephone or mobile number.');
   }
