@@ -40,7 +40,7 @@ To install these dependencies, run `composer install` and `npm i`.
 1. Ensure the project folder is in the *htdocs/* folder (usually in *c://xampp/htdocs/*).
 2. In the XAMPP Control Panel, start the *Apache* and *MySQL* modules to start their respective services.
 3. Open your web browser.
-4. Navigate to *localhost/{path}*, where *{path}* is to be replaced with the path to the project folder e.g. *localhost/setp*.
+4. Navigate to *localhost/{path}*, where *{path}* is to be replaced with the path to the project folder e.g. *localhost/uni/setp*.
 
 ### Database Configuration
 
