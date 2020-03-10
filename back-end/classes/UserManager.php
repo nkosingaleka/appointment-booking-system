@@ -156,6 +156,14 @@ class UserManager {
               'param' => ':id',
               'value' => $user_id,
             ),
+            'contact_by_email' => array(
+              'param' => ':contact_by_email',
+              'value' => true,
+            ),
+            'contact_by_text' => array(
+              'param' => ':contact_by_text',
+              'value' => true,
+            ),
             'next_of_kin' => array(
               'param' => ':next_of_kin',
               'value' => $nok_id,
