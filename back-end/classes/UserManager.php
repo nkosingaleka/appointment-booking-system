@@ -395,12 +395,12 @@ class UserManager {
   }
 
   /**
-   * Retrieves the ID of the user's facility.
+   * Retrieves the details of the user's facility.
    *
    * @param string $userId The ID of the user's account.
-   * @return string|null The ID of the user's facility, or null if this cannot be found.
+   * @return string The details of the user's facility.
    */
-  public static function getUserFacilityID($userId) {
+  public static function getUserFacility($userId) {
     // Define conditions to be checked in query
     $selections = array(
       'id' => array(
@@ -414,10 +414,10 @@ class UserManager {
     $result = $GLOBALS['app']->getDB()->selectOneWhere('account', $selections, ['facility_id']);
 
     if ($result) {
-      // Send back the facility ID on success
-      return $result['facility_id'];
+      // Retrieve contact details for the patient's facility
+      return FacilityManager::getContactDetails($result['facility_id']);
+    } else {
+      $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
     }
-
-    return null;
   }
 }

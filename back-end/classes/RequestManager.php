@@ -71,8 +71,13 @@ class RequestManager {
         $slot_result = !in_array(false, $slots_results, true);
 
         if ($request_result && $slot_result) {
-          // Retrieve the ID of the patient's facility
-          $facilityId = UserManager::getUserFacilityID($data['patient_id']);
+          // Retrieve the details of the patient's facility
+          $facility_details = UserManager::getUserFacility($data['patient_id']);
+
+          // Define message to be sent via the user's contact preferences
+          $message = "Thank you for requesting an appointment with ";
+          $message .= isset($facility_details['name']) ? $facility_details['name'] : 'us';
+          $message .= ". You will be contacted as soon as possible.";
         } else {
           $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
         }
