@@ -16,7 +16,66 @@ class RequestManager {
 
     if ($valid) {
       try {
-        echo "passed validation";
+        $request_id = uniqid('', true);
+
+        // Separate details about the patient and their request themselves
+        $request_data = array(
+          'id' => array(
+            'param' => ':id',
+            'value' => $request_id,
+          ),
+          'reason' => array(
+            'param' => ':reason',
+            'value' => $data['appointment_reason'],
+          ),
+          'translation' => array(
+            'param' => ':translation',
+            'value' => $data['translation_choice'] === 'none' ? null : $data['translation_choice'],
+          ),
+          'preferred_staff' => array(
+            'param' => ':preferred_staff',
+            'value' => $data['staff_choice'],
+          ),
+          'patient_id' => array(
+            'param' => ':patient_id',
+            'value' => $data['patient_id'],
+          ),
+        );
+
+        // Insert records for the patient's request
+        $request_result = $GLOBALS['app']->getDB()->insert('request', $request_data);
+
+        $slots_results = array();
+
+        for ($i = 0; $i < count($data['slots']); $i += 1) {
+          $slot_data = array(
+            'id' => array(
+              'param' => ':id',
+              'value' => uniqid('', true),
+            ),
+            'request_id' => array(
+              'param' => ':request_id',
+              'value' => $request_id,
+            ),
+            'slot_id' => array(
+              'param' => ':slot_id',
+              'value' => $data['slots'][$i],
+            ),
+          );
+
+          // Insert records for the patient's selected slots
+          $slots_results[] = $GLOBALS['app']->getDB()->insert('request_slot', $slot_data);
+        }
+
+        // Check if any slot insertions failed
+        $slot_result = !in_array(false, $slots_results, true);
+
+        if ($request_result && $slot_result) {
+          // Redirect the user to the requests page
+          $GLOBALS['app']->redirect('request-appointment.php');
+        } else {
+          $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
+        }
       } catch (PDOException $e) {
         $GLOBALS['errors'][] = $e->getMessage();
       }

@@ -14,7 +14,8 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Retrieve language options
-$languages = $GLOBALS['app']->getDB()->selectJoin('facility_language', 'language', 'facility_language.language_id = language.id', ['name']);
+$languages = $GLOBALS['app']
+  ->getDB()->selectJoin('facility_language', 'language', 'facility_language.language_id = language.id', ['language.id', 'name']);
 
 $staff_selections = array(
   'role_id' => array(
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     };
 
     $data = array(
+      'patient_id' => $_SESSION['user']->id,
       'appointment_reason' => $_POST['appointment_reason'],
       'translation_choice' => $_POST['translation_choice'],
       'staff_choice' => $_POST['staff_choice'],
@@ -91,9 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="none" selected>None (English)</option>
           <?php if (count($languages) > 0): ?>
             <?php foreach ($languages as $language): ?>
-              <option value="<?=$language['name'] ?>"><?=$language['name'] ?></option>
-            <?php endforeach ?>
-          <?php endif ?>
+              <option value="<?=$language['id']?>"><?=$language['name']?></option>
+            <?php endforeach?>
+          <?php endif?>
           <option value="other">Other</option>
         </select>
       </label>
