@@ -62,15 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?=$GLOBALS['app']->title ?> &mdash; Request Appointment</title>
+  <title><?=$GLOBALS['app']->title?> &mdash; Request Appointment</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php'; ?>
+  <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php'; ?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
 
     <div id = "request-section">
       <h2>Request Appointment</h2>
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <label for="appointment_reason">
         Reason (optional)
-        <textarea name="appointment_reason" id="appointment_reason"><?= isset($_POST['appointment_reason']) ? $_POST['appointment_reason'] : '' ?></textarea>
+        <textarea name="appointment_reason" id="appointment_reason"><?=isset($_POST['appointment_reason']) ? $_POST['appointment_reason'] : ''?></textarea>
       </label>
 
       <label for="translation_choice">
@@ -106,9 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="">Choose Staff</option>
           <?php if (count($staff) > 0): ?>
             <?php foreach ($staff as $member): ?>
-              <option value="<?=$member['id'] ?>"><?="{$member['title']} {$member['forename']} {$member['surname']}" ?></option>
-            <?php endforeach ?>
-          <?php endif ?>
+              <option value="<?=$member['id']?>"><?="{$member['title']} {$member['forename']} {$member['surname']}"?></option>
+            <?php endforeach?>
+          <?php endif?>
         </select>
       </label>
 
