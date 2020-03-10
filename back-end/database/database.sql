@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS appointment_booking_system;
+
 CREATE DATABASE appointment_booking_system;
 
 USE `appointment_booking_system`;
