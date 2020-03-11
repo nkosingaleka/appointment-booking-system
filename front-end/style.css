@@ -57,9 +57,11 @@ input[type="text"] {
 }
 
 #login-form {
-  max-width: 20em;
+  max-width: 22em;
   display: grid;
   grid-template-areas:
+    "title title"
+    "message message"
     "email email"
     "password password"
     "alt-link submit-btn";
@@ -93,6 +95,15 @@ input[type="text"] {
   display: flex;
   flex-direction: column;
   margin: 0.5em 0;
+}
+
+#login-form > h2 {
+  grid-area: title;
+  margin: 0;
+}
+
+#login-form > p {
+  grid-area: message;
 }
 
 #login-form > label[for="email"],

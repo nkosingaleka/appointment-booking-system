@@ -40,6 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
 
     <form method="post" id="login-form">
+      <h2>Login</h2>
+
+      <p>Please log in with your email address and password.</p>
+
       <label for="email">
         Email Address
         <input type="email" name="email" id="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" required>
