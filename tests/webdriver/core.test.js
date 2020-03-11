@@ -1,7 +1,7 @@
 
 const path = require('path');
 const chromedriver = require('chromedriver');
-const { Builder } = require('selenium-webdriver');
+const { Builder, By } = require('selenium-webdriver');
 
 // Get root directory path
 const rootUrl = path.resolve(__dirname, '..', '..');
@@ -27,19 +27,6 @@ const driver = new Builder()
   .forBrowser('chrome')
   .build();
 
-test('waits for the page to open', async () => {
-  await driver.get(url);
-});
-
-module.exports = {
-  url,
-  driver,
-  chromedriver,
-};
-
-SeleniumServer = require("selenium-webdriver/remote").SeleniumServer;
-
-const {Builder1, By, Key1, util1} = require("selenium-webdriver");
 test('This will login in using the correct email and password', async () => {
  let driver = await new Builder().forBrowser("chrome").build();
  await driver.get("http://localhost/setp/front-end/login.php");
