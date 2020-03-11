@@ -115,16 +115,30 @@ class AvailabilityManager {
           );
         }
 
-        // Insert a record for the user's available times
-        $availability_result = $GLOBALS['app']->getDB()->insert('availability', $availability_data);
+        // Define conditions for any existing availability to be checked in query
+        $existing_availability_selections = array(
+          'slot_id' => array(
+            'comparison' => '=',
+            'param' => ':slot_id',
+            'value' => $availability_data['slot_id']['value'],
+          ),
+        );
 
-        if ($availability_result) {
-          echo 'Availability added.';
+        // Check if availability has already been added
+        $existing_availability_result = $GLOBALS['app']->getDB()->selectOneWhere('availability', $existing_availability_selections, ['id']);
+
+        if (!isset($existing_availability_result['id'])) {
+          // Insert a record for the user's available times
+          $availability_result = $GLOBALS['app']->getDB()->insert('availability', $availability_data);
+
+          if ($availability_result) {
+            echo 'Availability added.';
+          } else {
+            $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
+          }
         } else {
-          $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
+          $GLOBALS['errors'][] = 'Sorry, you have already added your availability for the specified times.';
         }
-
-        // Check if availability already exists
       } catch (PDOException $e) {
         $GLOBALS['errors'][] = $e->getMessage();
       }
