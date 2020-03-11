@@ -362,6 +362,8 @@ class UserManager {
   /**
    * Receives an email message sent from the application to inform users of updates. Note: to work with Google Mail, the 'Less secure app access' option must be enabled.
    *
+   * @param string $userid The ID of the user's account.
+   * @param string $message Message to inform users of updates.
    * @return void
    */
   public static function receiveEmail($userId, $message) {
@@ -433,6 +435,13 @@ class UserManager {
     }
   }
 
+  /**
+   * Receives an sms message sent from the application to inform users of updates.
+   * 
+   * @param string $userId The ID of the user's account.
+   * @param string $message Message to inform users of updates.
+   * @return void  
+   */
   public static function receiveSms($userId, $message) {
     // Account details
     $apiKey = urlencode('8YH9denGK10-rBz9vXQyecv3VwXGKkTHZidAnberwL');
