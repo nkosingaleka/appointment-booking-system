@@ -77,11 +77,13 @@ You will be asked to enter your password. If you are using the default root user
 
 > **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases, and a server with the MySQL service must be running. If using XAMPP, please start the *Apache* and *MySQL* modules.
 
+> **NOTE**: Due to the use of headers in the *back-end*, all PHPUnit tests must be run with the `--stderr` option. The `--configuration phpunit.xml` option, however, may be omitted.
+
 Automated testing is available using PHPUnit for the *back-end* scripts and Jest and Selenium WebDriver for interactivity.
 
-To run these test cases, run the `run-test.sh` script in the project root folder. This will execute the `phpunit` and `npm test` commands.
+To run these test cases, run the `run-test.sh` script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
 
-Alternatively, you can run either `phpunit` or `npm test` yourself.
+Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xml --stderr` or `npm test` yourself.
 
 ### Default URL
 

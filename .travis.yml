@@ -12,7 +12,7 @@ matrix:
         - composer self-update
       before_script:
         - composer install
-      script: vendor/bin/phpunit --configuration phpunit.xml
+      script: vendor/bin/phpunit --configuration phpunit.xml --stderr
 
     # - language: node_js
     #   node_js: "node"
