@@ -78,6 +78,13 @@ class RequestManager {
           $message = "Thank you for requesting an appointment with ";
           $message .= isset($facility_details['name']) ? $facility_details['name'] : 'us';
           $message .= ". You will be contacted as soon as possible.";
+
+          if ($_SESSION['user']->contact_by_email) {
+            UserManager::receiveEmail($data['patient_id'], $message);
+          }
+          if ($_SESSION['user']->contact_by_text) {
+            UserManager::receiveSms($data['patient_id'], $message);
+          }
         } else {
           $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
         }
