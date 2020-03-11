@@ -51,6 +51,25 @@ class UserManagerTest extends TestCase {
     $this->assertContains('Sorry, your email address was not found. Please check your input and try again.', $GLOBALS['errors']);
   }
 
+  public function testVerifiedUsersAreLoggedIn() {
+    $password = $GLOBALS['valid_password'];
+
+    foreach (array_keys($GLOBALS['verified_users']) as $user) {
+      $email = $GLOBALS['verified_users'][$user]['email'];
+
+      UserManager::login($email, $password);
+
+      $this->assertEquals($GLOBALS['verified_users'][$user]['id'], $_SESSION['user']->id);
+      $this->assertEquals($GLOBALS['verified_users'][$user]['role_id'], $_SESSION['user']->role_id);
+      $this->assertEquals(true, $_SESSION['user']->verified);
+
+      $this->assertEmpty($GLOBALS['errors']);
+
+      // Log out to destroy user sessions
+      include dirname(__FILE__) . '/../../front-end/scripts/logout.php';
+    }
+  }
+
   public function testRegistrationDoesNotValidateExistingEmail() {
     $data['password'] = $GLOBALS['valid_password'];
     $data['patient'] = $GLOBALS['patient_filled'];
