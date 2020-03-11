@@ -22,8 +22,8 @@ class UserManager {
 
     if ($valid) {
       try {
-        // Define conditions to be checked in query
-        $selections = array(
+        // Define account conditions to be checked in query
+        $account_selections = array(
           'email' => array(
             'comparison' => '=',
             'param' => ':email',
@@ -31,25 +31,48 @@ class UserManager {
           ),
         );
 
-        // Define columns to select
-        $projections = array('account.id', 'email', 'password', 'role_id', 'verified', 'contact_by_email', 'email', 'contact_by_text', 'mob_no' );
+        // Define account columns to select
+        $account_projections = array('id', 'email', 'password', 'role_id', 'verified');
 
         // Retrieve any record whose email address matches the user's
-        $result = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', 'patient', 'account.id = patient.id', $selections, $projections);
+        $account_result = $GLOBALS['app']->getDB()->selectOneWhere('account', $account_selections, $account_projections);
 
-        if (isset($result['email']) && $result['email'] === $email) {
-          if (password_verify($password, $result['password'])) {
-            if ($result['verified']) {
+        if (isset($account_result['email']) && $account_result['email'] === $email) {
+          if (password_verify($password, $account_result['password'])) {
+            if ($account_result['verified']) {
               // Store details about authenticated and verified users for quick checks
-              $_SESSION['user'] = (object) array(
-                'id' => $result['id'],
-                'role_id' => $result['role_id'],
-                'verified' => $result['verified'],
-                'contact_by_email' => $result['contact_by_email'],
-                'email' => $result['email'],
-                'contact_by_text' => $result['contact_by_text'],
-                'number' => $result['mob_no'],
-              );
+              if ($account_result['role_id'] == PATIENT_ROLE) {
+                // Define patient conditions to be checked in query
+                $patient_selections = array(
+                  'email' => array(
+                    'comparison' => '=',
+                    'param' => ':email',
+                    'value' => $email,
+                  ),
+                );
+
+                // Define patient columns to select
+                $patient_projections = array('mob_no', 'contact_by_email', 'contact_by_text');
+
+                // Retrieve any patient record whose account email address matches the user's
+                $patient_result = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', 'patient', 'account.id = patient.id', $patient_selections, $patient_projections);
+
+                $_SESSION['user'] = (object) array(
+                  'id' => $account_result['id'],
+                  'role_id' => $account_result['role_id'],
+                  'verified' => $account_result['verified'],
+                  'email' => $account_result['email'],
+                  'number' => $patient_result['mob_no'],
+                  'contact_by_email' => $patient_result['contact_by_email'],
+                  'contact_by_text' => $patient_result['contact_by_text'],
+                );
+              } else {
+                $_SESSION['user'] = (object) array(
+                  'id' => $account_result['id'],
+                  'role_id' => $account_result['role_id'],
+                  'verified' => $account_result['verified'],
+                );
+              }
 
               // Redirect the user to the home page
               $GLOBALS['app']->redirect('index.php');
@@ -437,10 +460,10 @@ class UserManager {
 
   /**
    * Receives an sms message sent from the application to inform users of updates.
-   * 
+   *
    * @param string $userId The ID of the user's account.
    * @param string $message Message to inform users of updates.
-   * @return void  
+   * @return void
    */
   public static function receiveSms($userId, $message) {
     // Account details
