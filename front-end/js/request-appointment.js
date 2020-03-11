@@ -8,6 +8,12 @@ const REQUESTS_LIMIT = 5;
 const today = new Date();
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+const main = document.querySelector('main');
+const requestSection = document.querySelector('#request-section');
+const requestAppointmentForm = document.querySelector('#request-form');
+const transRequired = document.querySelector('#translation_choice');
+const prefStaff = document.querySelector('#staff_choice');
+
 /**
  * Retrieves the week from Monday to Sunday using a given start date.
  * @param {Date} startDate Date from which to start the week.
@@ -197,6 +203,49 @@ function selectSlot(id) {
 
     // Add query string for accessing slot IDs
     window.history.replaceState({}, '', `${location.pathname}?${slotIds}`);
+  }
+}
+
+/**
+ * Checks whether the request form details are not empty.
+ * @param {Object} e Submit event, fired when the form is submitted.
+ */
+function validateRequestForm(e) {
+  if (transRequired.value == '' || transRequired.value == null) {
+    e.preventDefault();
+    errors.push('Please enter a translation.')
+  }
+
+  if (prefStaff.value == '' || prefStaff.value == null) {
+    e.preventDefault();
+    errors.push('Please enter a preferred staff.')
+  }
+  
+  if (selected.length === 0) {
+    e.preventDefault();
+    errors.push('Please select at least one slot.')
+  }
+
+  if (errors.length > 0) {
+    // If the error list isn't already there
+    if (document.querySelector('.error-message') == null) {
+      // Create the error list
+      const errorList = document.createElement('div');
+      const ul = document.createElement('ul');
+
+      errorList.className = 'error-message';
+
+      // Add the error to the list
+      for (const error of errors) {
+        const li = document.createElement('li');
+
+        li.textContent = error;
+        ul.append(li);
+      }
+
+      errorList.append(ul);
+      main.insertBefore(errorList, requestSection);
+    }
   }
 }
 
