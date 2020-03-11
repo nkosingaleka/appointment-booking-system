@@ -205,6 +205,62 @@ class Database {
    * @param boolean $bind Option to safely bind input parameters (default: true).
    * @return array Selected data.
    */
+  public function selectOneJoinWhere($table, $join_table, $join_condition, $selections, $projections = ['*'], $bind = true) {
+    // Append database name to table names to avoid ambiguity
+    $table = $this->__name . '.' . $table;
+    $join_table = $this->__name . '.' . $join_table;
+
+    // List projections separately
+    $projections = implode(', ', $projections);
+
+    $conditions = '';
+    $params = $values = array();
+
+    foreach (array_keys($selections) as $key) {
+      $params[] = $selections[$key]['param'];
+      $values[] = $selections[$key]['value'];
+
+      unset($selections[$key]['value']);
+
+      $conditions .= $key . ' ' . implode(' ', $selections[$key]);
+      $index = array_search($key, array_keys($selections));
+
+      if ($index + 1 < count(array_keys($selections))) {
+        // Append a space to all conditions apart from the last
+        $conditions .= ' ';
+      }
+    }
+
+    $statement = $this->__pdo->prepare("SELECT $projections FROM $table JOIN $join_table ON $join_condition WHERE $conditions");
+
+    if ($bind) {
+      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+        // Safely bind parameters with input values
+        $statement->bindParam($params[$i], $values[$i]);
+      }
+    }
+
+    if ($statement->execute() && $statement->rowCount() > 0) {
+      // Return fetched row if successful
+      return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Return empty array if unsuccessful
+    return array();
+  }
+
+  /**
+   * Selects data from the database using the given table name,
+   * join table, join condition, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
+   *
+   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $join_table Name of the table on which to join the first table, as specified after the JOIN clause.
+   * @param string $join_condition Condition on which to join the tables, as specified after the ON clause.
+   * @param array $selections Conditions to check against, as specified after the WHERE clause.
+   * @param array $projections Attributes to select, as specifed after the SELECT clause.
+   * @param boolean $bind Option to safely bind input parameters (default: true).
+   * @return array Selected data.
+   */
   public function selectJoinWhere($table, $join_table, $join_condition, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table names to avoid ambiguity
     $table = $this->__name . '.' . $table;
