@@ -360,7 +360,7 @@ class UserManager {
    *
    * @return void
    */
-  public static function receiveEmail() {
+  public static function receiveEmail($userId, $message) {
     $mail = new PHPMailer;
 
     // Enable verbose error outputs
@@ -391,8 +391,8 @@ class UserManager {
     $mail->AddAddress('up734426@myport.ac.uk', 'PATIENT_NAME');
 
     $mail->Subject = 'This is a test email';
-    $mail->Body = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->Body = $message;
+    $mail->AltBody = $message;
 
     if (!$mail->Send()) {
       echo 'Message could not be sent.';
