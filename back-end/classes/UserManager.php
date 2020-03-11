@@ -32,10 +32,10 @@ class UserManager {
         );
 
         // Define columns to select
-        $projections = array('id', 'email', 'password', 'role_id', 'verified');
+        $projections = array('account.id', 'email', 'password', 'role_id', 'verified', 'contact_by_email', 'email', 'contact_by_text', 'mob_no' );
 
         // Retrieve any record whose email address matches the user's
-        $result = $GLOBALS['app']->getDB()->selectOneWhere('account', $selections, $projections);
+        $result = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', 'patient', 'account.id = patient.id', $selections, $projections);
 
         if (isset($result['email']) && $result['email'] === $email) {
           if (password_verify($password, $result['password'])) {
@@ -45,6 +45,10 @@ class UserManager {
                 'id' => $result['id'],
                 'role_id' => $result['role_id'],
                 'verified' => $result['verified'],
+                'contact_by_email' => $result['contact_by_email'],
+                'email' => $result['email'],
+                'contact_by_text' => $result['contact_by_text'],
+                'number' => $result['mob_no'],
               );
 
               // Redirect the user to the home page
