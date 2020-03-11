@@ -159,6 +159,8 @@ CREATE TABLE IF NOT EXISTS `appointment_type` (
   `id` VARCHAR(36),
   `title` VARCHAR(70),
   PRIMARY KEY (`id`)
+);
+
 
 CREATE TABLE IF NOT EXISTS `appointment` (
   `id` VARCHAR(36),
