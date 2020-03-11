@@ -154,17 +154,27 @@ CREATE TABLE IF NOT EXISTS `availability` (
   FOREIGN KEY (`slot_id`) REFERENCES `slot` (`id`)
 );
 
+
+CREATE TABLE IF NOT EXISTS `appointment_type` (
+  `id` VARCHAR(36),
+  `title` VARCHAR(70),
+  PRIMARY KEY (`id`)
+);
+
+
 CREATE TABLE IF NOT EXISTS `appointment` (
   `id` VARCHAR(36),
   `b_cancellation_reason` VARCHAR(255),
   `a_cancellation_reason` VARCHAR(255),
   `staff_id` VARCHAR(36) NOT NULL,
   `availability_id` VARCHAR(36) NOT NULL,
+  `appointment_type` VARCHAR(36) NOT NULL,
   `request_id` VARCHAR(36) NOT NULL,
   `room_id` VARCHAR(36),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
-  FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
+  FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),   
+  FOREIGN KEY (`appointment_type`) REFERENCES `appointment_type` (`id`),
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
 
