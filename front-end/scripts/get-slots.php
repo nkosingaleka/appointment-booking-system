@@ -1,6 +1,6 @@
 <?php
 
-require_once '../back-end/init.php';
+require_once dirname(__FILE__) . '/../../back-end/init.php';
 
 session_start();
 

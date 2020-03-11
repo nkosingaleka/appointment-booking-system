@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/../back-end/init.php';
+require_once dirname(__FILE__) . '/../../back-end/init.php';
 
 session_start();
 
@@ -8,4 +8,4 @@ session_destroy();
 unset($_SESSION['user']);
 
 // Redirect to login page
-$GLOBALS['app']->redirect('login.php');
+$GLOBALS['app']->redirect('../login.php');

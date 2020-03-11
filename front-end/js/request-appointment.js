@@ -170,7 +170,7 @@ function displayWeek(week) {
  * @return {Object} The slots available.
  */
 async function getSlots() {
-  const res = await fetch('get-slots.php');
+  const res = await fetch('scripts/get-slots.php');
 
   return await res.json();
 }
