@@ -429,20 +429,19 @@ class UserManager {
     }
   }
 
-  public static function receiveSMS(){
-
+  public static function receiveSMS() {
     // Account details
 	$apiKey = urlencode('8YH9denGK10-rBz9vXQyecv3VwXGKkTHZidAnberwL');
 	
 	// Message details
 	$numbers = array(447519321905);
-	$sender = urlencode('Team9c');
 	$message = rawurlencode('This is a test');
+    $facility = urlencode('Team9c');
  
 	$numbers = implode(',', $numbers);
  
 	// Prepare data for POST request
-	$data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+    $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $facility, "message" => $message);
  
 	// Send the POST request with cURL
 	$ch = curl_init('https://api.txtlocal.com/send/');
@@ -451,10 +450,5 @@ class UserManager {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$response = curl_exec($ch);
 	curl_close($ch);
-	
-	// Process your response here
-	echo $response;
-
-
   }
 }
