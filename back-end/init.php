@@ -29,3 +29,6 @@ $GLOBALS['errors'] = array();
 define('ADMINISTRATIVE_ROLE', 1);
 define('MEDICAL_ROLE', 2);
 define('PATIENT_ROLE', 3);
+
+// Define default timezone (United Kingdom)
+date_default_timezone_set('Europe/London');
