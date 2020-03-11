@@ -435,24 +435,24 @@ class UserManager {
 
   public static function receiveSms($userId, $message) {
     // Account details
-	$apiKey = urlencode('8YH9denGK10-rBz9vXQyecv3VwXGKkTHZidAnberwL');
-	
-	// Message details
+    $apiKey = urlencode('8YH9denGK10-rBz9vXQyecv3VwXGKkTHZidAnberwL');
+
+    // Message details
     $numbers = array($_SESSION['user']->number);
     $message = rawurlencode($message);
     $facility = urlencode('Team9c');
- 
-	$numbers = implode(',', $numbers);
- 
-	// Prepare data for POST request
+
+    $numbers = implode(',', $numbers);
+
+    // Prepare data for POST request
     $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $facility, "message" => $message);
- 
-	// Send the POST request with cURL
-	$ch = curl_init('https://api.txtlocal.com/send/');
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$response = curl_exec($ch);
-	curl_close($ch);
+
+    // Send the POST request with cURL
+    $ch = curl_init('https://api.txtlocal.com/send/');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
   }
 }
