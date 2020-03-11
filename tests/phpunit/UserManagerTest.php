@@ -11,7 +11,7 @@ class UserManagerTest extends TestCase {
 
   public function testLoginDoesNotValidateEmptyEmail() {
     $email = '';
-    $password = 'invalid';
+    $password = $GLOBALS['valid_password'];
 
     UserManager::login($email, $password);
 
@@ -20,7 +20,7 @@ class UserManagerTest extends TestCase {
   }
 
   public function testLoginDoesNotValidateInvalidEmail() {
-    $email = 'invalidEmail';
+    $email = $GLOBALS['invalid_email'];
     $password = '';
 
     UserManager::login($email, $password);
@@ -30,18 +30,21 @@ class UserManagerTest extends TestCase {
   }
 
   public function testLoginDoesNotValidateEmptyPassword() {
-    $email = $GLOBALS['email_valid'];
     $password = '';
 
-    UserManager::login($email, $password);
+    foreach (array_keys($GLOBALS['verified_users']) as $user) {
+      $email = $GLOBALS['verified_users'][$user]['email'];
 
-    $this->assertContains('Please enter a valid password.', $GLOBALS['errors']);
-    $this->assertContains('Sorry, your email or password was in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
+      UserManager::login($email, $password);
+
+      $this->assertContains('Please enter a valid password.', $GLOBALS['errors']);
+      $this->assertContains('Sorry, your email or password was in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
+    }
   }
 
   public function testLoginDoesNotValidateNonExistingEmail() {
-    $email = 'nonexistent@invalid.com';
-    $password = $GLOBALS['password_valid'];
+    $email = $GLOBALS['nonexistent_email'];
+    $password = $GLOBALS['valid_password'];
 
     UserManager::login($email, $password);
 
@@ -49,23 +52,23 @@ class UserManagerTest extends TestCase {
   }
 
   public function testRegistrationDoesNotValidateExistingEmail() {
-    // NOTE: Ensure email actually exists
-    $data = array(
-      'email' => $GLOBALS['email_valid'],
-      'password' => $GLOBALS['password_valid'],
-      'patient' => $GLOBALS['patient_filled'],
-      'next_of_kin' => $GLOBALS['nok_filled'],
-    );
+    $data['password'] = $GLOBALS['valid_password'];
+    $data['patient'] = $GLOBALS['patient_filled'];
+    $data['next_of_kin'] = $GLOBALS['nok_filled'];
 
-    UserManager::register($data);
+    foreach (array_keys($GLOBALS['verified_users']) as $user) {
+      $data['email'] = $GLOBALS['verified_users'][$user]['email'];
 
-    $this->assertContains('Sorry, the email address you entered has already been taken. Please try again.', $GLOBALS['errors']);
+      UserManager::register($data);
+
+      $this->assertContains('Sorry, the email address you entered has already been taken. Please try again.', $GLOBALS['errors']);
+    }
   }
 
   public function testRegistrationDoesNotValidateEmptyEmail() {
     $data = array(
       'email' => '',
-      'password' => $GLOBALS['password_valid'],
+      'password' => $GLOBALS['valid_password'],
       'patient' => $GLOBALS['patient_filled'],
       'next_of_kin' => $GLOBALS['nok_filled'],
     );
@@ -78,7 +81,7 @@ class UserManagerTest extends TestCase {
 
   public function testRegistrationDoesNotValidateEmptyPassword() {
     $data = array(
-      'email' => 'new@test.com',
+      'email' => $GLOBALS['new_email'],
       'password' => '',
       'patient' => $GLOBALS['patient_filled'],
       'next_of_kin' => $GLOBALS['nok_filled'],
@@ -92,8 +95,8 @@ class UserManagerTest extends TestCase {
 
   public function testRegistrationDoesNotValidateEmptyPatientDetails() {
     $data = array(
-      'email' => 'new@test.com',
-      'password' => $GLOBALS['password_valid'],
+      'email' => $GLOBALS['new_email'],
+      'password' => $GLOBALS['valid_password'],
       'patient' => $GLOBALS['patient_empty'],
       'next_of_kin' => $GLOBALS['nok_filled'],
     );
@@ -117,8 +120,8 @@ class UserManagerTest extends TestCase {
 
   public function testRegistrationDoesNotValidateEmptyNextOfKinDetails() {
     $data = array(
-      'email' => 'new@test.com',
-      'password' => $GLOBALS['password_valid'],
+      'email' => $GLOBALS['new_email'],
+      'password' => $GLOBALS['valid_password'],
       'patient' => $GLOBALS['patient_filled'],
       'next_of_kin' => $GLOBALS['nok_empty'],
     );

@@ -1,9 +1,28 @@
 <?php
 
-$GLOBALS['email_valid'] = 'as1@test.com';
-$GLOBALS['email_invalid'] = 'invalidEmail';
+$GLOBALS['verified_users'] = array(
+  'administrative' => array(
+    'id' => 'as-5e4685e3c899f1.04316598',
+    'role_id' => '1',
+    'email' => 'as1@test.com',
+  ),
+  'medical' => array(
+    'id' => 'ms-5e4685f6e57722.33264537',
+    'role_id' => '2',
+    'email' => 'ms1@test.com',
+  ),
+  'patient' => array(
+    'id' => 'pa-5e4686095092e0.76300630',
+    'role_id' => '3',
+    'email' => 'pa1@test.com',
+  ),
+);
 
-$GLOBALS['password_valid'] = 'test123';
+$GLOBALS['new_email'] = 'new@test.com';
+$GLOBALS['invalid_email'] = 'invalidEmail';
+$GLOBALS['nonexistent_email'] = 'nonexistent@test.com';
+
+$GLOBALS['valid_password'] = 'test123';
 
 $GLOBALS['patient_filled'] = array(
   'title' => 'Mr',
