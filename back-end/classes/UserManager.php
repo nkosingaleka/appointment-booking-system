@@ -429,13 +429,13 @@ class UserManager {
     }
   }
 
-  public static function receiveSMS() {
+  public static function receiveSms($userId, $message) {
     // Account details
 	$apiKey = urlencode('8YH9denGK10-rBz9vXQyecv3VwXGKkTHZidAnberwL');
 	
 	// Message details
-	$numbers = array(447519321905);
-	$message = rawurlencode('This is a test');
+    $numbers = array($_SESSION['user']->number);
+    $message = rawurlencode($message);
     $facility = urlencode('Team9c');
  
 	$numbers = implode(',', $numbers);
