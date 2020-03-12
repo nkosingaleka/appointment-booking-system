@@ -105,6 +105,8 @@ class RequestManager {
   private static function validateRequest($data) {
     if (empty($data['staff_choice'])) {
       $GLOBALS['errors'][] = 'Please select a staff member.';
+    } else if (empty($data['translation_choice'])) {
+      $GLOBALS['errors'][] = 'Please select a translation option.';
     } else if (empty($data['slots'])) {
       $GLOBALS['errors'][] = 'Please select at least one time slot.';
     } else {
