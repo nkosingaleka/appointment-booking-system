@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data['end_time'] = htmlspecialchars($_POST['end_time']);
 
     // Re-format for checking against timestamps
-    $data['start_time'] = str_replace('T', ' ', $data['start_time']) . ':00';
-    $data['end_time'] = str_replace('T', ' ', $data['end_time']) . ':00';
+    $data['start_time'] = str_replace('T', ' ', $data['start_time']);
+    $data['end_time'] = str_replace('T', ' ', $data['end_time']);
 
     AvailabilityManager::addAvailability($data);
   } else {
