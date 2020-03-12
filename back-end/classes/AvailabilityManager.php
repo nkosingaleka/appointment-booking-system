@@ -54,6 +54,9 @@ class AvailabilityManager {
         $minute_diff += $diff->h * 60;
         $minute_diff += $diff->i;
 
+        // Calculate number of slots to be reserved
+        $reserved = round($minute_diff * RESERVED_SLOTS / 10);
+
         // Check if the time difference is enough for slots to be added
         if ($minute_diff >= MIN_SLOTS * SLOT_LENGTH) {
           // Add slots between the start and end times
@@ -102,10 +105,7 @@ class AvailabilityManager {
             // If the time slot already exists
             if (isset($existing_slot_result['id'])) {
               // Use the existing slot's ID
-              $availability_data['slot_id'] = array(
-                'param' => ':slot_id',
-                'value' => $existing_slot_result['id'],
-              );
+              $slot_id = $existing_slot_result['id'];
             } else {
               // Generate a unique ID for the new slot
               $slot_id = uniqid('', true);
@@ -125,6 +125,19 @@ class AvailabilityManager {
                   'value' => $end_time,
                 ),
               );
+
+              // Reserve the correct number of slots
+              if ($reserved >= ($i + SLOT_LENGTH) / 10) {
+                $slot_data['reserved'] = array(
+                  'param' => ':reserved',
+                  'value' => true,
+                );
+              } else {
+                $slot_data['reserved'] = array(
+                  'param' => ':reserved',
+                  'value' => false,
+                );
+              }
 
               // Insert a record for a new slot to cater for the user's available times
               $new_slot_result = $GLOBALS['app']->getDB()->insert('slot', $slot_data);
