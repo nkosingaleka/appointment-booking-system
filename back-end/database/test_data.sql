@@ -47,13 +47,13 @@ INSERT INTO `next_of_kin` (`id`, `relationship`, `title`, `forename`, `surname`,
 
 /* Patient: Different records for each patient account */
 INSERT INTO `patient` (`id`, `title`, `forename`, `surname`, `sex`, `date_of_birth`, `house_name`, `house_no`, `street`, `city`, `county`, `postcode`, `tel_no`, `mob_no`, `next_of_kin`, `NHS_no`, `HC_no`, `contact_by_email`,`contact_by_text`)
-  VALUES ('pa-5e4686095092e0.76300630', 'Mr', 'David', 'Bowden', 'M', '1990-01-26', null, '12', 'Meyrick Road', 'Portsmouth', 'Hampshire', 'PO2 RJF', '+447691014037', '+448865738896', 'nk-5e4693079a5e18.63580261', '4562594365', null, true, false);
+  VALUES ('pa-5e4686095092e0.76300630', 'Mr', 'David', 'Bowden', 'M', '1990-01-26', null, '12', 'Meyrick Road', 'Portsmouth', 'Hampshire', 'PO2 RJF', '+447691014037', '+448865738896', 'nk-5e4693079a5e18.63580261', '4562594365', null, false, false);
 INSERT INTO `patient` (`id`, `title`, `forename`, `surname`, `sex`, `date_of_birth`, `house_name`, `house_no`, `street`, `city`, `county`, `postcode`, `tel_no`, `mob_no`, `next_of_kin`, `NHS_no`, `HC_no`, `contact_by_email`,`contact_by_text`)
-  VALUES ('pa-5e46875705e162.50418870', 'Mrs', 'Jeanette', 'Cowles', 'F', '1940-02-12', null, '14', 'Meyrick Road', 'Portsmouth', 'Hampshire', 'PO2 RJF', '+445611214623', '+449869745821', 'nk-5e4693969040c3.17276446', '8074819035', null, true, false);
+  VALUES ('pa-5e46875705e162.50418870', 'Mrs', 'Jeanette', 'Cowles', 'F', '1940-02-12', null, '14', 'Meyrick Road', 'Portsmouth', 'Hampshire', 'PO2 RJF', '+445611214623', '+449869745821', 'nk-5e4693969040c3.17276446', '8074819035', null, false, false);
 INSERT INTO `patient` (`id`, `title`, `forename`, `surname`, `sex`, `date_of_birth`, `house_name`, `house_no`, `street`, `city`, `county`, `postcode`, `tel_no`, `mob_no`, `next_of_kin`, `NHS_no`, `HC_no`, `contact_by_email`,`contact_by_text`)
-  VALUES ('pa-5e46876f3d9332.22430483', 'Mr', 'Bob', 'Zotto', 'M', '1960-08-18', null, '5888', 'Park Drive', 'Gosport', 'Hampshire', 'PO12 6DR', '+446893649145', '+445171936505', 'nk-5e4694c3ad45f4.91981040', '8586218634', null, true, false);
+  VALUES ('pa-5e46876f3d9332.22430483', 'Mr', 'Bob', 'Zotto', 'M', '1960-08-18', null, '5888', 'Park Drive', 'Gosport', 'Hampshire', 'PO12 6DR', '+446893649145', '+445171936505', 'nk-5e4694c3ad45f4.91981040', '8586218634', null, false, false);
 INSERT INTO `patient` (`id`, `title`, `forename`, `surname`, `sex`, `date_of_birth`, `house_name`, `house_no`, `street`, `city`, `county`, `postcode`, `tel_no`, `mob_no`, `next_of_kin`, `NHS_no`, `HC_no`, `contact_by_email`,`contact_by_text`)
-  VALUES ('pa-5e468774d36a40.10626920', 'Ms', 'Shirley', 'Banks', 'F', '1978-12-05', null, '705', 'Cross St', 'Winchester', 'Hampshire', 'SO20 6Pj', '+447102306288', '+445841903874', 'nk-5e4694507dc976.27152557', '4456772352', null, true, false);
+  VALUES ('pa-5e468774d36a40.10626920', 'Ms', 'Shirley', 'Banks', 'F', '1978-12-05', null, '705', 'Cross St', 'Winchester', 'Hampshire', 'SO20 6Pj', '+447102306288', '+445841903874', 'nk-5e4694507dc976.27152557', '4456772352', null, false, false);
 
 /* Slot: Time slots for which patients may make appointment booking requests (Mon, Tue, Wed, Thu, Fri, Sat, and Sun of current week) */
 INSERT INTO `slot` (`id`, `start_time`, `end_time`) 
