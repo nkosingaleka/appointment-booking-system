@@ -26,8 +26,12 @@ class AvailabilityManager {
     // Define columns to select
     $projections = array('id', 'start_time', 'end_time');
 
-    // Retrieve slots for the current week
-    return $GLOBALS['app']->getDB()->selectWhere('slot', $selections, $projections, false);
+    try {
+      // Retrieve slots for the current week
+      return $GLOBALS['app']->getDB()->selectWhere('slot', $selections, $projections, false);
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 
   /**
