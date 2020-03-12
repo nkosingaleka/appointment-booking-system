@@ -30,5 +30,14 @@ define('ADMINISTRATIVE_ROLE', 1);
 define('MEDICAL_ROLE', 2);
 define('PATIENT_ROLE', 3);
 
+// Define minimum number of slots that can be added by medical staff (10% of slots that rounds up to at least 1 slot)
+define('MIN_SLOTS', 5);
+
+// Define default slot duration in minutes
+define('SLOT_LENGTH', 10);
+
+// Define default date format (year-month-date hour:minute:second)
+define('DATE_FORMAT', 'Y-m-d H:i:s');
+
 // Define default timezone (United Kingdom)
 date_default_timezone_set('Europe/London');

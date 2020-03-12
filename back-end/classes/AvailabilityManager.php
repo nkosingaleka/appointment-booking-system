@@ -42,102 +42,135 @@ class AvailabilityManager {
 
     if ($valid) {
       try {
-        // Define conditions for any existing slots to be checked in query
-        $existing_slot_selections = array(
-          'start_time' => array(
-            'comparison' => '=',
-            'param' => ':start_time',
-            'value' => $data['start_time'],
-            'after' => 'AND',
-          ),
-          'end_time' => array(
-            'comparison' => '=',
-            'param' => ':end_time',
-            'value' => $data['end_time'],
-          ),
-        );
+        // Convert to datetimes for comparison
+        $start_datetime = new DateTime($data['start_time']);
+        $end_datetime = new DateTime($data['end_time']);
 
-        // Check if the slot already exists
-        $existing_slot_result = $GLOBALS['app']->getDB()->selectOneWhere('slot', $existing_slot_selections, ['id']);
+        // Extract differences between the two timestamps
+        $diff = $start_datetime->diff($end_datetime);
 
-        // Define data for the new availability to be added
-        $availability_data = array(
-          'id' => array(
-            'param' => ':id',
-            'value' => uniqid('', true),
-          ),
-          'staff_id' => array(
-            'param' => ':staff_id',
-            'value' => $_SESSION['user']->id,
-          ),
-        );
+        // Extract difference in minutes only
+        $minute_diff = $diff->days * 24 * 60;
+        $minute_diff += $diff->h * 60;
+        $minute_diff += $diff->i;
 
-        // If the time slot already exists
-        if (isset($existing_slot_result['id'])) {
-          // Use the existing slot's ID
-          $availability_data['slot_id'] = array(
-            'param' => ':slot_id',
-            'value' => $existing_slot_result['id'],
-          );
-        } else {
-          // Generate a unique ID for the new slot
-          $slot_id = uniqid('', true);
+        // Check if the time difference is enough for slots to be added
+        if ($minute_diff >= MIN_SLOTS * SLOT_LENGTH) {
+          // Add slots between the start and end times
+          for ($i = 0; $i < $minute_diff; $i += SLOT_LENGTH) {
+            // Find intermediate start times
+            $start_time = date(DATE_FORMAT, strtotime("+$i minutes", strtotime($data['start_time'])));
+            $next_start_time = date(DATE_FORMAT, strtotime("+" . SLOT_LENGTH . "minutes", strtotime($start_time)));
 
-          // Define data for the new slot to be added
-          $slot_data = array(
-            'id' => array(
-              'param' => ':slot_data',
+            $end_time = $data['end_time'];
+
+            // Set new intermediate end times if before the final end time
+            if ($next_start_time <= $data['end_time']) {
+              $end_time = $next_start_time;
+            }
+
+            // Define conditions for any existing slots to be checked in query
+            $existing_slot_selections = array(
+              'start_time' => array(
+                'comparison' => '=',
+                'param' => ':start_time',
+                'value' => $start_time,
+                'after' => 'AND',
+              ),
+              'end_time' => array(
+                'comparison' => '=',
+                'param' => ':end_time',
+                'value' => $end_time,
+              ),
+            );
+
+            // Check if the slot already exists
+            $existing_slot_result = $GLOBALS['app']->getDB()->selectOneWhere('slot', $existing_slot_selections, ['id']);
+
+            // Define data for the new availability to be added
+            $availability_data = array(
+              'id' => array(
+                'param' => ':id',
+                'value' => uniqid('', true),
+              ),
+              'staff_id' => array(
+                'param' => ':staff_id',
+                'value' => $_SESSION['user']->id,
+              ),
+            );
+
+            // If the time slot already exists
+            if (isset($existing_slot_result['id'])) {
+              // Use the existing slot's ID
+              $availability_data['slot_id'] = array(
+                'param' => ':slot_id',
+                'value' => $existing_slot_result['id'],
+              );
+            } else {
+              // Generate a unique ID for the new slot
+              $slot_id = uniqid('', true);
+
+              // Define data for the new slot to be added
+              $slot_data = array(
+                'id' => array(
+                  'param' => ':slot_data',
+                  'value' => $slot_id,
+                ),
+                'start_time' => array(
+                  'param' => ':start_time',
+                  'value' => $start_time,
+                ),
+                'end_time' => array(
+                  'param' => ':end_time',
+                  'value' => $end_time,
+                ),
+              );
+
+              // Insert a record for a new slot to cater for the user's available times
+              $new_slot_result = $GLOBALS['app']->getDB()->insert('slot', $slot_data);
+
+              if ($new_slot_result) {
+                // To do: handle success messages
+                echo 'Slot added.';
+              } else {
+                $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
+              }
+            }
+
+            // Use the unique ID for the new slot
+            $availability_data['slot_id'] = array(
+              'param' => ':slot_id',
               'value' => $slot_id,
-            ),
-            'start_time' => array(
-              'param' => ':start_time',
-              'value' => $data['start_time'],
-            ),
-            'end_time' => array(
-              'param' => ':end_time',
-              'value' => $data['end_time'],
-            ),
-          );
+            );
 
-          // Insert a record for a new slot to cater for the user's available times
-          $new_slot_result = $GLOBALS['app']->getDB()->insert('slot', $slot_data);
+            // Define conditions for any existing availability to be checked in query
+            $existing_availability_selections = array(
+              'slot_id' => array(
+                'comparison' => '=',
+                'param' => ':slot_id',
+                'value' => $availability_data['slot_id']['value'],
+              ),
+            );
 
-          if ($new_slot_result) {
-            echo 'Slot added.';
-          } else {
-            $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
-          }
+            // Check if availability has already been added
+            $existing_availability_result = $GLOBALS['app']->getDB()->selectOneWhere('availability', $existing_availability_selections, ['id']);
 
-          // Use the unique ID for the new slot
-          $availability_data['slot_id'] = array(
-            'param' => ':slot_id',
-            'value' => $slot_id,
-          );
-        }
+            if (!isset($existing_availability_result['id'])) {
+              // Insert a record for the user's available times
+              $availability_result = $GLOBALS['app']->getDB()->insert('availability', $availability_data);
 
-        // Define conditions for any existing availability to be checked in query
-        $existing_availability_selections = array(
-          'slot_id' => array(
-            'comparison' => '=',
-            'param' => ':slot_id',
-            'value' => $availability_data['slot_id']['value'],
-          ),
-        );
-
-        // Check if availability has already been added
-        $existing_availability_result = $GLOBALS['app']->getDB()->selectOneWhere('availability', $existing_availability_selections, ['id']);
-
-        if (!isset($existing_availability_result['id'])) {
-          // Insert a record for the user's available times
-          $availability_result = $GLOBALS['app']->getDB()->insert('availability', $availability_data);
-
-          if ($availability_result) {
-            echo 'Availability added.';
-          } else {
-            $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
+              if ($availability_result) {
+                // To do: handle success messages
+                echo 'Availability added.';
+              } else {
+                $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
+              }
+            } else {
+              $GLOBALS['errors'][] = 'Sorry, you have already added your availability for the specified times.';
+            }
           }
         } else {
-          $GLOBALS['errors'][] = 'Sorry, you have already added your availability for the specified times.';
+          $GLOBALS['errors'][] = 'Sorry, you must allow time for ' . MIN_SLOTS . ' or more slots for at least 10% to be reserved for emergency appointments.';
         }
       } catch (PDOException $e) {
         $GLOBALS['errors'][] = $e->getMessage();
