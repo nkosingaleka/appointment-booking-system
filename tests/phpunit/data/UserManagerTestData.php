@@ -21,6 +21,25 @@ $GLOBALS['verified_users'] = array(
   ),
 );
 
+$GLOBALS['unverified_users'] = array(
+  'patient-3' => array(
+    'id' => 'pa-5e46876f3d9332.22430483',
+    'role_id' => '3',
+    'email' => 'pa3@test.com',
+    'mob_no' => '+445171936505',
+    'contact_by_email' => 0,
+    'contact_by_text' => 0,
+  ),
+  'patient-4' => array(
+    'id' => 'pa-5e468774d36a40.10626920',
+    'role_id' => '3',
+    'email' => 'pa4@test.com',
+    'mob_no' => '+445841903874',
+    'contact_by_email' => 0,
+    'contact_by_text' => 0,
+  ),
+);
+
 $GLOBALS['new_email'] = 'new@test.com';
 $GLOBALS['invalid_email'] = 'invalidEmail';
 $GLOBALS['nonexistent_email'] = 'nonexistent@test.com';

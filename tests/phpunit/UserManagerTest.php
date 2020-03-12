@@ -78,6 +78,18 @@ class UserManagerTest extends TestCase {
     }
   }
 
+  public function testUnverifiedUsersAreNotLoggedIn() {
+    $password = $GLOBALS['valid_password'];
+
+    foreach (array_keys($GLOBALS['unverified_users']) as $user) {
+      $email = $GLOBALS['unverified_users'][$user]['email'];
+
+      UserManager::login($email, $password);
+
+      $this->assertContains('Sorry, your account is not yet verified. If you have any queries, please contact your medical facility.', $GLOBALS['errors']);
+    }
+  }
+
   public function testRegistrationDoesNotValidateExistingEmail() {
     $data['password'] = $GLOBALS['valid_password'];
     $data['patient'] = $GLOBALS['patient_filled'];
