@@ -15,6 +15,9 @@ $GLOBALS['verified_users'] = array(
     'id' => 'pa-5e4686095092e0.76300630',
     'role_id' => '3',
     'email' => 'pa1@test.com',
+    'mob_no' => '+448865738896',
+    'contact_by_email' => 0,
+    'contact_by_text' => 0,
   ),
 );
 

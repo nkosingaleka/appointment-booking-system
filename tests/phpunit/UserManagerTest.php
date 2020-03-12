@@ -63,6 +63,14 @@ class UserManagerTest extends TestCase {
       $this->assertEquals($GLOBALS['verified_users'][$user]['role_id'], $_SESSION['user']->role_id);
       $this->assertEquals(true, $_SESSION['user']->verified);
 
+      // Check for patient-only details set in session
+      if (strpos($user, 'patient') !== false) {
+        $this->assertEquals($email, $_SESSION['user']->email);
+        $this->assertEquals($GLOBALS['verified_users'][$user]['mob_no'], $_SESSION['user']->number);
+        $this->assertEquals($GLOBALS['verified_users'][$user]['contact_by_email'], $_SESSION['user']->contact_by_email);
+        $this->assertEquals($GLOBALS['verified_users'][$user]['contact_by_text'], $_SESSION['user']->contact_by_text);
+      }
+
       $this->assertEmpty($GLOBALS['errors']);
 
       // Log out to destroy user sessions
