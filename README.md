@@ -66,6 +66,8 @@ c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/databa
 
 You will be asked to enter your password. If you are using the default root user account, this should be empty and you should be able to simply press the enter key.
 
+Alternatively, run the `setup-db.sh` script in the project root folder, which uses the same default path for the binary (*c:/xampp/mysql/bin/mysql*). This uses a blank password by default, which can be changed by entering your own in the quotation marks of the `--password=""` option.
+
 #### Using phpMyAdmin
 
 1. Navigate to the *SQL* tab.
