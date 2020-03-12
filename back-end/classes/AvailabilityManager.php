@@ -204,6 +204,8 @@ class AvailabilityManager {
       $GLOBALS['errors'][] = 'Please enter a valid start time.';
     } else if (empty($data['end_time'])) {
       $GLOBALS['errors'][] = 'Please enter a valid end time.';
+    } else if ($data['end_time'] <= $data['start_time']) {
+      $GLOBALS['errors'][] = 'Please enter an end time after the start time.';
     } else {
       return true;
     }
