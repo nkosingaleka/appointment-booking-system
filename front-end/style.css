@@ -168,11 +168,6 @@ input[type="text"] {
   background: #dfdfdf;
 }
 
-#slots-table .slot label:hover {
-  display: inline-block;
-  width: 100%;
-}
-
 #slots-table .slot input {
   -webkit-appearance: none;
   -moz-appearance: none;
