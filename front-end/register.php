@@ -212,9 +212,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </label>
       </fieldset>
 
-      <input type="submit" value="Register">
+      <input type="submit" value="Register" id="Register">
 
-      <a href="login.php">Log in</a>
+      <a href="login.php" id="login">Log in</a>
     </form>
   </main>
   
