@@ -1,5 +1,6 @@
 language: php
 os: linux
+dist: trusty
 matrix:
   include:
     - language: php
@@ -24,4 +25,6 @@ matrix:
         - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
       before_script:
         - npm i
-      script: http-server -p 80 & npm run test-headless
+        - sudo http-server -p 80
+        - sleep 3
+      script: npm run test-headless
