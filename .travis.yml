@@ -18,6 +18,10 @@ matrix:
       node_js: "node"
       services:
         - mysql
+      addons:
+        chrome: stable
+      before_install:
+        - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
       before_script:
         - npm i
       script: http-server -p 80 & npm run test-headless
