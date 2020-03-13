@@ -217,3 +217,22 @@ input[type="text"] {
 #request-form #confirm {
   margin: 0.5em 0 0 auto;
 }
+
+#availability-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 15em;
+}
+
+#availability-form label {
+  margin-bottom: 1em;
+}
+
+#availability-form input[type="datetime-local"] {
+  width: 100%;
+}
+
+#availability-form input[type="submit"] {
+  margin-left: auto;
+  max-width: fit-content;
+}
