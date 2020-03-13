@@ -131,15 +131,19 @@ input[type="text"] {
   display: grid;
   grid-area: slots-table;
   grid-template-columns: repeat(7, 1fr);
+  height: fit-content;
 }
 
 #slots-table > div {
   display: flex;
   flex-direction: column;
   text-align: center;
+  background: #dfdfdf;
+  border-bottom: thin solid #000;
 }
 
 #slots-table h2 {
+  background: #fff;
   font-size: 1.25em;
   font-weight: 400;
   line-height: 1;
