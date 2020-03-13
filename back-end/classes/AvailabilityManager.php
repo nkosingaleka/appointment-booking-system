@@ -204,12 +204,16 @@ class AvailabilityManager {
    * @return boolean Whether the medical staff member's available times pass (true) or fail (false) validation.
    */
   private static function validateAvailability($data) {
+    $today = date(DATE_FORMAT);
+
     if (empty($data['start_time'])) {
       $GLOBALS['errors'][] = 'Please enter a valid start time.';
     } else if (empty($data['end_time'])) {
       $GLOBALS['errors'][] = 'Please enter a valid end time.';
     } else if ($data['end_time'] <= $data['start_time']) {
       $GLOBALS['errors'][] = 'Please enter an end time after the start time.';
+    } else if (($data['end_time'] <= $today) || ($data['start_time'] < $today)) {
+      $GLOBALS['errors'][] = 'Please do not enter start and end times in the past.';
     } else {
       return true;
     }
