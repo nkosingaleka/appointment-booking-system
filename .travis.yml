@@ -14,8 +14,10 @@ matrix:
         - composer install
       script: vendor/bin/phpunit --configuration phpunit.xml --stderr
 
-    # - language: node_js
-    #   node_js: "node"
-    #   before_script:
-    #     - npm i
-    #   script: http-server -p 80 & npm test &
+    - language: node_js
+      node_js: "node"
+      services:
+        - mysql
+      before_script:
+        - npm i
+      script: http-server -p 80 & npm run test-headless

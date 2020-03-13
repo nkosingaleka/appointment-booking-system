@@ -87,6 +87,8 @@ To run these test cases, run the `run-test.sh` script in the project root folder
 
 Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xml --stderr` or `npm test` yourself.
 
+To run the Selenium WebDriver tests without opening browser windows and rendering pages (i.e. in `headless` mode), run `npm run test-headless` instead of `npm test`.
+
 ### Default URL
 
 The default URL at which to access the system is [http://localhost/uni/setp](http://localhost/uni/setp). If your server does not serve files at this URL, [http://localhost](http://localhost) is assumed instead.

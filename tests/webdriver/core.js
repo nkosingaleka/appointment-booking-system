@@ -1,5 +1,8 @@
+const BROWSER_MODE = process.env.BROWSER_MODE || 'default';
+
 const path = require('path');
 const chromedriver = require('chromedriver');
+const chrome = require('selenium-webdriver/chrome');
 const { Builder, By } = require('selenium-webdriver');
 
 // Set default timeout
@@ -25,9 +28,18 @@ if (rootUrl.includes('htdocs')) {
 }
 
 // Create driver for Chrome browser
-let driver = new Builder()
-  .forBrowser('chrome')
-  .build();
+let driver;
+
+if (BROWSER_MODE === 'default') {
+  driver = new Builder()
+    .forBrowser('chrome')
+    .build();
+} else {
+  driver = new Builder()
+    .forBrowser('chrome')
+    .setChromeOptions(new chrome.Options().headless())
+    .build();
+}
 
 module.exports = {
   path,
