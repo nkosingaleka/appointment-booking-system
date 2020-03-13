@@ -15,17 +15,17 @@ matrix:
         - composer install
       script: vendor/bin/phpunit --configuration phpunit.xml --stderr
 
-    - language: node_js
-      node_js: "node"
-      services:
-        - mysql
-      addons:
-        chrome: stable
-      before_install:
-        - npm i -g http-server
-        - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-      before_script:
-        - npm i
-        - http-server -p 80
-        - sleep 3
-      script: npm run test-headless
+    # - language: node_js
+    #   node_js: "node"
+    #   services:
+    #     - mysql
+    #   addons:
+    #     chrome: stable
+    #   before_install:
+    #     - npm i -g http-server
+    #     - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+    #   before_script:
+    #     - npm i
+    #     - http-server -p 80
+    #     - sleep 3
+    #   script: npm run test-headless
