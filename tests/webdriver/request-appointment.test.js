@@ -21,7 +21,12 @@ afterAll(async () => {
   }
 }, timeout);
 
-test('Test that the system rejects an empty password', async () => {
-    driver.findElement(By.name('period_choice')).sendKeys('09/03/2020 - 15/03/2020');
-    driver.findElement(By.id("confirm")).click();
+test('This test will login in and try to book an appointment without any inputs', async () => {
+    driver.findElement(By.id('email')).sendKeys('pa1@test.com');
+    driver.findElement(By.id('password')).sendKeys('test123');
+    driver.findElement(By.id('login')).click();
+    driver.get(`${url}/front-end/request-appointment.php`);
+    driver.findElement(By.id('confirm')).click();
   });
+  //driver.findElement(By.id('')).sendKeys('');
+  //driver.findElement(By.id('')).click();
