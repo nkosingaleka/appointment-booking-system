@@ -138,31 +138,37 @@ function displayWeek(week) {
           heading.after(slotEntry);
         }
 
-        slotEntry.addEventListener('click', (e) => {
-          // Select clicked slots if within the requests limit (5)
-          if (selected.length <= REQUESTS_LIMIT) {
-            selectSlot(slot['id']);
-          } else {
-            // Prevent checkbox from being checked
-            e.preventDefault();
-          }
-        });
-
-        // Retrieve previously-selected slots
-        const urlParams = window.location.search.split('slots[]');
-
-        for (let param of urlParams) {
-          // Remove unneeded charactes from IDs
-          param = param.replace('=', '');
-          param = param.replace('&', '');
-
-          if (param === slot['id']) {
-            // Check the checkbox for the relevant slot
-            slotEntryCheck.checked = true;
-
-            // Select any slots already selected (e.g. from other period or form submission)
-            if (selected.length <= REQUESTS_LIMIT && !selected.includes(slot['id'])) {
+        // Check if slot is held before the current time
+        if (startTime <= new Date()) {
+          slotEntryCheck.disabled = true;
+          slotEntry.classList.add('disabled');
+        } else {
+          slotEntry.addEventListener('click', (e) => {
+            // Select clicked slots if within the requests limit (5)
+            if (selected.length <= REQUESTS_LIMIT) {
               selectSlot(slot['id']);
+            } else {
+              // Prevent checkbox from being checked
+              e.preventDefault();
+            }
+          });
+
+          // Retrieve previously-selected slots
+          const urlParams = window.location.search.split('slots[]');
+
+          for (let param of urlParams) {
+            // Remove unneeded charactes from IDs
+            param = param.replace('=', '');
+            param = param.replace('&', '');
+
+            if (param === slot['id']) {
+              // Check the checkbox for the relevant slot
+              slotEntryCheck.checked = true;
+
+              // Select any slots already selected (e.g. from other period or form submission)
+              if (selected.length <= REQUESTS_LIMIT && !selected.includes(slot['id'])) {
+                selectSlot(slot['id']);
+              }
             }
           }
         }
@@ -220,7 +226,7 @@ function validateRequestForm(e) {
     e.preventDefault();
     errors.push('Please enter a preferred staff.')
   }
-  
+
   if (selected.length === 0) {
     e.preventDefault();
     errors.push('Please select at least one slot.')

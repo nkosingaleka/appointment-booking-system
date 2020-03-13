@@ -154,6 +154,10 @@ input[type="text"] {
   position: relative;
 }
 
+#slots-table .slot.disabled {
+  color: #969696;
+}
+
 #slots-table .slot label {
   display: inline-block;
   width: 100%;
@@ -177,11 +181,11 @@ input[type="text"] {
   position: absolute;
 }
 
-#slots-table .slot input:hover + label {
+#slots-table .slot:not(.disabled) input:hover + label {
   background: #f5f5f5;
 }
 
-#slots-table .slot input:active + label {
+#slots-table .slot:not(.disabled)  input:active + label {
   background: #969696;
 }
 
