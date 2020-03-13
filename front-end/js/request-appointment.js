@@ -1,3 +1,4 @@
+// Select slots and slot-related elements
 const slotsTable = document.querySelector('#slots-table');
 const slotsPeriodSelector = document.querySelector('#period_choice');
 const slotData = getSlots();
@@ -5,9 +6,11 @@ const slotData = getSlots();
 const selected = [];
 const REQUESTS_LIMIT = 5;
 
+// Define days of the week
 const today = new Date();
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+// Select page elements
 const main = document.querySelector('main');
 const requestSection = document.querySelector('#request-section');
 const requestAppointmentForm = document.querySelector('#request-form');
