@@ -909,3 +909,18 @@ INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`)
   VALUES ('5e627634038339.11156979', '5e4a83211ffd59.63214101', '5e62752a775aa8.85707788');
 INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
   VALUES ('5e627634038370.51360289', '5e4a83211ffd59.63214101', '5e62752a775ae7.54844103');
+
+/* Request: Patients' appointment booking requests */
+
+-- Patient 1
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `patient_id`)
+  VALUES ('5e6b94fc6ba585.74287938', 'I have a bad hip.', '5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, 'pa-5e4686095092e0.76300630');
+
+/* Request Slot: Preferred slots specified for patients' appointment booking requests */
+
+-- Patient 1
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('5e6b94fc6ba680.70337604', '5e6b94fc6ba585.74287938', '5e5f9bd4700174.12262196');
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('5e6b94fc6ba6d5.85884143', '5e6b94fc6ba585.74287938', '5e660eadc50c67.58518387');
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('5e6b94fc6ba721.83358953', '5e6b94fc6ba585.74287938', '5e66119ba93d15.30316867');
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('5e6b94fc6ba757.18655828', '5e6b94fc6ba585.74287938', '5e66129c4ea9a1.64500614');
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('5e6b94fc6ba796.28601182', '5e6b94fc6ba585.74287938', '5e5f9bd47004b7.86034960');
