@@ -14,6 +14,9 @@ const requestAppointmentForm = document.querySelector('#request-form');
 const transRequired = document.querySelector('#translation_choice');
 const prefStaff = document.querySelector('#staff_choice');
 
+// Define array for displaying errors
+const errors = [];
+
 /**
  * Retrieves the week from Monday to Sunday using a given start date.
  * @param {Date} startDate Date from which to start the week.
@@ -269,6 +272,8 @@ function init() {
     // Show slots for the week
     displayWeek(selectWeek(startDate));
   });
+
+  requestAppointmentForm.addEventListener('submit', validateRequestForm);
 }
 
 window.addEventListener('load', init);
