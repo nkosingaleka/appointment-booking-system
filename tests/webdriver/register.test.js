@@ -618,6 +618,3 @@ test('Test that the system rejects an empty password', async () => {
   test('Test that the system will reject an attempt to register and account with no details', async () => {
     driver.findElement(By.id("Register")).click();
   });
-
-  //driver.findElement(By.name('next_of_kin[]')).sendKeys('');
-  //driver.findElement(By.name('')).sendKeys('');
