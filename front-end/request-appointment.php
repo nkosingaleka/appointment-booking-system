@@ -15,7 +15,7 @@ if (!isset($_SESSION['user'])) {
 
 // Retrieve language options
 $languages = $GLOBALS['app']
-  ->getDB()->selectJoin('facility_language', 'language', 'facility_language.language_id = language.id', ['language.id', 'name']);
+  ->getDB()->selectJoin('facility_language', ['language'], ['facility_language.language_id = language.id'], ['language.id', 'name']);
 
 $staff_selections = array(
   'role_id' => array(
@@ -28,7 +28,7 @@ $staff_selections = array(
 $staff_projections = array('staff.id', 'title', 'forename', 'surname');
 
 // Retrieve staff
-$staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', 'account', 'account.id = staff.id', $staff_selections, $staff_projections);
+$staff = $GLOBALS['app']->getDB()->selectJoinWhere('staff', ['account'], ['account.id = staff.id'], $staff_selections, $staff_projections);
 
 // Check if the request form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

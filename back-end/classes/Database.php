@@ -166,23 +166,34 @@ class Database {
 
   /**
    * Selects data from the database using the given table name,
-   * join table, join condition, and (optional) projections (e.g. attribute names).
+   * join tables, join conditions, and (optional) projections (e.g. attribute names).
    *
    * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
-   * @param string $join_table Name of the table on which to join the first table, as specified after the JOIN clause.
-   * @param string $join_condition Condition on which to join the tables, as specified after the ON clause.
+   * @param array $join_tables Name of the tables on which to join the first table, as specified after the JOIN clause.
+   * @param array $join_conditions Conditions on which to join the tables, as specified after the ON clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @return array Selected data.
    */
-  public function selectJoin($table, $join_table, $join_condition, $projections = ['*']) {
+  public function selectJoin($table, $join_tables, $join_conditions, $projections = ['*']) {
     // Append database name to table names to avoid ambiguity
     $table = $this->__name . '.' . $table;
-    $join_table = $this->__name . '.' . $join_table;
+
+    for ($i = 0; $i < count($join_tables); $i += 1) {
+      $join_tables[$i] = $this->__name . '.' . $join_tables[$i];
+    }
 
     // List projections separately
     $projections = implode(', ', $projections);
 
-    $statement = $this->__pdo->prepare("SELECT $projections FROM $table JOIN $join_table ON $join_condition");
+    $query = "SELECT $projections FROM $table";
+
+    for ($i = 0; $i < count($join_tables); $i += 1) {
+      $query .= " JOIN $join_tables[$i] ON $join_conditions[$i]";
+    }
+
+    $query .= " WHERE $conditions";
+
+    $statement = $this->__pdo->prepare($query);
 
     if ($statement->execute() && $statement->rowCount() > 0) {
       // Return fetched rows if successful
@@ -195,20 +206,23 @@ class Database {
 
   /**
    * Selects data from the database using the given table name,
-   * join table, join condition, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
+   * join tables, join conditions, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
    * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
-   * @param string $join_table Name of the table on which to join the first table, as specified after the JOIN clause.
-   * @param string $join_condition Condition on which to join the tables, as specified after the ON clause.
+   * @param array $join_tables Name of the tables on which to join the first table, as specified after the JOIN clause.
+   * @param array $join_conditions Conditions on which to join the tables, as specified after the ON clause.
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @param boolean $bind Option to safely bind input parameters (default: true).
    * @return array Selected data.
    */
-  public function selectOneJoinWhere($table, $join_table, $join_condition, $selections, $projections = ['*'], $bind = true) {
+  public function selectOneJoinWhere($table, $join_tables, $join_conditions, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table names to avoid ambiguity
     $table = $this->__name . '.' . $table;
-    $join_table = $this->__name . '.' . $join_table;
+
+    for ($i = 0; $i < count($join_tables); $i += 1) {
+      $join_tables[$i] = $this->__name . '.' . $join_tables[$i];
+    }
 
     // List projections separately
     $projections = implode(', ', $projections);
@@ -231,7 +245,15 @@ class Database {
       }
     }
 
-    $statement = $this->__pdo->prepare("SELECT $projections FROM $table JOIN $join_table ON $join_condition WHERE $conditions");
+    $query = "SELECT $projections FROM $table";
+
+    for ($i = 0; $i < count($join_tables); $i += 1) {
+      $query .= " JOIN $join_tables[$i] ON $join_conditions[$i]";
+    }
+
+    $query .= " WHERE $conditions";
+
+    $statement = $this->__pdo->prepare($query);
 
     if ($bind) {
       for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
@@ -251,20 +273,23 @@ class Database {
 
   /**
    * Selects data from the database using the given table name,
-   * join table, join condition, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
+   * join tables, join conditions, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
    * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
-   * @param string $join_table Name of the table on which to join the first table, as specified after the JOIN clause.
-   * @param string $join_condition Condition on which to join the tables, as specified after the ON clause.
+   * @param array $join_tables Name of the tables on which to join the first table, as specified after the JOIN clause.
+   * @param array $join_conditions Conditions on which to join the tables, as specified after the ON clause.
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @param boolean $bind Option to safely bind input parameters (default: true).
    * @return array Selected data.
    */
-  public function selectJoinWhere($table, $join_table, $join_condition, $selections, $projections = ['*'], $bind = true) {
+  public function selectJoinWhere($table, $join_tables, $join_conditions, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table names to avoid ambiguity
     $table = $this->__name . '.' . $table;
-    $join_table = $this->__name . '.' . $join_table;
+
+    for ($i = 0; $i < count($join_tables); $i += 1) {
+      $join_tables[$i] = $this->__name . '.' . $join_tables[$i];
+    }
 
     // List projections separately
     $projections = implode(', ', $projections);
@@ -287,7 +312,15 @@ class Database {
       }
     }
 
-    $statement = $this->__pdo->prepare("SELECT $projections FROM $table JOIN $join_table ON $join_condition WHERE $conditions");
+    $query = "SELECT $projections FROM $table";
+
+    for ($i = 0; $i < count($join_tables); $i += 1) {
+      $query .= " JOIN $join_tables[$i] ON $join_conditions[$i]";
+    }
+
+    $query .= " WHERE $conditions";
+
+    $statement = $this->__pdo->prepare($query);
 
     if ($bind) {
       for ($i = 0; $i < count(array_keys($selections)); $i += 1) {

@@ -55,7 +55,7 @@ class UserManager {
                 $patient_projections = array('mob_no', 'contact_by_email', 'contact_by_text');
 
                 // Retrieve any patient record whose account email address matches the user's
-                $patient_result = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', 'patient', 'account.id = patient.id', $patient_selections, $patient_projections);
+                $patient_result = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', ['patient'], ['account.id = patient.id'], $patient_selections, $patient_projections);
 
                 $_SESSION['user'] = (object) array(
                   'id' => $account_result['id'],
@@ -347,7 +347,7 @@ class UserManager {
       'HC_no',
     );
 
-    return $GLOBALS['app']->getDB()->selectJoin('account', 'patient', 'account.id = patient.id', $columns);
+    return $GLOBALS['app']->getDB()->selectJoin('account', ['patient'], ['account.id = patient.id'], $columns);
   }
 
   /**
