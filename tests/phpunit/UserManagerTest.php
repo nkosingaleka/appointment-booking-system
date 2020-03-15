@@ -186,4 +186,32 @@ class UserManagerTest extends TestCase {
     $this->assertContains('Please enter either your mobile number or telephone number, or both.', $GLOBALS['errors']);
     $this->assertContains('Please enter either a house name or house number, or both.', $GLOBALS['errors']);
   }
+
+  public function testUnverifiedPatientCanBeVerified() {
+    foreach (array_keys($GLOBALS['unverified_users']) as $user) {
+      $id = $GLOBALS['unverified_users'][$user]['id'];
+
+      UserManager::verifyPatient($id);
+
+      $this->assertEmpty($GLOBALS['errors']);
+
+      $selections = array(
+        'id' => array(
+          'comparison' => '=',
+          'param' => ':id',
+          'value' => $id,
+        ),
+      );
+
+      $update_columns = array(
+        'verified' => array(
+          'param' => ':verified',
+          'value' => false,
+        ),
+      );
+
+      // Unverify the verified users for other tests
+      $verify_result = $GLOBALS['app']->getDB()->updateWhere('account', $selections, $update_columns);
+    }
+  }
 }
