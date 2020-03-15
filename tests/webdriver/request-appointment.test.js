@@ -55,13 +55,12 @@ test('This test will login and check if the select time button error occurs ', a
   await driver.findElement(By.id('confirm')).click();
   });
 
-test('This test will login and check if the select time button error occurs ', async () => {
-  await driver.findElement(By.id('period_choice')).sendKeys('09/03/2020 - 15/03/2020');
+test('This test will login and check all the relevant inputs and book an appointment', async () => {
+  await driver.findElement(By.id('period_choice')).sendKeys('30/03/2000 - 05/04/2020');
   await driver.findElement(By.id('appointment_reason')).sendKeys('Im a very very ill person');
   await driver.findElement(By.id('translation_choice')).sendKeys('None (English)');
   await driver.findElement(By.id('staff_choice')).sendKeys('Dr Jin Xiao');
-  await driver.findElement(By.id('5e5f9bd4700634.70531922')).click();
+  await driver.get(`${url}/front-end/request-appointment.php?slots[]=5e66129c4eac29.70227478&slots[]=5e66129c4eabf9.91464955&slots[]=5e66129c4ea760.40052205&slots[]=5e66129c4ea731.94488395&slots[]=5e66129c4eac54.45234853`);
   await driver.findElement(By.id('confirm')).click();
   });
-  //await driver.findElement(By.id('')).sendKeys('');
-  //driver.findElement(By.id('')).click();
+  
