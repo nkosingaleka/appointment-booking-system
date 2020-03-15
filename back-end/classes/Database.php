@@ -191,8 +191,6 @@ class Database {
       $query .= " JOIN $join_tables[$i] ON $join_conditions[$i]";
     }
 
-    $query .= " WHERE $conditions";
-
     $statement = $this->__pdo->prepare($query);
 
     if ($statement->execute() && $statement->rowCount() > 0) {
