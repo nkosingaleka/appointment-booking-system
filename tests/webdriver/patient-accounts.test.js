@@ -26,9 +26,9 @@ test('This test will log the user in and select the verified button which should
   await driver.findElement(By.id('password')).sendKeys('test123');
   await driver.findElement(By.id('login')).click();
   await driver.get(`${url}/front-end/patient-accounts.php`);
-  driver.findElement(By.id("verified-btn")).click();
+  await driver.findElement(By.id("verified-btn")).click();
 })
 
 test('This test will be already on the correct page and will select the unverified button displaying unverified user accounts', async () => {
-  driver.findElement(By.id("unverified-btn")).click();
+  await driver.findElement(By.id("unverified-btn")).click();
 })
