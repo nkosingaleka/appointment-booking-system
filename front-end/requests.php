@@ -1,0 +1,46 @@
+<?php
+require_once '../back-end/init.php';
+
+session_start();
+
+// Redirect users who are not already logged in to the login page
+if (!isset($_SESSION['user'])) {
+  $GLOBALS['app']->redirect('login.php');
+} else {
+  $page_title = 'Appointment Booking Requests';
+  $to_load = '';
+
+  if ($_SESSION['user']->role_id == PATIENT_ROLE) {
+    $to_load = 'patient';
+  } else if ($_SESSION['user']->role_id == MEDICAL_ROLE) {
+    // Show patient's requests to medical staff members to review
+  } else {
+    // Show reviewed requests to administrative staff members
+  }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?=$GLOBALS['app']->title?> &mdash; My Requests</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
+
+  <main>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+
+    <h2><?=$page_title?></h2>
+
+    <?php require dirname(__FILE__) . "/../back-end/includes/requests/requests-$to_load.inc.php"; ?>
+  </main>
+</body>
+
+</html>

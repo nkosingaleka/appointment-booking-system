@@ -115,4 +115,64 @@ class RequestManager {
 
     return false;
   }
+
+  /**
+   * Retrieves all the appointment booking requests made by a patient, referencing their account ID.
+   *
+   * @param string $patientId Account ID of the patient for which to display appointment booking requests.
+   * @return array $requests Appointment Booking Requests made by the patient.
+   */
+  public static function getOwnRequests($patientId) {
+    // Define JOIN tables
+    $join_tables = array('language', 'request_slot', 'slot', 'patient', 'staff');
+
+    // Define JOIN conditions
+    $join_conditions = array(
+      'language.id = translation',
+      'request_slot.request_id = request.id',
+      'slot.id = slot_id',
+      'patient.id = patient_id',
+      'staff.id = preferred_staff',
+    );
+
+    // Define conditions to be checked in query
+    $selections = array(
+      'patient_id' => array(
+        'comparison' => '=',
+        'param' => ':patient_id',
+        'value' => $patientId,
+      ),
+    );
+
+    // Define columns to select
+    $projections = array('reason',
+      'name AS translation',
+      'staff.title',
+      'staff.forename',
+      'staff.surname',
+      "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'");
+
+    try {
+      // Retrieve all requests made by the patient
+      $requests = $GLOBALS['app']->getDB()->selectJoinWhere('request', $join_tables, $join_conditions, $selections, $projections);
+
+      for ($i = 0; $i < count($requests); $i += 1) {
+        $requests[$i]['staff'] = "{$requests[$i]['title']} {$requests[$i]['forename']} {$requests[$i]['surname']}";
+        $requests[$i]['slots'] = explode(',', $requests[$i]['slots']);
+
+        for ($j = 0; $j < count($requests[$i]['slots']); $j += 1) {
+          $times = explode('_', $requests[$i]['slots'][$j]);
+
+          $requests[$i]['slots'][$j] = array(
+            'start_time' => $times[0],
+            'end_time' => $times[1],
+          );
+        }
+      }
+
+      return $requests;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
 }
