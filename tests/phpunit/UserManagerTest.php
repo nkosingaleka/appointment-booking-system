@@ -55,6 +55,10 @@ class UserManagerTest extends TestCase {
     $password = $GLOBALS['valid_password'];
 
     foreach (array_keys($GLOBALS['verified_users']) as $user) {
+      // Record time login started (to check if within limit i.e. 10 seconds)
+      $start_time = microtime(true);
+      $time_limit = 10;
+
       $email = $GLOBALS['verified_users'][$user]['email'];
 
       UserManager::login($email, $password);
@@ -71,7 +75,11 @@ class UserManagerTest extends TestCase {
         $this->assertEquals($GLOBALS['verified_users'][$user]['contact_by_text'], $_SESSION['user']->contact_by_text);
       }
 
+      // Check the time taken to log the user in
+      $time_elapsed = microtime(true) - $start_time;
+
       $this->assertEmpty($GLOBALS['errors']);
+      $this->assertTrue($time_elapsed < $time_limit);
 
       // Log out to destroy user sessions
       include dirname(__FILE__) . '/../../front-end/scripts/logout.php';
