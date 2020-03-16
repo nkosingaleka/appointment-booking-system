@@ -414,20 +414,17 @@ class UserManager {
     $mail->IsHTML(true);
 
     // Add sender
-    $mail->SetFrom('team9c.abs@gmail.com', 'MEDICAL_FACILITY');
+    $mail->SetFrom('team9c.abs@gmail.com', 'Appointment Booking System');
 
     // Add recipient
-    $mail->AddAddress('up734426@myport.ac.uk', 'PATIENT_NAME');
+    $mail->AddAddress($_SESSION['user']->email, $_SESSION['user']->id);
 
-    $mail->Subject = 'This is a test email';
+    $mail->Subject = 'Appointment Booking System Update';
     $mail->Body = $message;
     $mail->AltBody = $message;
 
     if (!$mail->Send()) {
-      echo 'Message could not be sent.';
-      echo 'Mailer Error: ' . $mail->ErrorInfo;
-    } else {
-      echo 'Message has been sent';
+      $GLOBALS['errors'][] = 'Mailer Error: ' . $mail->ErrorInfo;
     }
   }
 
@@ -472,7 +469,7 @@ class UserManager {
     // Message details
     $numbers = array($_SESSION['user']->number);
     $message = rawurlencode($message);
-    $facility = urlencode('Team9c');
+    $facility = urlencode('Appointment Booking System');
 
     $numbers = implode(',', $numbers);
 
