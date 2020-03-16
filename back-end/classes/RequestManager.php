@@ -145,12 +145,16 @@ class RequestManager {
     );
 
     // Define columns to select
-    $projections = array('reason',
+    $projections = array(
+      'request.id',
+      'reason',
       'name AS translation',
       'staff.title',
       'staff.forename',
       'staff.surname',
-      "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'");
+      "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'",
+      'cancelled',
+    );
 
     try {
       // Retrieve all requests made by the patient
@@ -177,5 +181,91 @@ class RequestManager {
     } catch (PDOException $e) {
       $GLOBALS['errors'][] = $e->getMessage();
     }
+  }
+
+  /**
+   * Cancels a patient's appointment booking request using the given request data.
+   *
+   * @param array $data Collection of request details and ID of the request to be cancelled.
+   * @return void
+   */
+  public static function cancelRequest($data) {
+    // Validate the request details
+    $valid = self::validateCancellation($data);
+
+    if ($valid) {
+      try {
+        // Define conditions to be checked in query
+        $selections = array(
+          'id' => array(
+            'comparison' => '=',
+            'param' => ':id',
+            'value' => $data['to_cancel'],
+          ),
+        );
+
+        if ($_SESSION['user']->role_id == PATIENT_ROLE) {
+          // Set patient's cancellation reason
+          $cancellation_reason_column = 'p_cancellation_reason';
+        } else {
+          // Set reviewer's cancellation reason
+          $cancellation_reason_column = 'r_cancellation_reason';
+        }
+
+        // Define columns to be updated, depending on the user's role
+        $update_columns = array(
+          "$cancellation_reason_column" => array(
+            'param' => ":$cancellation_reason_column",
+            'value' => $data['cancellation_reason'],
+          ),
+          'cancelled' => array(
+            'param' => ':cancelled',
+            'value' => true,
+          ),
+        );
+
+        // Cancel the specified request
+        $cancellation_result = $GLOBALS['app']->getDB()->updateWhere('request', $selections, $update_columns);
+
+        if ($cancellation_result) {
+          // To do: handle success messages
+        } else {
+          $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check the appointment booking request you selected and try again.';
+        }
+      } catch (PDOException $e) {
+        $GLOBALS['errors'][] = $e->getMessage();
+      }
+    } else {
+      $GLOBALS['errors'][] = 'Sorry, the appointment booking request could not be cancelled using the given details. Please check your selection and reason and try again.';
+    }
+  }
+
+  /**
+   * Checks whether the appointment booking request's details exist so that it is able to be cancelled.
+   *
+   * @param array $data Collection of request details and ID of the request to be cancelled.
+   * @return boolean Whether the request details pass (true) or fail (false) validation.
+   */
+  private static function validateCancellation($data) {
+    $reason_limit = 255;
+    $valid_id = false;
+
+    // Check if the given ID matches an ID of one of the requests
+    foreach ($data['requests'] as $request) {
+      if ($request['id'] === $data['to_cancel']) {
+        $valid_id = true;
+        break;
+      }
+    }
+
+    if (empty($data['to_cancel']) || !$valid_id) {
+      $GLOBALS['errors'][] = 'Please select an existing appointment booking request.';
+    } elseif (strlen($data['cancellation_reason']) > $reason_limit) {
+      $GLOBALS['errors'][] = 'Please ensure the cancellation reason does not exceed 255 characters.';
+    } else {
+      return true;
+    }
+
+    return false;
   }
 }
