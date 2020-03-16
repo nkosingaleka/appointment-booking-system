@@ -118,6 +118,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `preferred_staff` VARCHAR(36),
   `p_cancellation_reason` VARCHAR(255),
   `r_cancellation_reason` VARCHAR(255),
+  `cancelled` BOOLEAN,
   `reviewer_id` VARCHAR(36),
   `patient_id` VARCHAR(36) NOT NULL,
   PRIMARY KEY (`id`),
