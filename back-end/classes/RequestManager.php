@@ -105,9 +105,9 @@ class RequestManager {
   private static function validateRequest($data) {
     if (empty($data['staff_choice'])) {
       $GLOBALS['errors'][] = 'Please select a staff member.';
-    } else if (empty($data['translation_choice'])) {
+    } elseif (empty($data['translation_choice'])) {
       $GLOBALS['errors'][] = 'Please select a translation option.';
-    } else if (empty($data['slots'])) {
+    } elseif (empty($data['slots'])) {
       $GLOBALS['errors'][] = 'Please select at least one time slot.';
     } else {
       return true;
@@ -157,12 +157,15 @@ class RequestManager {
       $requests = $GLOBALS['app']->getDB()->selectJoinWhere('request', $join_tables, $join_conditions, $selections, $projections);
 
       for ($i = 0; $i < count($requests); $i += 1) {
+        // Define full staff member name and a list of slots
         $requests[$i]['staff'] = "{$requests[$i]['title']} {$requests[$i]['forename']} {$requests[$i]['surname']}";
         $requests[$i]['slots'] = explode(',', $requests[$i]['slots']);
 
         for ($j = 0; $j < count($requests[$i]['slots']); $j += 1) {
+          // Extract start and end times for each slot
           $times = explode('_', $requests[$i]['slots'][$j]);
 
+          // Add slots' start and end times
           $requests[$i]['slots'][$j] = array(
             'start_time' => $times[0],
             'end_time' => $times[1],
