@@ -140,14 +140,14 @@ class RequestManager {
     $selections = array();
 
     if ($userType === 'patient') {
-    $selections = array(
-      'patient_id' => array(
-        'comparison' => '=',
-        'param' => ':patient_id',
+      $selections = array(
+        'patient_id' => array(
+          'comparison' => '=',
+          'param' => ':patient_id',
           'value' => $userId,
           'after' => 'GROUP BY request.id',
-      ),
-    );
+        ),
+      );
     } else {
       $selections = array(
         'preferred_staff' => array(
@@ -158,6 +158,73 @@ class RequestManager {
         ),
       );
     }
+
+    // Define columns to select
+    $projections = array(
+      'request.id',
+      'reason',
+      'name AS translation',
+      'staff.title',
+      'staff.forename',
+      'staff.surname',
+      "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'",
+      'cancelled',
+    );
+
+    try {
+      // Retrieve all requests made by the patient
+      $requests = $GLOBALS['app']->getDB()->selectJoinWhere('request', $join_tables, $join_conditions, $selections, $projections);
+
+      for ($i = 0; $i < count($requests); $i += 1) {
+        // Define full staff member name and a list of slots
+        $requests[$i]['staff'] = "{$requests[$i]['title']} {$requests[$i]['forename']} {$requests[$i]['surname']}";
+        $requests[$i]['slots'] = explode(',', $requests[$i]['slots']);
+
+        for ($j = 0; $j < count($requests[$i]['slots']); $j += 1) {
+          // Extract start and end times for each slot
+          $times = explode('_', $requests[$i]['slots'][$j]);
+
+          // Add slots' start and end times
+          $requests[$i]['slots'][$j] = array(
+            'start_time' => $times[0],
+            'end_time' => $times[1],
+          );
+        }
+      }
+
+      return $requests;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
+   * Retrieves all the appointment booking requests made by patients.
+   *
+   * @return array $requests Appointment booking requests made by patients.
+   */
+  public static function getAllRequests() {
+    // Define JOIN tables
+    $join_tables = array('language', 'request_slot', 'slot', 'patient', 'staff');
+
+    // Define JOIN conditions
+    $join_conditions = array(
+      'language.id = translation',
+      'request_slot.request_id = request.id',
+      'slot.id = slot_id',
+      'patient.id = patient_id',
+      'staff.id = preferred_staff',
+    );
+
+    // Define conditions to be checked in query
+    $selections = array(
+      '' => array(
+        'comparison' => 'NOT',
+        'param' => ':cancelled',
+        'value' => 'cancelled',
+        'after' => 'GROUP BY request.id',
+      ),
+    );
 
     // Define columns to select
     $projections = array(
@@ -243,7 +310,7 @@ class RequestManager {
 
         // Define columns to be updated, depending on the user's role
         $update_columns[$cancellation_reason_column] = array(
-            'param' => ":$cancellation_reason_column",
+          'param' => ":$cancellation_reason_column",
           'value' => strlen($data['cancellation_reason']) > 0 ? $data['cancellation_reason'] : null,
         );
 
@@ -252,7 +319,7 @@ class RequestManager {
 
         if ($cancellation_result) {
           // To do: handle success messages
-          
+
           // Define message to be sent via the user's contact preferences
           $message = "Your appointment booking request has been cancelled";
           $message .= isset($data['cancellation_reason']) ? ' for the following reason: "' . $data['cancellation_reason'] . '".' : '.';

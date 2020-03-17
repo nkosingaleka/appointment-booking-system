@@ -15,7 +15,7 @@ if (!isset($_SESSION['user'])) {
   } elseif ($_SESSION['user']->role_id == MEDICAL_ROLE) {
     $to_load = 'medical';
   } else {
-    // Show reviewed requests to administrative staff members
+    $to_load = 'administrative';
   }
 }
 
