@@ -87,7 +87,7 @@ function showCancellationReasonTextbox(requestToCancel) {
   cancellationReasonArea.append(requestIdInput);
 
   // Show the pop-up if it does not already exist
-  if (!request.nextElementSibling) {
+  if (!request.nextElementSibling || !request.nextElementSibling.matches('.cancellation-reason')) {
     request.after(cancellationReasonArea);
   }
 }
