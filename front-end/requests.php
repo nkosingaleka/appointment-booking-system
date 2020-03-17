@@ -37,7 +37,7 @@ if (!isset($_SESSION['user'])) {
   <main>
     <h2><?=$page_title?></h2>
 
-    <?php require dirname(__FILE__) . "/../back-end/includes/requests/requests-$to_load.inc.php"; ?>
+    <?php require dirname(__FILE__) . "/../back-end/includes/requests/requests-$to_load.inc.php";?>
   </main>
 
   <script src="js/requests.js"></script>

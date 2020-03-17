@@ -32,30 +32,29 @@ function showCancellationReasonTextbox(requestToCancel) {
       e.preventDefault();
       errors.push('Please select an existing appointment booking request.')
     }
-  
+
     if (errors.length > 0) {
       // If the error list isn't already there
       if (document.querySelector('.error-message') == null) {
         // Create the error list
         const errorList = document.createElement('div');
         const ul = document.createElement('ul');
-  
+
         errorList.className = 'error-message';
-  
+
         // Add the error to the list
         for (const error of errors) {
           const li = document.createElement('li');
-  
+
           li.textContent = error;
           ul.append(li);
         }
-  
+
         errorList.append(ul);
         main.insertBefore(errorList, cancellationReasonArea);
       }
     }
-
-  })
+  });
 
   // Define the hidden field containing the ID of the request to be deleted
   const requestIdInput = document.createElement('input');
