@@ -45,7 +45,7 @@ registerForm.addEventListener('submit', (e) => {
   // Check if the inputs are empty
   if (email.value == '' || email.value == null) {
     e.preventDefault();
-    errors.push('Please enter a valid email address.');
+    errors.push('Sorry, the email address you entered has already been taken. Please try again.');
   }
 
   if (password.value == '' || password.value == null) {
@@ -80,7 +80,7 @@ registerForm.addEventListener('submit', (e) => {
 
   if ((pHouseName.value == '' || pHouseName.value == null) && (pHouseNo.value == '' || pHouseNo.value == null)){
     e.preventDefault();
-    errors.push('Please enter a valid house name or number.');
+    errors.push('Please enter either a house name or house number, or both.');
   }
 
   if (pStreet.value == '' || pStreet.value == null) {
@@ -105,12 +105,12 @@ registerForm.addEventListener('submit', (e) => {
 
   if ((pTelNo.value == '' || pTelNo.value == null) && (pMobNo.value == '' || pMobNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid telephone or mobile number.');
+    errors.push('Please enter either your mobile number or telephone number, or both.');
   }
 
   if ((pNHSNo.value == '' || pNHSNo.value == null) && (pHCNo.value == '' || pHCNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid NHS or Health and Care number.');
+    errors.push('Sorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.');
   }
 
   if (nokRelationship.value == '' || nokRelationship.value == null) {
@@ -135,7 +135,7 @@ registerForm.addEventListener('submit', (e) => {
 
   if ((nokHouseName.value == '' || nokHouseName.value == null) && (nokHouseNo.value == '' || nokHouseNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid house name or number.');
+    errors.push('Please enter either a house name or house number, or both.');
   }
 
   if (nokStreet.value == '' || nokStreet.value == null) {
@@ -160,7 +160,7 @@ registerForm.addEventListener('submit', (e) => {
 
   if ((nokTelNo.value == '' || nokTelNo.value == null) && (nokMobNo.value == '' || nokMobNo.value == null)) {
     e.preventDefault();
-    errors.push('Please enter a valid telephone or mobile number.');
+    errors.push('Please enter either your mobile number or telephone number, or both.');
   }
 
   if (!consentBoxCheck.checked) {

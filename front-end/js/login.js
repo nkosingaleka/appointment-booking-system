@@ -13,12 +13,12 @@ loginForm.addEventListener('submit', (e) => {
     // Check if the inputs are empty
     if (email.value == '' || email.value == null) {
         e.preventDefault();
-        errors.push('Please enter a valid email address.');
+        errors.push('Sorry, your email address was not found. Please check your input and try again.');
     }
 
     if (password.value == '' || password.value == null) {
         e.preventDefault();
-        errors.push('Please enter a valid password.');
+        errors.push('Sorry, your email address and password combination was incorrect. Please check your input and try again.');
     }
 
     // If there are errors
