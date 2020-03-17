@@ -2,6 +2,9 @@
 const main = document.querySelector('main');
 const cancelBtns = document.querySelectorAll('.cancel-btn');
 
+// Define array for displaying errors
+const errors = [];
+
 /**
  * Displays the pop-up form for the user to provide a reason for cancelling a selected appointment booking request.
  * @param {String} requestToCancel ID of the request to be cancelled.
@@ -16,6 +19,43 @@ function showCancellationReasonTextbox(requestToCancel) {
   cancellationReasonArea.setAttribute('method', 'POST');
   cancellationReasonArea.setAttribute('action', '');
   cancellationReasonArea.textContent = 'You may optionally provide a reason for cancelling this appointment booking request.';
+
+  // Validate input when the form is submitted
+  cancellationReasonArea.addEventListener('submit', (e) => {
+    //Checks if the input exceeds 255 characters
+    if (cancellationReasonTextbox.length > 255) {
+      e.preventDefault();
+      errors.push('Please ensure the cancellation reason does not exceed 255 characters.')
+    }
+    //Checks request ID exists
+    if (requestIdInput.value != requestToCancel) {
+      e.preventDefault();
+      errors.push('Please select an existing appointment booking request.')
+    }
+  
+    if (errors.length > 0) {
+      // If the error list isn't already there
+      if (document.querySelector('.error-message') == null) {
+        // Create the error list
+        const errorList = document.createElement('div');
+        const ul = document.createElement('ul');
+  
+        errorList.className = 'error-message';
+  
+        // Add the error to the list
+        for (const error of errors) {
+          const li = document.createElement('li');
+  
+          li.textContent = error;
+          ul.append(li);
+        }
+  
+        errorList.append(ul);
+        main.insertBefore(errorList, cancellationReasonArea);
+      }
+    }
+
+  })
 
   // Define the hidden field containing the ID of the request to be deleted
   const requestIdInput = document.createElement('input');
