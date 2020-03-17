@@ -117,12 +117,13 @@ class RequestManager {
   }
 
   /**
-   * Retrieves all the appointment booking requests made by a patient, referencing their account ID.
+   * Retrieves all the appointment booking requests made by a patient, or for a medical staff member (who was preferred), referencing their account ID.
    *
-   * @param string $patientId Account ID of the patient for which to display appointment booking requests.
-   * @return array $requests Appointment Booking Requests made by the patient.
+   * @param string $userId Account ID of the patient or medical staff member for which to display appointment booking requests.
+   * @param string $userType Account type of the user (patient or medical staff member) for which to display appointment booking requests.
+   * @return array $requests Appointment Booking Requests made by the patient or for a medical staff member (who was preferred).
    */
-  public static function getOwnRequests($patientId) {
+  public static function getOwnRequests($userId, $userType) {
     // Define JOIN tables
     $join_tables = array('language', 'request_slot', 'slot', 'patient', 'staff');
 
@@ -135,14 +136,28 @@ class RequestManager {
       'staff.id = preferred_staff',
     );
 
-    // Define conditions to be checked in query
+    // Define conditions to be checked in query based on the type of user
+    $selections = array();
+
+    if ($userType === 'patient') {
     $selections = array(
       'patient_id' => array(
         'comparison' => '=',
         'param' => ':patient_id',
-        'value' => $patientId,
+          'value' => $userId,
+          'after' => 'GROUP BY request.id',
       ),
     );
+    } else {
+      $selections = array(
+        'preferred_staff' => array(
+          'comparison' => '=',
+          'param' => ':preferred_staff',
+          'value' => $userId,
+          'after' => 'GROUP BY request.id',
+        ),
+      );
+    }
 
     // Define columns to select
     $projections = array(
@@ -204,24 +219,32 @@ class RequestManager {
           ),
         );
 
+        // Define columns to be updated
+        $update_columns = array(
+          'cancelled' => array(
+            'param' => ':cancelled',
+            'value' => true,
+          ),
+        );
+
         if ($_SESSION['user']->role_id == PATIENT_ROLE) {
           // Set patient's cancellation reason
           $cancellation_reason_column = 'p_cancellation_reason';
         } else {
           // Set reviewer's cancellation reason
           $cancellation_reason_column = 'r_cancellation_reason';
+
+          // Add the ID of the staff member who reviewed the request
+          $update_columns['reviewer_id'] = array(
+            'param' => ':reviewer_id',
+            'value' => $_SESSION['user']->id,
+          );
         }
 
         // Define columns to be updated, depending on the user's role
-        $update_columns = array(
-          "$cancellation_reason_column" => array(
+        $update_columns[$cancellation_reason_column] = array(
             'param' => ":$cancellation_reason_column",
-            'value' => $data['cancellation_reason'],
-          ),
-          'cancelled' => array(
-            'param' => ':cancelled',
-            'value' => true,
-          ),
+          'value' => strlen($data['cancellation_reason']) > 0 ? $data['cancellation_reason'] : null,
         );
 
         // Cancel the specified request

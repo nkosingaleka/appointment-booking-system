@@ -1,6 +1,7 @@
 <?php
-// Retrieve the patient's own requests
-$requests = RequestManager::getOwnRequests($_SESSION['user']->id, 'patient');
+
+// Retrieve all requests for which the current medical staff member is preferred
+$requests = RequestManager::getOwnRequests($_SESSION['user']->id, 'medical');
 
 foreach ($requests as $request) {
   // Find index of current request
@@ -72,5 +73,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </article>
   <?php endforeach?>
 <?php else: ?>
-  <p>There are no appointment booking requests to show. To make one, please go to the <a href="request-appointment.php">Request Appointment</a> page.</p>
+  <p>There are no appointment booking requests to show.</p>
 <?php endif?>
