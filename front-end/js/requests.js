@@ -23,7 +23,7 @@ function showCancellationReasonTextbox(requestToCancel) {
   // Validate input when the form is submitted
   cancellationReasonArea.addEventListener('submit', (e) => {
     //Checks if the input exceeds 255 characters
-    if (cancellationReasonTextbox.length > 255) {
+    if (cancellationReasonTextbox.value.length > 255) {
       e.preventDefault();
       errors.push('Please ensure the cancellation reason does not exceed 255 characters.');
     }
