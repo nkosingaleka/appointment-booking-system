@@ -25,12 +25,13 @@ function showCancellationReasonTextbox(requestToCancel) {
     //Checks if the input exceeds 255 characters
     if (cancellationReasonTextbox.length > 255) {
       e.preventDefault();
-      errors.push('Please ensure the cancellation reason does not exceed 255 characters.')
+      errors.push('Please ensure the cancellation reason does not exceed 255 characters.');
     }
+
     //Checks request ID exists
     if (requestIdInput.value != requestToCancel) {
       e.preventDefault();
-      errors.push('Please select an existing appointment booking request.')
+      errors.push('Please select an existing appointment booking request.');
     }
 
     if (errors.length > 0) {
