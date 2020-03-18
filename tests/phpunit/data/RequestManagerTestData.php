@@ -1,26 +1,5 @@
 <?php
 
-$GLOBALS['verified_patients'] = array(
-  'patient-1' => array(
-    'id' => 'pa-5e4686095092e0.76300630',
-    'role_id' => '3',
-    'email' => 'pa1@test.com',
-    'mob_no' => '+448865738896',
-    'contact_by_email' => 0,
-    'contact_by_text' => 0,
-  ),
-  'patient-2' => array(
-    'id' => 'pa-5e46875705e162.50418870',
-    'role_id' => '3',
-    'email' => 'pa2@test.com',
-    'mob_no' => '+449869745821',
-    'contact_by_email' => 0,
-    'contact_by_text' => 0,
-  ),
-);
-
-$GLOBALS['valid_password'] = 'test123';
-
 // 09:00 - 09:10 for Mon (current week), Tue (1 week ahead), Wed (2 weeks ahead), Thu (3 weeks ahead), Fri (current week)
 $GLOBALS['example_slots'] = array(
   '5e5f9bd4700174.12262196',

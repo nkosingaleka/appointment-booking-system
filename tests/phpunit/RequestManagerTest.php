@@ -1,5 +1,6 @@
 <?php
 
+require 'data/UserTestData.php';
 require 'data/RequestManagerTestData.php';
 
 use PHPUnit\Framework\TestCase;
