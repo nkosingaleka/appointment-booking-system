@@ -324,11 +324,13 @@ class RequestManager {
           $message = "Your appointment booking request has been cancelled";
           $message .= isset($data['cancellation_reason']) ? ' for the following reason: "' . $data['cancellation_reason'] . '".' : '.';
 
-          if ($_SESSION['user']->contact_by_email) {
-            UserManager::receiveEmail($_SESSION['user']->id, $message);
-          }
-          if ($_SESSION['user']->contact_by_text) {
-            UserManager::receiveSms($_SESSION['user']->id, $message);
+          if ($_SESSION['user']->role_id == PATIENT_ROLE) {
+            if ($_SESSION['user']->contact_by_email) {
+              UserManager::receiveEmail($_SESSION['user']->id, $message);
+            }
+            if ($_SESSION['user']->contact_by_text) {
+              UserManager::receiveSms($_SESSION['user']->id, $message);
+            }
           }
         } else {
           $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check the appointment booking request you selected and try again.';
