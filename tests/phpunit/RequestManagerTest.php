@@ -10,20 +10,22 @@ class RequestManagerTest extends TestCase {
     $GLOBALS['errors'] = array();
   }
 
-  public static function setUpBeforeClass(): void {
-    $email = $GLOBALS['verified_patients']['patient-1']['email'];
+  public function logPatientIn() {
+    $email = $GLOBALS['verified_users']['patient-1']['email'];
     $password = $GLOBALS['valid_password'];
 
     // Log in to patient account
     UserManager::login($email, $password);
   }
 
-  public static function tearDownAfterClass(): void {
+  public function tearDown(): void {
     // Log out to destroy user sessions
     include dirname(__FILE__) . '/../../front-end/scripts/logout.php';
   }
 
   public function testMakeRequestDoesNotValidateEmptyTranslationRequired() {
+    $this->logPatientIn();
+
     $data = array(
       'patient_id' => $_SESSION['user']->id,
       'slots' => $GLOBALS['example_slots'],
@@ -44,6 +46,8 @@ class RequestManagerTest extends TestCase {
   }
 
   public function testMakeRequestDoesNotValidateEmptyPreferredStaff() {
+    $this->logPatientIn();
+
     $data = array(
       'patient_id' => $_SESSION['user']->id,
       'slots' => $GLOBALS['example_slots'],
@@ -64,6 +68,8 @@ class RequestManagerTest extends TestCase {
   }
 
   public function testMakeRequestDoesNotValidateEmptySlots() {
+    $this->logPatientIn();
+
     $data = array(
       'patient_id' => $_SESSION['user']->id,
     );
