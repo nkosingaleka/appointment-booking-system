@@ -1,6 +1,7 @@
 // Select page elements
 const main = document.querySelector('main');
 const cancelBtns = document.querySelectorAll('.cancel-btn');
+const requestsTable = document.querySelector('table');
 
 // Define array for displaying errors
 const errors = [];
@@ -18,7 +19,7 @@ function showCancellationReasonTextbox(requestToCancel) {
   cancellationReasonArea.classList.add('cancellation-reason');
   cancellationReasonArea.setAttribute('method', 'POST');
   cancellationReasonArea.setAttribute('action', '');
-  cancellationReasonArea.textContent = 'You may optionally provide a reason for cancelling this appointment booking request.';
+  cancellationReasonArea.textContent = 'Confirm cancellation?';
 
   // Validate input when the form is submitted
   cancellationReasonArea.addEventListener('submit', (e) => {
@@ -67,7 +68,7 @@ function showCancellationReasonTextbox(requestToCancel) {
   // Define the label for the cancellation reason textbox
   const cancellationReasonLabel = document.createElement('label');
   cancellationReasonLabel.setAttribute('for', `${requestToCancel}-reason`);
-  cancellationReasonLabel.textContent = 'Cancellation Reason';
+  cancellationReasonLabel.textContent = 'Cancellation reason (optional)';
 
   // Define the cancellation reason textbox
   const cancellationReasonTextbox = document.createElement('textarea');
@@ -75,20 +76,20 @@ function showCancellationReasonTextbox(requestToCancel) {
   cancellationReasonTextbox.setAttribute('name', `${requestToCancel}-reason`);
 
   // Define the button to submit the cancellation reason
-  const cancellationReasonSubmit = document.createElement('input');
-  cancellationReasonSubmit.setAttribute('name', `${requestToCancel}-reason-submit`);
-  cancellationReasonSubmit.setAttribute('type', 'submit');
-  cancellationReasonSubmit.setAttribute('value', 'Submit');
+  const cancellationReasonConfirm = document.createElement('input');
+  cancellationReasonConfirm.setAttribute('name', `${requestToCancel}-reason-submit`);
+  cancellationReasonConfirm.setAttribute('type', 'submit');
+  cancellationReasonConfirm.setAttribute('value', 'Confirm');
 
   // Append cancellation reason elements to a pop-up
   cancellationReasonLabel.append(cancellationReasonTextbox);
   cancellationReasonArea.append(cancellationReasonLabel);
-  cancellationReasonArea.append(cancellationReasonSubmit);
+  cancellationReasonArea.append(cancellationReasonConfirm);
   cancellationReasonArea.append(requestIdInput);
 
   // Show the pop-up if it does not already exist
-  if (!request.nextElementSibling || !request.nextElementSibling.matches('.cancellation-reason')) {
-    request.after(cancellationReasonArea);
+  if (!requestsTable.nextElementSibling || !requestsTable.nextElementSibling.matches('.cancellation-reason')) {
+    main.append(cancellationReasonArea);
   }
 }
 
@@ -97,7 +98,7 @@ function showCancellationReasonTextbox(requestToCancel) {
  */
 function init() {
   for (const cancelBtn of cancelBtns) {
-    const id = cancelBtn.parentElement.id;
+    const id = cancelBtn.parentElement.parentElement.id;
 
     cancelBtn.setAttribute('href', `?cancel=${id}`);
 

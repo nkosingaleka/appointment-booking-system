@@ -40,38 +40,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include dirname(__FILE__) . '/../error_container.inc.php';?>
 
 <?php if (count($requests) > 0): ?>
-  <?php foreach ($requests as $request): ?>
-    <article id="<?=$request['id']?>">
-      <h3>Appointment #<?=array_search($request, $requests) + 1?></h3>
-
-      <span>
-        <strong>Reason:</strong>
-        <?=$request['reason']?>
-      </span>
-
-      <span>
-        <strong>Translation Required:</strong>
-        <?=$request['translation']?>
-      </span>
-
-      <span>
-        <strong>Preferred Staff Member:</strong>
-        <?=$request['staff']?>
-      </span>
-
-      <h4>Preferred Slots</h4>
-
-      <ol>
-        <?php foreach ($request['slots'] as $slot): ?>
-          <li>
-            <?=date('d/m/Y H:i:s', strtotime($slot['start_time']))?> &ndash; <?=explode(' ', $slot['end_time'])[1]?>
-          </li>
-        <?php endforeach?>
-      </ol>
-
-      <a class="cancel-btn">Cancel</a>
-    </article>
-  <?php endforeach?>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Staff Member</th>
+        <th>Reason</th>
+        <th>Translation Required</th>
+        <th>Cancel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($requests as $request): ?>
+        <tr id="<?=$request['id']?>">
+          <td>
+            <ul>
+              <?php foreach ($request['slots'] as $slot): ?>
+                  <li>
+                    <?=date('d/m/Y', strtotime($slot['start_time']))?> &ndash; <?=explode(' ', $slot['end_time'])[1]?>
+                  </li>
+                <?php endforeach?>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <?php foreach ($request['slots'] as $slot): ?>
+                  <li>
+                    <?=date('H:i:s', strtotime($slot['start_time']))?> &ndash; <?=explode(' ', $slot['end_time'])[1]?>
+                  </li>
+                <?php endforeach?>
+            </ul>
+          </td>
+          <td>
+            <?=$request['staff']?>
+          </td>
+          <td>
+            <?=$request['reason']?>
+          </td>
+          <td>
+            <?=$request['translation']?>
+          </td>
+          <td>
+            <a class="cancel-btn">Cancel</a>
+          </td>
+        </tr>
+      <?php endforeach?>
+    </tbody>
+  </table>
 <?php else: ?>
   <p>There are no appointment booking requests to show.</p>
 <?php endif?>

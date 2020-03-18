@@ -7,11 +7,12 @@ session_start();
 if (!isset($_SESSION['user'])) {
   $GLOBALS['app']->redirect('login.php');
 } else {
-  $page_title = 'Appointment Booking Requests';
+  $page_title = 'Appointment Requests';
   $to_load = '';
 
   if ($_SESSION['user']->role_id == PATIENT_ROLE) {
     $to_load = 'patient';
+    $page_title = "My $page_title";
   } elseif ($_SESSION['user']->role_id == MEDICAL_ROLE) {
     $to_load = 'medical';
   } else {
@@ -27,7 +28,7 @@ if (!isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?=$GLOBALS['app']->title?> &mdash; My Requests</title>
+  <title><?=$GLOBALS['app']->title?> &mdash; <?=$_SESSION['user']->role_id == PATIENT_ROLE ? 'My Requests' : 'Requests' ?></title>
   <link rel="stylesheet" href="style.css">
 </head>
 
