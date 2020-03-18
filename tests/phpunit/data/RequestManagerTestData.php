@@ -2,11 +2,11 @@
 
 // 09:00 - 09:10 for Mon (current week), Tue (1 week ahead), Wed (2 weeks ahead), Thu (3 weeks ahead), Fri (current week)
 $GLOBALS['example_slots'] = array(
-  '5e5f9bd4700174.12262196',
-  '5e660eadc50c67.58518387',
-  '5e66119ba93d15.30316867',
-  '5e66129c4ea9a1.64500614',
-  '5e5f9bd47004b7.86034960',
+  'sl-5e5f9bd4700174.12262196',
+  'sl-5e660eadc50c67.58518387',
+  'sl-5e66119ba93d15.30316867',
+  'sl-5e66129c4ea9a1.64500614',
+  'sl-5e5f9bd47004b7.86034960',
 );
 
 $GLOBALS['example_reasons'] = array(
@@ -22,35 +22,35 @@ $GLOBALS['available_translations'] = array(
     'name' => 'None (English)',
   ),
   'Welsh' => array(
-    'id' => '5e6274fe2da8e7.62206293',
+    'id' => 'la-5e6274fe2da8e7.62206293',
     'name' => 'Welsh',
   ),
   'Polish' => array(
-    'id' => '5e627504477ac0.53112804',
+    'id' => 'la-5e627504477ac0.53112804',
     'name' => 'Polish',
   ),
   'Bengali' => array(
-    'id' => '5e62752a775762.64611390',
+    'id' => 'la-5e62752a775762.64611390',
     'name' => 'Bengali',
   ),
   'Gujarati' => array(
-    'id' => '5e62752a775924.80449764',
+    'id' => 'la-5e62752a775924.80449764',
     'name' => 'Gujarati',
   ),
   'Arabic' => array(
-    'id' => '5e62752a775a30.18919537',
+    'id' => 'la-5e62752a775a30.18919537',
     'name' => 'Arabic',
   ),
   'Urdu' => array(
-    'id' => '5e62752a775a78.73040756',
+    'id' => 'la-5e62752a775a78.73040756',
     'name' => 'Urdu',
   ),
   'French' => array(
-    'id' => '5e62752a775aa8.85707788',
+    'id' => 'la-5e62752a775aa8.85707788',
     'name' => 'French',
   ),
   'Romanian' => array(
-    'id' => '5e62752a775ae7.54844103',
+    'id' => 'la-5e62752a775ae7.54844103',
     'name' => 'Romanian',
   ),
 );

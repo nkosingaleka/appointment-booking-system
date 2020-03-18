@@ -16,7 +16,7 @@ class RequestManager {
 
     if ($valid) {
       try {
-        $request_id = uniqid('', true);
+        $request_id = uniqid('re-', true);
 
         // Separate details about the patient and their request themselves
         $request_data = array(
@@ -51,7 +51,7 @@ class RequestManager {
           $slot_data = array(
             'id' => array(
               'param' => ':id',
-              'value' => uniqid('', true),
+              'value' => uniqid('rs-', true),
             ),
             'request_id' => array(
               'param' => ':request_id',

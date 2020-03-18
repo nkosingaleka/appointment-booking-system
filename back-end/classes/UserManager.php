@@ -142,7 +142,7 @@ class UserManager {
           $GLOBALS['errors'][] = 'Sorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.';
         } else {
           // Generate a unique ID for the user's account and hash their password
-          $user_id = uniqid('', true);
+          $user_id = uniqid('pa-', true);
           $new_password = password_hash($data['password'], PASSWORD_DEFAULT);
 
           $account_data = array(
@@ -161,7 +161,7 @@ class UserManager {
           );
 
           // Generate a unique ID for the next of kin record
-          $nok_id = uniqid('', true);
+          $nok_id = uniqid('nk-', true);
 
           $nok_data = array(
             'id' => array(

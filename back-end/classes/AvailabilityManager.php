@@ -98,7 +98,7 @@ class AvailabilityManager {
             $availability_data = array(
               'id' => array(
                 'param' => ':id',
-                'value' => uniqid('', true),
+                'value' => uniqid('av-', true),
               ),
               'staff_id' => array(
                 'param' => ':staff_id',
@@ -112,7 +112,7 @@ class AvailabilityManager {
               $slot_id = $existing_slot_result['id'];
             } else {
               // Generate a unique ID for the new slot
-              $slot_id = uniqid('', true);
+              $slot_id = uniqid('sl-', true);
 
               // Define data for the new slot to be added
               $slot_data = array(
