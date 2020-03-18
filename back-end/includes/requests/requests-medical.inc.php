@@ -24,6 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'to_cancel' => $_POST["$id-id"],
         'cancellation_reason' => isset($_POST["$id-reason"]) ? $_POST["$id-reason"] : null,
         'requests' => $requests,
+        'patient_id' => $request['patient_id'],
+        'patient_contact_by_email' => $request['contact_by_email'],
+        'patient_contact_by_text' => $request['contact_by_text'],
       );
     }
   }

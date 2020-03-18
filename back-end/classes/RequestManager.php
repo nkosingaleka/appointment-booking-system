@@ -169,6 +169,9 @@ class RequestManager {
       'staff.surname',
       "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'",
       'cancelled',
+      'patient_id',
+      'contact_by_email',
+      'contact_by_text',
     );
 
     try {
@@ -330,6 +333,13 @@ class RequestManager {
             }
             if ($_SESSION['user']->contact_by_text) {
               UserManager::receiveSms($_SESSION['user']->id, $message);
+            }
+          } else {
+            if ($data['patient_contact_by_email']) {
+              UserManager::receiveEmail($data['patient_id'], $message);
+            }
+            if ($data['patient_contact_by_text']) {
+              UserManager::receiveSms($data['patient_id'], $message);
             }
           }
         } else {
