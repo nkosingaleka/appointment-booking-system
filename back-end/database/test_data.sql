@@ -943,3 +943,8 @@ INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6
 
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.29230482', 're-5e6b94fc6ba585.01295217', 'sl-5e66129c4ea9a1.64500614');
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.86214756', 're-5e6b94fc6ba585.01295217', 'sl-5e660eadc50c67.58518387');
+
+/* Appointment Type: Level of urgency of an appointment, derived from a patient's appointment booking request */
+
+INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.25342034', 'routine');
+INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.65342034', 'emergency');
