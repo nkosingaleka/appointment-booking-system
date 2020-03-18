@@ -21,14 +21,14 @@ afterAll(async () => {
   }
 }, timeout);
 
-test('This test will log the user as a patient, access the request page and attempt to cancel without a reason', async () => {
+test('This test will log the user as a patient, access the request page and attempt to cancel with a reason over 255 characters', async () => {
   await driver.findElement(By.id('email')).sendKeys('pa1@test.com');
   await driver.findElement(By.id('password')).sendKeys('test123');
   await driver.findElement(By.id('login')).click();
-  await driver.get(`${url}/front-end/request.php`);
-  await driver.get(`${url}/front-end/requests.php?cancel=5e6b94fc6ba585.74287938`);
-  await driver.findElement(By.id("5e6b94fc6ba585\.74287938-reason")).sendKeys('Turns out, I am just fine');
-  //driver.findElement(By.xpath("//*[contains(text(),'Cancel')]")).click();
-  //driver.findElement(By.linkText("Cancel")).click();
-  //await driver.findElement(By.className('cancel-btn')).click();
-})
+  await driver.get(`${url}/front-end/requests.php`);
+  await driver.findElement(By.css('a[href="?cancel=re-5e6b94fc6ba585.74287938"]')).click();
+  await driver.findElement(By.css('textarea[id="re-5e6b94fc6ba585.74287938-reason"]')).sendKeys('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at risus volutpat, accumsan orci id, pellentesque nisi. Vivamus ligula justo, tincidunt vel pulvinar ac, efficitur in ipsum. Cras ac ipsum arcu. Mauris quis sem justo. Nunc iaculis nisl nec scelerisque. ');
+  await driver.findElement(By.css('input[name="re-5e6b94fc6ba585.74287938-reason-submit"]')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('Please ensure the cancellation reason does not exceed 255 characters.');
+});
