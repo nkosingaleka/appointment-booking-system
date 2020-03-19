@@ -239,3 +239,14 @@ input[type="text"] {
   margin-left: auto;
   max-width: fit-content;
 }
+
+#requests-table {
+  border: thin solid black;
+  border-collapse: collapse;
+}
+
+#requests-table td,
+#requests-table th {
+  border: thin solid black;
+  padding: 1em;
+}
