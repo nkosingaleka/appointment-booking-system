@@ -910,21 +910,26 @@ INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`)
 INSERT INTO `facility_language` (`id`, `facility_id`, `language_id`) 
   VALUES ('fl-5e627634038370.51360289', 'fa-5e4a83211ffd59.63214101', 'la-5e62752a775ae7.54844103');
 
+/* Appointment Type: Level of urgency of an appointment, derived from a patient's appointment booking request */
+
+INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.25342034', 'routine');
+INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.65342034', 'emergency');
+
 /* Request: Patients' appointment booking requests */
 
 -- Patient 1
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.74287938', 'I have a bad hip.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, 'pa-5e4686095092e0.76300630');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.74287938', 'I have a bad hip.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, null, 'pa-5e4686095092e0.76300630');
 
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.89234430', 'My stomach sometimes has a burning sensation.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, 'pa-5e4686095092e0.76300630');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.89234430', 'My stomach sometimes has a burning sensation.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, 'at-5e7c24qg2bv714.25342034', 'pa-5e4686095092e0.76300630');
 
 -- Patient 2
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.16343542', 'Prefer not to say.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, null, 'pa-5e46875705e162.50418870');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.16343542', 'Prefer not to say.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, null, null, 'pa-5e46875705e162.50418870');
 
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.01295217', 'I have had cramp in my foot for about 1 month now. I have tried taking medication but it has not helped.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, null, 'pa-5e46875705e162.50418870');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.01295217', 'I have had cramp in my foot for about 1 month now. I have tried taking medication but it has not helped.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, null, 'at-5e7c24qg2bv714.65342034', 'pa-5e46875705e162.50418870');
 
 /* Request Slot: Preferred slots specified for patients' appointment booking requests */
 
@@ -943,8 +948,3 @@ INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6
 
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.29230482', 're-5e6b94fc6ba585.01295217', 'sl-5e66129c4ea9a1.64500614');
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.86214756', 're-5e6b94fc6ba585.01295217', 'sl-5e660eadc50c67.58518387');
-
-/* Appointment Type: Level of urgency of an appointment, derived from a patient's appointment booking request */
-
-INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.25342034', 'routine');
-INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.65342034', 'emergency');
