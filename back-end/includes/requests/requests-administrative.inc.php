@@ -1,7 +1,10 @@
 <?php
 
-// Retrieve all requests
-$requests = RequestManager::getAllRequests();
+// Retrieve the available appointment types to assign to requests
+$appointment_types = RequestManager::getAppointmentTypes();
+
+// Retrieve all reviewed requests
+$requests = RequestManager::getApprovedRequests();
 
 foreach ($requests as $request) {
   // Find index of current request
@@ -48,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <th>Staff Member</th>
         <th>Reason</th>
         <th>Translation Required</th>
+        <th>Appointment Type</th>
         <th>Cancel</th>
       </tr>
     </thead>
@@ -80,6 +84,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </td>
           <td>
             <?=$request['translation']?>
+          </td>
+          <td>
+            <?php foreach ($appointment_types as $type): ?>
+              <?php if ($request['appointment_type'] === $type['id']): ?>
+                <?=ucfirst($type['title'])?>
+              <?php endif?>
+            <?php endforeach?>
           </td>
           <td>
             <a class="cancel-btn">Cancel</a>

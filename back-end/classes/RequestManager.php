@@ -203,11 +203,11 @@ class RequestManager {
   }
 
   /**
-   * Retrieves all the appointment booking requests made by patients.
+   * Retrieves all the appointment booking requests reviewed and approved by medical staff.
    *
-   * @return array $requests Appointment booking requests made by patients.
+   * @return array $requests Appointment booking requests reviewed and approved by medical staff.
    */
-  public static function getAllRequests() {
+  public static function getApprovedRequests() {
     // Define JOIN tables
     $join_tables = array('language', 'request_slot', 'slot', 'patient', 'staff');
 
@@ -226,6 +226,12 @@ class RequestManager {
         'comparison' => 'NOT',
         'param' => ':cancelled',
         'value' => 'cancelled',
+        'after' => 'AND',
+      ),
+      'appointment_type' => array(
+        'comparison' => 'IS NOT',
+        'param' => ':type',
+        'value' => null,
         'after' => 'GROUP BY request.id',
       ),
     );
