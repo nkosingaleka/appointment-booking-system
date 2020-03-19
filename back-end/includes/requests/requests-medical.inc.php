@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include dirname(__FILE__) . '/../error_container.inc.php';?>
 
 <?php if (count($requests) > 0): ?>
-  <table>
+  <table id="requests-table">
     <thead>
       <tr>
         <th>Date</th>
