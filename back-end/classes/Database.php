@@ -65,10 +65,10 @@ class Database {
    * Selects data from the database using the given table name,
    * selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
-   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $table Name of the table from which to select data, as specified after the FROM clause.
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
-   * @return array Selected data.
+   * @return array Selected data, or nothing if none were found.
    */
   public function selectOneWhere($table, $selections, $projections = ['*']) {
     // Append database name to table name to avoid ambiguity
@@ -115,11 +115,11 @@ class Database {
    * Selects multiple rows of data from the database using the given table name,
    * selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
-   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $table Name of the table from which to select data, as specified after the FROM clause.
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @param boolean $bind Option to safely bind input parameters (default: true).
-   * @return array Row(s) of selected data.
+   * @return array Selected data, or nothing if none were found.
    */
   public function selectWhere($table, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table name to avoid ambiguity
@@ -168,11 +168,11 @@ class Database {
    * Selects data from the database using the given table name,
    * join tables, join conditions, and (optional) projections (e.g. attribute names).
    *
-   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $table Name of the table from which to select data, as specified after the FROM clause.
    * @param array $join_tables Name of the tables on which to join the first table, as specified after the JOIN clause.
    * @param array $join_conditions Conditions on which to join the tables, as specified after the ON clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
-   * @return array Selected data.
+   * @return array Selected data, or nothing if none were found.
    */
   public function selectJoin($table, $join_tables, $join_conditions, $projections = ['*']) {
     // Append database name to table names to avoid ambiguity
@@ -206,13 +206,13 @@ class Database {
    * Selects data from the database using the given table name,
    * join tables, join conditions, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
-   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $table Name of the table from which to select data, as specified after the FROM clause.
    * @param array $join_tables Name of the tables on which to join the first table, as specified after the JOIN clause.
    * @param array $join_conditions Conditions on which to join the tables, as specified after the ON clause.
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @param boolean $bind Option to safely bind input parameters (default: true).
-   * @return array Selected data.
+   * @return array Selected data, or nothing if none were found.
    */
   public function selectOneJoinWhere($table, $join_tables, $join_conditions, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table names to avoid ambiguity
@@ -273,13 +273,13 @@ class Database {
    * Selects data from the database using the given table name,
    * join tables, join conditions, selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
-   * @param string $table Name of the table from which to select data, as specified after the SELECT clause.
+   * @param string $table Name of the table from which to select data, as specified after the FROM clause.
    * @param array $join_tables Name of the tables on which to join the first table, as specified after the JOIN clause.
    * @param array $join_conditions Conditions on which to join the tables, as specified after the ON clause.
    * @param array $selections Conditions to check against, as specified after the WHERE clause.
    * @param array $projections Attributes to select, as specifed after the SELECT clause.
    * @param boolean $bind Option to safely bind input parameters (default: true).
-   * @return array Selected data.
+   * @return array Selected data, or nothing if none were found.
    */
   public function selectJoinWhere($table, $join_tables, $join_conditions, $selections, $projections = ['*'], $bind = true) {
     // Append database name to table names to avoid ambiguity
