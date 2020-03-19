@@ -62,6 +62,31 @@ class Database {
   }
 
   /**
+   * Selects data from the database using the given table name and projections (e.g. attribute names).
+   *
+   * @param string $table Name of the table from which to select data, as specified after the FROM clause.
+   * @param array $projections Attributes to select, as specifed after the SELECT clause.
+   * @return array Selected data, or nothing if none were found.
+   */
+  public function select($table, $projections = ['*']) {
+    // Append database name to table name to avoid ambiguity
+    $table = $this->__name . '.' . $table;
+
+    // List projections separately
+    $projections = implode(', ', $projections);
+
+    $statement = $this->__pdo->prepare("SELECT $projections FROM $table");
+
+    if ($statement->execute() && $statement->rowCount() > 0) {
+      // Return fetched rows if successful
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Return empty array if unsuccessful
+    return array();
+  }
+
+  /**
    * Selects data from the database using the given table name,
    * selections (e.g. comparisons), and (optional) projections (e.g. attribute names).
    *
