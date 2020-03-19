@@ -1,5 +1,8 @@
 <?php
 
+// Retrieve the available appointment types to assign to requests
+$appointment_types = RequestManager::getAppointmentTypes();
+
 // Retrieve all requests for which the current medical staff member is preferred
 $requests = RequestManager::getOwnRequests($_SESSION['user']->id, 'medical');
 
@@ -19,6 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract ID for use in comparison with form input fields
     $id = str_replace('.', '_', $request['id']);
 
+    if (isset($_POST["$id-appointment-type"]) && !empty($_POST["$id-appointment-type"])) {
+      $typeId = $_POST["$id-appointment-type"];
+
+      // Update the appointment type of the selected request
+      RequestManager::assignAppointmentType($request['id'], $typeId);
+
+      // Refresh the page
+      header("Refresh:0");
+    } else {
+      $GLOBALS['errors'][] = 'Sorry, this request could not be updated. Please select a valid appointment type.';
+    }
+
     if (isset($_POST["$id-id"])) {
       $data = array(
         'to_cancel' => $_POST["$id-id"],
@@ -31,11 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
+  if (isset($data)) {
   // Cancel the selected request
   RequestManager::cancelRequest($data);
 
   // Refresh the page
   header("Refresh:0");
+}
 }
 
 ?>
@@ -51,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <th>Staff Member</th>
         <th>Reason</th>
         <th>Translation Required</th>
+        <th>Appointment Type</th>
         <th>Cancel</th>
       </tr>
     </thead>
@@ -85,6 +103,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?=$request['translation']?>
           </td>
           <td>
+            <form action="" method="POST">
+              <select name="<?=$request['id']?>-appointment-type" id="<?=$request['id']?>-appointment-type" value="<?=$request['appointment_type']?>">
+                <option value="">Choose Type</option>
+
+                <?php foreach ($appointment_types as $type): ?>
+                  <option value="<?=$type['id']?>" <?php if ($request['appointment_type'] === $type['id']) {echo 'selected';}?>>
+                    <?=ucfirst($type['title'])?>
+                  </option>
+                <?php endforeach?>
+              </select>
+            </form>
+          </td>
+          <td>
             <a class="cancel-btn">Cancel</a>
           </td>
         </tr>
@@ -94,3 +125,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php else: ?>
   <p>There are no appointment booking requests to show.</p>
 <?php endif?>
+
+<script src="js/requests-medical.js"></script>

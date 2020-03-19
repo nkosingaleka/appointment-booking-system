@@ -172,6 +172,7 @@ class RequestManager {
       'patient_id',
       'contact_by_email',
       'contact_by_text',
+      'appointment_type',
     );
 
     try {
@@ -239,6 +240,10 @@ class RequestManager {
       'staff.surname',
       "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'",
       'cancelled',
+      'patient_id',
+      'contact_by_email',
+      'contact_by_text',
+      'appointment_type',
     );
 
     try {
@@ -380,5 +385,53 @@ class RequestManager {
     }
 
     return false;
+  }
+
+  /**
+   * Retrieves the available appointment types to which appointment booking requests can be assigned.
+   *
+   * @return array Available appointment types, or nothing if none were found.
+   */
+  public static function getAppointmentTypes() {
+    return $GLOBALS['app']->getDB()->select('appointment_type');
+  }
+
+  /**
+   * Assigns the type of appointment required for an appointment booking request.
+   *
+   * @param string $requestId ID of the selected request.
+   * @param string $typeId ID of the selected appointment type.
+   * @return void
+   */
+  public static function assignAppointmentType($requestId, $typeId) {
+    try {
+      // Define conditions to be checked in query
+      $selections = array(
+        'id' => array(
+          'comparison' => '=',
+          'param' => ':id',
+          'value' => $requestId,
+        ),
+      );
+
+      // Define columns to be updated
+      $update_columns = array(
+        'appointment_type' => array(
+          'param' => ':appointment_type',
+          'value' => $typeId,
+        ),
+      );
+
+      // Assign the reviewer's selected appointment type
+      $review_result = $GLOBALS['app']->getDB()->updateWhere('request', $selections, $update_columns);
+
+      if ($review_result) {
+        // To do: handle success messages
+      } else {
+        $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check the appointment booking request you selected and try again.';
+      }
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 }
