@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <ul>
               <?php foreach ($request['slots'] as $slot): ?>
                   <li>
-                    <?=date('d/m/Y', strtotime($slot['start_time']))?> &ndash; <?=explode(' ', $slot['end_time'])[1]?>
+                    <?=date('d/m/Y', strtotime($slot['start_time']))?>
                   </li>
                 <?php endforeach?>
             </ul>
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <ul>
               <?php foreach ($request['slots'] as $slot): ?>
                   <li>
-                    <?=date('H:i:s', strtotime($slot['start_time']))?> &ndash; <?=explode(' ', $slot['end_time'])[1]?>
+                    <?=date('H:i', strtotime($slot['start_time']))?>
                   </li>
                 <?php endforeach?>
             </ul>
