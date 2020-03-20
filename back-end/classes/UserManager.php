@@ -69,6 +69,7 @@ class UserManager {
               } else {
                 $_SESSION['user'] = (object) array(
                   'id' => $account_result['id'],
+                  'email' => $account_result['email'],
                   'role_id' => $account_result['role_id'],
                   'verified' => $account_result['verified'],
                 );

@@ -160,6 +160,8 @@ class RequestManager {
       "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'",
       'cancelled',
       'patient_id',
+      'contact_by_email',
+      'contact_by_text',
       'appointment_type',
       'appointment_type.title as appointment_type_title',
     );

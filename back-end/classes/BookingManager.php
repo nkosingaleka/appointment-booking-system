@@ -32,11 +32,31 @@ class BookingManager {
           'value' => uniqid('ap-', true),
         );
 
+        // Remove unneeded details for insertion
+        unset($appointment_data['patient_id']);
+        unset($appointment_data['contact_by_email']);
+        unset($appointment_data['contact_by_text']);
+
         // Insert record for the booked appointment
         $appointment_result = $GLOBALS['app']->getDB()->insert('appointment', $appointment_data);
 
         if ($appointment_result) {
+          // Retrieve the details of the patient's facility
+          $facility_details = UserManager::getUserFacility($data['patient_id']);
+
           $GLOBALS['successes'][] = 'The appointment has been successfully booked.';
+
+          // Define message to be sent via the user's contact preferences
+          $message = 'Your requested appointment with ';
+          $message .= isset($facility_details['name']) ? $facility_details['name'] : 'us';
+          $message .= ' has been booked. Please log on to see the confirmed details.';
+
+          if ($data['contact_by_email']) {
+            UserManager::receiveEmail($data['patient_id'], $message);
+          }
+          if ($data['contact_by_text']) {
+            UserManager::receiveSms($data['patient_id'], $message);
+          }
         } else {
           $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
         }

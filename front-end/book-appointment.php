@@ -47,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = array(
       'booker_id' => $_SESSION['user']->id,
+      'patient_id' => $request['patient_id'],
+      'contact_by_email' => $request['contact_by_email'],
+      'contact_by_text' => $request['contact_by_text'],
       'request_id' => trim(htmlspecialchars($_GET['request_id'])),
       'availability_id' => AvailabilityManager::getAvailability($slot_id, $_POST['staff_choice']),
     );
