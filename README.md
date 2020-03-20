@@ -6,6 +6,15 @@ Project created by Team 9C for the Software Engineering Theory and Practice modu
 
 XAMPP was used as the local development and testing environment, with [http://localhost/uni/setp](http://localhost/uni/setp) as the URL. Therefore, it is recommended that the project continues to be tested in the same way.
 
+## Branches
+
+* `prototype-one`, for the first prototype \*
+* `prototype-two`, for the second prototype
+
+\* Currently merged with `master`. 
+
+All branches have been retained to aid review.
+
 ## The Team
 
 | Username           | Name             | UP Number |
