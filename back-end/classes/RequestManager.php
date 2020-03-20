@@ -79,6 +79,8 @@ class RequestManager {
           $message .= isset($facility_details['name']) ? $facility_details['name'] : 'us';
           $message .= ". You will be contacted as soon as possible.";
 
+          $GLOBALS['successes'][] = $message;
+
           if ($_SESSION['user']->contact_by_email) {
             UserManager::receiveEmail($data['patient_id'], $message);
           }
