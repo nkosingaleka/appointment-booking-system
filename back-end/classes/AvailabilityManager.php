@@ -24,7 +24,7 @@ class AvailabilityManager {
     );
 
     // Define columns to select
-    $projections = array('id', 'start_time', 'end_time');
+    $projections = array('id', 'start_time', 'end_time', 'reserved');
 
     try {
       // Retrieve slots for the current week
@@ -217,5 +217,36 @@ class AvailabilityManager {
     }
 
     return false;
+  }
+
+  /**
+   * Retrieves the availability ID for a given slot and medical staff member.
+   *
+   * @param string $slotId ID of the selected slot.
+   * @param string $staffId ID of the selected medical staff member.
+   * @return array
+   */
+  public static function getAvailability($slotId, $staffId) {
+    // Define availability conditions to be checked in query
+    $selections = array(
+      'slot_id' => array(
+        'comparison' => '=',
+        'param' => ':slot_id',
+        'value' => $slotId,
+        'after' => 'AND',
+      ),
+      'staff_id' => array(
+        'comparison' => '=',
+        'param' => ':staff_id',
+        'value' => $staffId,
+      ),
+    );
+
+    try {
+      // Retrieve slots for the current week
+      return $GLOBALS['app']->getDB()->selectOneWhere('availability', $selections, ['id'])['id'];
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 }

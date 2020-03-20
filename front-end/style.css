@@ -91,7 +91,8 @@ input[type="text"] {
 
 #login-form > label,
 #registration-form label,
-#request-form label {
+#request-form label,
+#booking-form label {
   display: flex;
   flex-direction: column;
   margin: 0.5em 0;
@@ -192,7 +193,12 @@ input[type="text"] {
   background: #b1b1b1;
 }
 
-#request-section {
+#slots-table .slot.reserved label {
+  background: #a55353;
+}
+
+#request-section,
+#booking-section {
   display: grid;
   grid-template-areas:
     "null title"
@@ -201,23 +207,27 @@ input[type="text"] {
   margin: 0 auto;
 }
 
-#request-section h2 {
+#request-section h2,
+#booking-section h2 {
   grid-area: title;
   text-align: center;
 }
 
-#request-form {
+#request-form,
+#booking-form {
   display: flex;
   flex-direction: column;
   width: 15em;
   grid-area: form;
 }
 
-#request-form select {
+#request-form select,
+#booking-form select {
   max-width: 75%;
 }
 
-#request-form #confirm {
+#request-form #confirm,
+#booking-form #confirm {
   margin: 0.5em 0 0 auto;
 }
 

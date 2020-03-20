@@ -119,6 +119,77 @@ class RequestManager {
   }
 
   /**
+   * Retrieves details about a request of a given ID.
+   *
+   * @param string $requestId ID of the selected request.
+   * @return array Details of the selected request.
+   */
+  public static function getRequest($requestId) {
+    // Define JOIN tables
+    $join_tables = array('appointment_type', 'language', 'request_slot', 'slot', 'patient', 'staff');
+
+    // Define JOIN conditions
+    $join_conditions = array(
+      'appointment_type = appointment_type.id',
+      'language.id = translation',
+      'request_slot.request_id = request.id',
+      'slot.id = slot_id',
+      'patient.id = patient_id',
+      'staff.id = preferred_staff',
+    );
+
+    // Define request conditions to be checked in query
+    $selections = array(
+      'request.id' => array(
+        'comparison' => '=',
+        'param' => ':request_id',
+        'value' => $requestId,
+      ),
+    );
+
+    // Define request attributes to be selected
+    $projections = array(
+      'request.id',
+      'name AS translation',
+      'patient.title as p_title',
+      'patient.forename as p_forename',
+      'patient.surname as p_surname',
+      'staff.title as s_title',
+      'staff.forename as s_forename',
+      'staff.surname as s_surname',
+      "GROUP_CONCAT(start_time, '_', end_time ORDER BY start_time) as 'slots'",
+      'cancelled',
+      'patient_id',
+      'appointment_type',
+      'appointment_type.title as appointment_type_title',
+    );
+
+    try {
+      // Retrieve details about the selected request
+      $request = $GLOBALS['app']->getDB()->selectOneJoinWhere('request', $join_tables, $join_conditions, $selections, $projections);
+
+      $request['patient'] = "{$request['p_title']} {$request['p_forename']} {$request['p_surname']}";
+      $request['staff'] = "{$request['s_title']} {$request['s_forename']} {$request['s_surname']}";
+      $request['slots'] = explode(',', $request['slots']);
+
+      for ($i = 0; $i < count($request['slots']); $i += 1) {
+        // Extract start and end times for each slot
+        $times = explode('_', $request['slots'][$i]);
+
+        // Add slots' start and end times
+        $request['slots'][$i] = array(
+          'start_time' => $times[0],
+          'end_time' => $times[1],
+        );
+      }
+
+      return $request;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
    * Retrieves all the appointment booking requests made by a patient, or for a medical staff member (who was preferred), referencing their account ID.
    *
    * @param string $userId Account ID of the patient or medical staff member for which to display appointment booking requests.

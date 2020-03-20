@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <th>Reason</th>
         <th>Translation Required</th>
         <th>Appointment Type</th>
+        <th>Book</th>
         <th>Cancel</th>
       </tr>
     </thead>
@@ -92,6 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?=ucfirst($type['title'])?>
               <?php endif?>
             <?php endforeach?>
+          </td>
+          <td>
+            <a href="book-appointment.php?request_id=<?=$request['id']?>">Book</a>
           </td>
           <td>
             <a class="cancel-btn">Cancel</a>
