@@ -334,7 +334,7 @@ class RequestManager {
         $cancellation_result = $GLOBALS['app']->getDB()->updateWhere('request', $selections, $update_columns);
 
         if ($cancellation_result) {
-          // To do: handle success messages
+          $GLOBALS['successes'][] = 'Your appointment booking request has been successfully cancelled.';
 
           // Define message to be sent via the user's contact preferences
           $message = "Your appointment booking request has been cancelled";
