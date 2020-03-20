@@ -33,8 +33,19 @@ test('This test will log the user as a patient, access the request page and atte
   expect(await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('Please ensure the cancellation reason does not exceed 255 characters.');
 });
 
-test('This test will log the user as a patient, access the request page and attempt to cancel with a reason below 255 charcters', async () => {
+//test('This test will lof the user as a patient, access the request page and attempt to cancel wbut selects another cancel option before submission', async () => {
+  //await driver.findElement(By.css('a[href="?cancel=re-5e6b94fc6ba585.74287938"]')).click();
+  //await driver.findElement(By.css('textarea[id="re-5e6b94fc6ba585.74287938-reason"]')).sendKeys('Everything is fine.');
+  //await driver.findElement(By.css('a[href="?cancel=re-5e6b94fc6ba585.89234430"]')).click();
+  //await driver.findElement(By.css('input[name="re-5e6b94fc6ba585.89234430-reason-submit"]')).click()
+
+  //expect(await driver.findElement(By.css('.error-message')).getText()).toBe('Please select an existing appointment booking request.');
+
+
+//});
+
+test('This test will log the user as a patient, access the request page and attempt to cancel with a reason under 255 characters', async () => {
   await driver.findElement(By.css('a[href="?cancel=re-5e6b94fc6ba585.74287938"]')).click();
-  await driver.findElement(By.css('textarea[id="re-5e6b94fc6ba585.74287938-reason"]')).sendKeys('Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine.');
+  await driver.findElement(By.css('textarea[id="re-5e6b94fc6ba585.74287938-reason"]')).sendKeys('Everything is fine.');
   await driver.findElement(By.css('input[name="re-5e6b94fc6ba585.74287938-reason-submit"]')).click();
 });
