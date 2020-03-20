@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.5;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+header {
+  margin: 0 0 1em;
+  padding: 1em 2em;
+  background: lightgrey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav ul {
+  list-style: none;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin: 0 0 0 2em;
+}
+
+main {
+  max-width: 80em;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+input,
+select {
+  height: 2em;
+}
+
+textarea {
+  height: 6em;
+}
+
+input[type="text"] {
+  padding: 0.5em;
+}
+
+#login-form,
+#registration-form {
+  padding: 1em;
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#login-form {
+  max-width: 22em;
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "message message"
+    "email email"
+    "password password"
+    "alt-link submit-btn";
+}
+
+#registration-form {
+  max-width: 30em;
+  grid-template-areas:
+    "account account"
+    "patient patient"
+    "next-of-kin next-of-kin"
+    "alt-link submit-btn";
+  gap: 1em;
+}
+
+#registration-form > fieldset:nth-of-type(1) {
+  grid-area: account;
+}
+
+#registration-form > fieldset:nth-of-type(2) {
+  grid-area: patient;
+}
+
+#registration-form > fieldset:nth-of-type(3) {
+  grid-area: next-of-kin;
+}
+
+#login-form > label,
+#registration-form label,
+#request-form label,
+#booking-form label {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0;
+}
+
+#login-form > h2 {
+  grid-area: title;
+  margin: 0;
+}
+
+#login-form > p {
+  grid-area: message;
+}
+
+#login-form > label[for="email"],
+#registration-form label[for="email"] {
+  grid-area: email;
+}
+
+#login-form > label[for="password"],
+#registration-form label[for="password"] {
+  grid-area: password;
+}
+
+#login-form > input[type="submit"],
+#registration-form input[type="submit"] {
+  grid-area: submit-btn;
+}
+
+#login-form > a,
+#registration-form > a {
+  grid-area: alt-link;
+  max-width: fit-content;
+}
+
+#slots-table {
+  display: grid;
+  grid-area: slots-table;
+  grid-template-columns: repeat(7, 1fr);
+  height: fit-content;
+}
+
+#slots-table > div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: #dfdfdf;
+  border-bottom: thin solid #000;
+}
+
+#slots-table h2 {
+  background: #fff;
+  font-size: 1.25em;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
+  padding: 0.5em;
+  border: thin solid black;
+  width: 100%;
+}
+
+#slots-table .slot {
+  overflow: hidden;
+  position: relative;
+}
+
+#slots-table .slot.disabled {
+  color: #969696;
+}
+
+#slots-table .slot label {
+  display: inline-block;
+  width: 100%;
+  border-left: thin solid black;
+  border-right: thin solid black;
+  border-bottom: thin solid black;
+  padding: 0.1em 0.2em;
+  background: #dfdfdf;
+}
+
+#slots-table .slot input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  position: absolute;
+}
+
+#slots-table .slot:not(.disabled) input:hover + label {
+  background: #f5f5f5;
+}
+
+#slots-table .slot:not(.disabled)  input:active + label {
+  background: #969696;
+}
+
+#slots-table .slot input:checked + label {
+  background: #b1b1b1;
+}
+
+#slots-table .slot.reserved label {
+  background: #a55353;
+}
+
+#request-section,
+#booking-section {
+  display: grid;
+  grid-template-areas:
+    "null title"
+    "form slots-table";
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+#request-section h2,
+#booking-section h2 {
+  grid-area: title;
+  text-align: center;
+}
+
+#request-form,
+#booking-form {
+  display: flex;
+  flex-direction: column;
+  width: 15em;
+  grid-area: form;
+}
+
+#request-form select,
+#booking-form select {
+  max-width: 75%;
+}
+
+#request-form #confirm,
+#booking-form #confirm {
+  margin: 0.5em 0 0 auto;
+}
+
+#availability-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 15em;
+}
+
+#availability-form label {
+  margin-bottom: 1em;
+}
+
+#availability-form input[type="datetime-local"] {
+  width: 100%;
+}
+
+#availability-form input[type="submit"] {
+  margin-left: auto;
+  max-width: fit-content;
+}
+
+#requests-table {
+  border: thin solid black;
+  border-collapse: collapse;
+}
+
+#requests-table td,
+#requests-table th {
+  border: thin solid black;
+  padding: 1em;
+}
+
+form.cancellation-reason {
+  max-width: 25em;
+  font-weight: bold;
+  margin: 2em auto;
+}
+
+form.cancellation-reason input[type="submit"] {
+  margin-left: auto;
+}
+
+form.cancellation-reason,
+form.cancellation-reason label {
+  display: flex;
+  flex-direction: column;
+}
+
+form.cancellation-reason label {
+  font-weight: normal;
+  margin: 0.5em 0;
+}

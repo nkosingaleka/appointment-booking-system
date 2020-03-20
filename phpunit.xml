@@ -1,7 +1,7 @@
-<phpunit colors="true">
+<phpunit bootstrap="back-end/init.php" colors="true">
   <testsuites>
     <testsuite name="Class Test Suite">
-      <directory>tests</directory>
+      <directory>tests/phpunit</directory>
     </testsuite>
   </testsuites>
 </phpunit>
