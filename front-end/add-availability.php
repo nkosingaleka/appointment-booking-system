@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <main>
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/success_container.inc.php';?>
 
     <h2>Add Availability</h2>
 
