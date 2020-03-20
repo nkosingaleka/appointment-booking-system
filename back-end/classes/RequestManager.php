@@ -434,7 +434,7 @@ class RequestManager {
       $review_result = $GLOBALS['app']->getDB()->updateWhere('request', $selections, $update_columns);
 
       if ($review_result) {
-        // To do: handle success messages
+        $GLOBALS['successes'][] = 'The type of appointment needed for the appointment booking request has been successfully set.';
       } else {
         $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check the appointment booking request you selected and try again.';
       }
