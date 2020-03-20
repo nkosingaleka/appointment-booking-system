@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php include dirname(__FILE__) . '/../error_container.inc.php';?>
-<?php include dirname(__FILE__) . '/../back-end/includes/success_container.inc.php';?>
+<?php include dirname(__FILE__) . '/../success_container.inc.php';?>
 
 <?php if (count($requests) > 0): ?>
   <table id="requests-table">
