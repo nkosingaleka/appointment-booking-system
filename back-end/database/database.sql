@@ -167,12 +167,13 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `id` VARCHAR(36),
   `b_cancellation_reason` VARCHAR(255),
   `a_cancellation_reason` VARCHAR(255),
-  `staff_id` VARCHAR(36) NOT NULL,
+  `booker_id` VARCHAR(36) NOT NULL,
   `availability_id` VARCHAR(36) NOT NULL,
   `request_id` VARCHAR(36) NOT NULL,
   `room_id` VARCHAR(36),
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`),
+  FOREIGN KEY (`booker_id`) REFERENCES `staff` (`id`),
+  FOREIGN KEY (`availability_id`) REFERENCES `availability` (`id`),
   FOREIGN KEY (`request_id`) REFERENCES `request` (`id`),
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
