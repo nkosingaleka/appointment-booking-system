@@ -26,10 +26,8 @@ if (!isset($_SESSION['user'])) {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
   <title><?=$GLOBALS['app']->title?> &mdash; <?=$page_title?></title>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

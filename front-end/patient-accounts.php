@@ -50,10 +50,8 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
   <title><?=$GLOBALS['app']->title?></title>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
