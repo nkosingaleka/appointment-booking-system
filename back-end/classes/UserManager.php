@@ -38,6 +38,8 @@ class UserManager {
         'mob_no',
         'nhs_no',
         'hc_no',
+        'contact_by_email',
+        'contact_by_text',
       );
     } else {
       // Define JOIN tables
@@ -52,7 +54,6 @@ class UserManager {
       // Define columns to select
       $projections = array(
         'job_title',
-        'role.description AS role',
       );
     }
 
@@ -62,6 +63,7 @@ class UserManager {
       "CONCAT(title, ' ', forename, ' ', surname) AS full_name",
       'email',
       'sex',
+      'role.id AS role',
     );
 
     // Define conditions to be checked in query
@@ -587,5 +589,83 @@ class UserManager {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     curl_close($ch);
+  }
+
+  /**
+   * Sets the given user's contact preferences to allow or disallow email messages.
+   *
+   * @param string $userId Account ID of the given user.
+   * @param boolean $choice Whether the user wants to allow (true) or disallow (false) email messages.
+   * @return void
+   */
+  public static function updateContactByEmail($userId, $choice) {
+    try {
+      // Define conditions to be checked in query
+      $selections = array(
+        'id' => array(
+          'comparison' => '=',
+          'param' => ':id',
+          'value' => $userId,
+        ),
+      );
+
+      // Define columns to be updated
+      $update_columns = array(
+        'contact_by_email' => array(
+          'param' => ':contact_by_email',
+          'value' => $choice,
+        ),
+      );
+
+      // Set email messaging preferences for the given user
+      $contact_result = $GLOBALS['app']->getDB()->updateWhere('patient', $selections, $update_columns);
+
+      if ($contact_result) {
+        $GLOBALS['successes'][] = 'Your contact preferences have been updated successfully.';
+      } else {
+        $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
+      }
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
+   * Sets the given user's contact preferences to allow or disallow text (SMS) messages.
+   *
+   * @param string $userId Account ID of the given user.
+   * @param boolean $choice Whether the user wants to allow (true) or disallow (false) text (SMS) messages.
+   * @return void
+   */
+  public static function updateContactByText($userId, $choice) {
+    try {
+      // Define conditions to be checked in query
+      $selections = array(
+        'id' => array(
+          'comparison' => '=',
+          'param' => ':id',
+          'value' => $userId,
+        ),
+      );
+
+      // Define columns to be updated
+      $update_columns = array(
+        'contact_by_text' => array(
+          'param' => ':contact_by_text',
+          'value' => $choice,
+        ),
+      );
+
+      // Set text messaging preferences for the given user
+      $contact_result = $GLOBALS['app']->getDB()->updateWhere('patient', $selections, $update_columns);
+
+      if ($contact_result) {
+        $GLOBALS['successes'][] = 'Your contact preferences have been updated successfully.';
+      } else {
+        $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
+      }
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 }

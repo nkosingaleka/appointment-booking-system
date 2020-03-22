@@ -12,6 +12,26 @@ if (!isset($_SESSION['user'])) {
 // Retrieve the account details of the current user
 $account = UserManager::getAccount($_SESSION['user']->id);
 
+// Check if contact preferences are updated
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Set the user's email messaging preference
+  if (isset($_POST['contact_by_email'])) {
+    UserManager::updateContactByEmail($_SESSION['user']->id, true);
+  } elseif (!isset($_POST['contact_by_email'])) {
+    UserManager::updateContactByEmail($_SESSION['user']->id, false);
+  }
+
+  // Set the user's text messaging preference
+  if (isset($_POST['contact_by_text'])) {
+    UserManager::updateContactByText($_SESSION['user']->id, true);
+  } elseif (!isset($_POST['contact_by_text'])) {
+    UserManager::updateContactByText($_SESSION['user']->id, false);
+  }
+
+  // Refresh the page
+  header('Refresh:' . REFRESH_PERIOD);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +49,9 @@ $account = UserManager::getAccount($_SESSION['user']->id);
 <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/success_container.inc.php';?>
+
     <h2>My Account</h2>
 
     <?php if (!empty($account)): ?>
@@ -87,6 +110,28 @@ $account = UserManager::getAccount($_SESSION['user']->id);
           </li>
         <?php endif?>
       </ul>
+    <?php endif?>
+
+    <?php if ($account['role'] == PATIENT_ROLE): ?>
+      <h3>Contact Preferences</h3>
+
+      <p>Please check at least one of the following to set your contact preferences.</p>
+
+      <form action="" method="POST">
+        <span>I would like to be contacted via&hellip;</span>
+
+        <label for="contact_by_email">
+          <input type="checkbox" name="contact_by_email" id="contact_by_email" <?=$account['contact_by_email'] || isset($_POST['contact_by_email']) ? 'checked' : ''?>>
+          Email
+        </label>
+
+        <label for="contact_by_text">
+          <input type="checkbox" name="contact_by_text" id="contact_by_text" <?=$account['contact_by_text'] || isset($_POST['contact_by_text']) ? 'checked' : ''?>>
+          Text (SMS)
+        </label>
+
+        <input type="submit" name="update-preferences" id="update-preferences" value="Update Preferences">
+      </form>
     <?php endif?>
   </main>
 </body>
