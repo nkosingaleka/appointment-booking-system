@@ -30,7 +30,7 @@ test('This test will log the user as a patient, access the request page and atte
   await driver.findElement(By.css('textarea[id="re-5e6b94fc6ba585.74287938-reason"]')).sendKeys('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at risus volutpat, accumsan orci id, pellentesque nisi. Vivamus ligula justo, tincidunt vel pulvinar ac, efficitur in ipsum. Cras ac ipsum arcu. Mauris quis sem justo. Nunc iaculis nisl nec scelerisque. ');
   await driver.findElement(By.css('input[name="re-5e6b94fc6ba585.74287938-reason-submit"]')).click();
 
-  expect(await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('Please ensure the cancellation reason does not exceed 255 characters.');
+  expect (await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('Please ensure the cancellation reason does not exceed 255 characters.');
 });
 
 //test('This test will lof the user as a patient, access the request page and attempt to cancel wbut selects another cancel option before submission', async () => {
@@ -39,7 +39,7 @@ test('This test will log the user as a patient, access the request page and atte
   //await driver.findElement(By.css('a[href="?cancel=re-5e6b94fc6ba585.89234430"]')).click();
   //await driver.findElement(By.css('input[name="re-5e6b94fc6ba585.89234430-reason-submit"]')).click()
 
-  //expect(await driver.findElement(By.css('.error-message')).getText()).toBe('Please select an existing appointment booking request.');
+  //expect(await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('Please select an existing appointment booking request.');
 
 
 //});

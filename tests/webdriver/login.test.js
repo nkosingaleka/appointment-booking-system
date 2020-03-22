@@ -30,9 +30,12 @@ test('This will login in using the correct email and password', async () => {
 test('This test will login without the email being entered', async () => {
   driver.findElement(By.name('email')).sendKeys('');
   driver.findElement(By.name('password')).sendKeys('test123');
+  driver.executeScript("document.querySelector('input[name=email]').removeAttribute('required')");
   driver.findElement(By.id("login")).click();
+  expect (await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('Sorry, your email address was not found. Please check your input and try again.');
 });
 
+//expect(await driver.findElement(By.css('.error-message > ul > li')).getText()).toBe('');
 test('This test will login without the password being entered', async () => {
   driver.findElement(By.name('email')).sendKeys('as1@test.com');
   driver.findElement(By.name('password')).sendKeys('');
