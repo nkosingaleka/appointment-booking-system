@@ -123,6 +123,114 @@ class BookingManager {
   }
 
   /**
+   * Cancels a patient's booked appointment using the given appointment data.
+   *
+   * @param array $data Collection of appointment details.
+   * @return void
+   */
+  public static function cancelAppointment($data) {
+    // Validate the appointment details
+    $valid = self::validateCancellation($data);
+
+    if ($valid) {
+      try {
+        // Define conditions to be checked in query
+        $selections = array(
+          'id' => array(
+            'comparison' => '=',
+            'param' => ':id',
+            'value' => $data['to_cancel'],
+          ),
+        );
+
+        // Define columns to be updated
+        $update_columns = array(
+          'cancelled' => array(
+            'param' => ':cancelled',
+            'value' => true,
+          ),
+        );
+
+        if ($_SESSION['user']->role_id == PATIENT_ROLE) {
+          // Set patient's cancellation reason
+          $cancellation_reason_column = 'p_cancellation_reason';
+        } else {
+          // Set booker's cancellation reason
+          $cancellation_reason_column = 'b_cancellation_reason';
+        }
+
+        // Define columns to be updated, depending on the user's role
+        $update_columns[$cancellation_reason_column] = array(
+          'param' => ":$cancellation_reason_column",
+          'value' => strlen($data['cancellation_reason']) > 0 ? $data['cancellation_reason'] : null,
+        );
+
+        // Cancel the specified appointment
+        $cancellation_result = $GLOBALS['app']->getDB()->updateWhere('appointment', $selections, $update_columns);
+
+        if ($cancellation_result) {
+          $GLOBALS['successes'][] = 'Your appointment has been successfully cancelled.';
+
+          // Define message to be sent via the user's contact preferences
+          $message = "Your appointment has been cancelled";
+          $message .= isset($data['cancellation_reason']) ? ' for the following reason: "' . $data['cancellation_reason'] . '".' : '.';
+
+          if ($_SESSION['user']->role_id == PATIENT_ROLE) {
+            if ($_SESSION['user']->contact_by_email) {
+              UserManager::receiveEmail($_SESSION['user']->id, $message);
+            }
+            if ($_SESSION['user']->contact_by_text) {
+              UserManager::receiveSms($_SESSION['user']->id, $message);
+            }
+          } else {
+            if ($data['patient_contact_by_email']) {
+              UserManager::receiveEmail($data['patient_id'], $message);
+            }
+            if ($data['patient_contact_by_text']) {
+              UserManager::receiveSms($data['patient_id'], $message);
+            }
+          }
+        } else {
+          $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check the appointment you selected and try again.';
+        }
+      } catch (PDOException $e) {
+        $GLOBALS['errors'][] = $e->getMessage();
+      }
+    } else {
+      $GLOBALS['errors'][] = 'Sorry, the appointment could not be cancelled using the given details. Please check your selection and reason and try again.';
+    }
+  }
+
+  /**
+   * Checks whether the appointment's details exist so that it is able to be cancelled.
+   *
+   * @param array $data Collection of appointment details.
+   * @return boolean Whether the appointment details pass (true) or fail (false) validation.
+   */
+  private static function validateCancellation($data) {
+    $reason_limit = 255;
+    $valid_id = false;
+
+    // Check if the given ID matches an ID of one of the appointments
+    foreach ($data['appointments'] as $appointment) {
+      if ($appointment['id'] === $data['to_cancel']) {
+        $valid_id = true;
+        break;
+      }
+    }
+
+    if (empty($data['to_cancel']) || !$valid_id) {
+      $GLOBALS['errors'][] = 'Please select an existing appointment.';
+    } elseif (strlen($data['cancellation_reason']) > $reason_limit) {
+      $GLOBALS['errors'][] = 'Please ensure the cancellation reason does not exceed 255 characters.';
+    } else {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
    * Checks whether the approved request and slot details are in the correct format and not empty.
    *
    * @param array $data Collection of the approved request and slot details.
