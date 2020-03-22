@@ -189,7 +189,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
               <?php endif?>
             </ul>
 
-            <a href="verify.php?id=<?=$patient['id']?>">Verify</a>
+            <a href="scripts/verify.php?id=<?=$patient['id']?>">Verify</a>
           </article>
         <?php endforeach?>
       <?php else: ?>
