@@ -918,18 +918,21 @@ INSERT INTO `appointment_type` (`id`, `title`) VALUES ('at-5e7c24qg2bv714.653420
 /* Request: Patients' appointment booking requests */
 
 -- Patient 1
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.74287938', 'I have a bad hip.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, null, 'pa-5e4686095092e0.76300630');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `cancelled`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.74287938', 'I have a bad hip.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, false, 'ms-5e46874b062833.95604018', 'at-5e7c24qg2bv714.25342034', 'pa-5e4686095092e0.76300630');
 
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.89234430', 'My stomach sometimes has a burning sensation.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, null, 'at-5e7c24qg2bv714.25342034', 'pa-5e4686095092e0.76300630');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `cancelled`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.89234430', 'My stomach sometimes has a burning sensation.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', null, null, false, 'ms-5e4685f6e57722.33264537', 'at-5e7c24qg2bv714.25342034', 'pa-5e4686095092e0.76300630');
+
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `cancelled`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.23146570', 'My little toe aches when I walk.', 'la-5e6274fe2da8e7.62206293', 'ms-5e4685f6e57722.33264537', 'My ache has gone away.', null, true, null, null, 'pa-5e4686095092e0.76300630');
 
 -- Patient 2
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.16343542', 'Prefer not to say.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, null, null, 'pa-5e46875705e162.50418870');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `cancelled`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.16343542', 'Prefer not to say.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, false, null, null, 'pa-5e46875705e162.50418870');
 
-INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `reviewer_id`, `appointment_type`, `patient_id`)
-  VALUES ('re-5e6b94fc6ba585.01295217', 'I have had cramp in my foot for about 1 month now. I have tried taking medication but it has not helped.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, null, 'at-5e7c24qg2bv714.65342034', 'pa-5e46875705e162.50418870');
+INSERT INTO `request` (`id`, `reason`, `translation`, `preferred_staff`, `p_cancellation_reason`, `r_cancellation_reason`, `cancelled`, `reviewer_id`, `appointment_type`, `patient_id`)
+  VALUES ('re-5e6b94fc6ba585.01295217', 'I have had cramp in my foot for about 1 month now. I have tried taking medication but it has not helped.', 'la-5e62752a775ae7.54844103', 'ms-5e46874b062833.95604018', null, null, false, 'ms-5e4685f6e57722.33264537', 'at-5e7c24qg2bv714.65342034', 'pa-5e46875705e162.50418870');
 
 /* Request Slot: Preferred slots specified for patients' appointment booking requests */
 
@@ -942,6 +945,9 @@ INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6
 
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.34561239', 're-5e6b94fc6ba585.89234430', 'sl-5e66129c4eac84.48033698');
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.95234237', 're-5e6b94fc6ba585.89234430', 'sl-5e66129c4eace0.94710985');
+
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.43524566', 're-5e6b94fc6ba585.23146570', 'sl-5e66129c4eace0.94710985');
+INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.23546675', 're-5e6b94fc6ba585.23146570', 'sl-5e66129c4eac84.48033698');
 
 -- Patient 2
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.15342034', 're-5e6b94fc6ba585.16343542', 'sl-5e66129c4eaac2.90275722');
