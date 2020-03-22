@@ -13,6 +13,28 @@ foreach ($appointments as $appointment) {
   }
 }
 
+// Check if appointment has been cancelled
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  foreach ($appointments as $appointment) {
+    // Extract ID for use in comparison with form input fields
+    $id = str_replace('.', '_', $appointment['id']);
+
+    if (isset($_POST["$id-id"])) {
+      $data = array(
+        'to_cancel' => $_POST["$id-id"],
+        'cancellation_reason' => isset($_POST["$id-reason"]) ? $_POST["$id-reason"] : null,
+        'appointments' => $appointments,
+      );
+    }
+  }
+
+  // Cancel the selected appointment
+  BookingManager::cancelAppointment($data);
+
+  // Refresh the page
+  header("Refresh:" . REFRESH_PERIOD);
+}
+
 ?>
 
 <?php include dirname(__FILE__) . '/../error_container.inc.php';?>
