@@ -123,6 +123,74 @@ class BookingManager {
   }
 
   /**
+   * Retrieves all the appointments made by a patient, or for a medical staff member (who was assigned), referencing their account ID.
+   *
+   * @param string $userId Account ID of the patient or medical staff member for which to display appointments.
+   * @param string $userType Account type of the user (patient or medical staff member) for which to display appointments.
+   * @return array $requests Appointments made by the patient or for a medical staff member (who was assigned).
+   */
+  public static function getOwnAppointments($userId, $userType) {
+    // Define JOIN tables
+    $join_tables = array('request', 'patient', 'appointment_type', 'language', 'availability', 'slot', 'staff');
+
+    // Define JOIN conditions
+    $join_conditions = array(
+      'request_id = request.id',
+      'patient_id = patient.id',
+      'appointment_type = appointment_type.id',
+      'translation = language.id',
+      'availability_id = availability.id',
+      'slot_id = slot.id',
+      'staff_id = staff.id',
+    );
+
+    // Define conditions to be checked in query based on the type of user
+    $selections = array();
+
+    if ($userType === 'patient') {
+      $selections = array(
+        'patient_id' => array(
+          'comparison' => '=',
+          'param' => ':patient_id',
+          'value' => $userId,
+        ),
+      );
+    } else {
+      $selections = array(
+        'staff_id' => array(
+          'comparison' => '=',
+          'param' => ':staff_id',
+          'value' => $userId,
+        ),
+      );
+    }
+
+    // Define columns to select
+    $projections = array(
+      'appointment.id',
+      'start_time',
+      'reason',
+      "CONCAT(staff.title, ' ', staff.forename, ' ', staff.surname) AS staff",
+      'reason',
+      'language.name AS translation',
+      'appointment_type.title AS appointment_type',
+      'appointment.cancelled',
+      'patient.id AS patient_id',
+      'patient.contact_by_email',
+      'patient.contact_by_text',
+    );
+
+    try {
+      // Retrieve all appointments made by the patient, or for the medical staff member
+      $requests = $GLOBALS['app']->getDB()->selectJoinWhere('appointment', $join_tables, $join_conditions, $selections, $projections);
+
+      return $requests;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
    * Cancels a patient's booked appointment using the given appointment data.
    *
    * @param array $data Collection of appointment details.
