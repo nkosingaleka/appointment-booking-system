@@ -10,6 +10,109 @@ require dirname(__FILE__) . '/../../vendor/autoload.php';
  */
 class UserManager {
   /**
+   * Retrieves the account details of a given user, referencing their account ID.
+   *
+   * @param string $userId Account ID of the given user.
+   * @return array Collection of account details for the given user.
+   */
+  public static function getAccount($userId) {
+    // Retrieve the type of account the user has
+    $user_role = self::getRole($userId);
+
+    // Define parameters based on the user's role
+    if ($user_role == PATIENT_ROLE) {
+      // Define JOIN tables
+      $join_tables = array('patient', 'role');
+
+      // Define JOIN conditions
+      $join_conditions = array(
+        'account.id = patient.id',
+        'account.role_id = role.id',
+      );
+
+      // Define columns to select
+      $projections = array(
+        'date_of_birth',
+        "CONCAT(COALESCE(house_no, house_name), ' ', street, ', ', city, ', ', county, ', ', postcode) AS address",
+        'tel_no',
+        'mob_no',
+        'nhs_no',
+        'hc_no',
+      );
+    } else {
+      // Define JOIN tables
+      $join_tables = array('staff', 'role');
+
+      // Define JOIN conditions
+      $join_conditions = array(
+        'account.id = staff.id',
+        'account.role_id = role.id',
+      );
+
+      // Define columns to select
+      $projections = array(
+        'job_title',
+        'role.description AS role',
+      );
+    }
+
+    // Define shared columns to select (for any role)
+    array_push(
+      $projections,
+      "CONCAT(title, ' ', forename, ' ', surname) AS full_name",
+      'email',
+      'sex',
+    );
+
+    // Define conditions to be checked in query
+    $selections = array(
+      'account.id' => array(
+        'comparison' => '=',
+        'param' => ':id',
+        'value' => $userId,
+      ),
+    );
+
+    try {
+      // Retrieve relevant account details for the given ID
+      $account_details = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', $join_tables, $join_conditions, $selections, $projections);
+
+      return $account_details;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
+   * Retrieves the role associated with a given user's account.
+   *
+   * @param string $userId Account ID of the given user.
+   * @return string ID of the role associated with the given user's account.
+   */
+  public static function getRole($userId) {
+    // Define JOIN tables
+    $join_tables = array();
+
+    // Define conditions to be checked in query based on the type of user
+    $selections = array(
+      'account.id' => array(
+        'comparison' => '=',
+        'param' => ':id',
+        'value' => $userId,
+      ),
+    );
+
+    try {
+      // Retrieve the user's role
+      $role = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', ['role'], ['account.role_id = role.id'], $selections, ['role.id']);
+
+      return $role['id'];
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
    * Logs the user into their account using their email address and password.
    *
    * @param string $email Email of the user to allow login.
