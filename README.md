@@ -40,9 +40,7 @@ Open the project folder using its name e.g. `cd setp`.
 
 #### Dependencies
 
-The project uses Composer and npm dependencies for automatic testing.
-
-To install these dependencies, run `composer install` and `npm i`.
+The project uses Composer and npm dependencies for automatic testing, which can be installed by running the `composer install` and `npm i` commands in the root folder.
 
 ### Using XAMPP
 
@@ -66,14 +64,9 @@ mysql -u root -p < back-end/database/database.sql
 mysql -u root -p appointment_booking_system < back-end/database/test_data.sql
 ```
 
-NOTE: With local MySQL installations, the path to the MySQL binary may need to be included e.g.
+> **NOTE**: With local MySQL installations, the path to the MySQL binary may need to be included e.g. `c:/xampp/mysql/bin/mysql`.
 
-```
-c:/xampp/mysql/bin/mysql -u root -p < back-end/database/database.sql
-c:/xampp/mysql/bin/mysql -u root -p appointment_booking_system < back-end/database/test_data.sql
-```
-
-You will be asked to enter your password. If you are using the default root user account, this should be empty and you should be able to simply press the enter key.
+You will be asked to enter your password. If you are using the default `root` user account, this password should be empty and you should be able to simply press the enter key.
 
 Alternatively, run the `setup-db.sh` script in the project root folder, which uses the same default path for the binary (*c:/xampp/mysql/bin/mysql*). This uses a blank password by default, which can be changed by entering your own in the quotation marks of the `--password=""` option.
 
@@ -90,13 +83,9 @@ Alternatively, run the `setup-db.sh` script in the project root folder, which us
 
 > **NOTE**: Due to the use of headers in the *back-end*, all PHPUnit tests must be run with the `--stderr` option. The `--configuration phpunit.xml` option, however, may be omitted.
 
-Automated testing is available using PHPUnit for the *back-end* scripts and Jest and Selenium WebDriver for interactivity.
+Automated testing is available using PHPUnit for the *back-end* scripts and Jest and Selenium WebDriver for interactivity. To run these test cases, run the `run-test.sh` script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
 
-To run these test cases, run the `run-test.sh` script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
-
-Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xml --stderr` or `npm test` yourself.
-
-To run the Selenium WebDriver tests without opening browser windows and rendering pages (i.e. in `headless` mode), run `npm run test-headless` instead of `npm test`.
+Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xml --stderr` or `npm test` yourself. To run the Selenium WebDriver tests without opening browser windows and rendering pages (i.e. in `headless` mode), run `npm run test-headless` instead of `npm test`.
 
 ### Default URL
 
