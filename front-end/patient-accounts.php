@@ -25,6 +25,25 @@ if (!isset($_SESSION['user'])) {
     }
   }
 }
+
+// Check if the administrative staff member provides a search query
+if (isset($_GET['query']) && !empty($_GET['query'])) {
+  $verified_patients = array_filter($verified_patients, function ($patient) {
+    foreach ($patient as $detail) {
+      if (strpos($detail, $_GET['query']) !== FALSE) {
+        return true;
+      }
+    }
+  });
+
+  $unverified_patients = array_filter($unverified_patients, function ($patient) {
+    foreach ($patient as $detail) {
+      if (strpos($detail, $_GET['query']) !== FALSE) {
+        return true;
+      }
+    }
+  });
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +63,12 @@ if (!isset($_SESSION['user'])) {
   <main>
   <h2>User Accounts</h2>
     <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+
+    <form action="" method="GET">
+      <label for="query">Search patients</label>
+      <input type="search" name="query" id="query" value="<?=$_GET['query'] ?? ''?>" required>
+      <input type="submit" id="search" value="Search">
+    </form>
 
     <button id="verified-btn">Verified</button>
     <button id="unverified-btn">Unverified</button>
