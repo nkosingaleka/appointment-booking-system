@@ -954,3 +954,17 @@ INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6
 
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.29230482', 're-5e6b94fc6ba585.01295217', 'sl-5e66129c4ea9a1.64500614');
 INSERT INTO `request_slot` (`id`, `request_id`, `slot_id`) VALUES ('rs-5e6b94fc6ba796.86214756', 're-5e6b94fc6ba585.01295217', 'sl-5e660eadc50c67.58518387');
+
+/* Appointment: Booked appointments for the patients' appointment booking requests */
+
+-- Patient 1
+INSERT INTO `appointment` (`id`, `b_cancellation_reason`, `p_cancellation_reason`, `cancelled`, `booker_id`, `availability_id`, `request_id`, `room_id`)
+  VALUES ('ap-5e777c661e2a32.80096338', null, 'I used an online service for advice instead.', true, 'as-5e4685e3c899f1.04316598', 'av-5e6902a6055a25.54748758', 're-5e6b94fc6ba585.89234430', null);
+INSERT INTO `appointment` (`id`, `b_cancellation_reason`, `p_cancellation_reason`, `cancelled`, `booker_id`, `availability_id`, `request_id`, `room_id`)
+  VALUES ('ap-5e777c661e2a32.34520912', null, null, false, 'as-5e46873222d123.80231466', 'av-5e69021818dc41.25534831', 're-5e6b94fc6ba585.74287938', null);
+
+-- Patient 2
+INSERT INTO `appointment` (`id`, `b_cancellation_reason`, `p_cancellation_reason`, `cancelled`, `booker_id`, `availability_id`, `request_id`, `room_id`)
+  VALUES ('ap-5e777c661e2a32.23234569', null, null, false, 'as-5e4685e3c899f1.04316598', 'av-5e69054129f3f5.34077014', 're-5e6b94fc6ba585.01295217', null);
+INSERT INTO `appointment` (`id`, `b_cancellation_reason`, `p_cancellation_reason`, `cancelled`, `booker_id`, `availability_id`, `request_id`, `room_id`)
+  VALUES ('ap-5e777c661e2a32.15394056', null, 'The times I asked for are no longer good for me so I will need to re-book.', true, 'as-5e46873222d123.80231466', 'av-5e6902a6055882.31628169', 're-5e6b94fc6ba585.16343542', null);

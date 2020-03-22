@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `availability` (
 CREATE TABLE IF NOT EXISTS `appointment` (
   `id` VARCHAR(36),
   `b_cancellation_reason` VARCHAR(255),
-  `a_cancellation_reason` VARCHAR(255),
+  `p_cancellation_reason` VARCHAR(255),
   `cancelled` BOOLEAN DEFAULT FALSE,
   `booker_id` VARCHAR(36) NOT NULL,
   `availability_id` VARCHAR(36) NOT NULL,
