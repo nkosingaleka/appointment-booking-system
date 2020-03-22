@@ -188,6 +188,8 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
                 </li>
               <?php endif?>
             </ul>
+
+            <a href="verify.php?id=<?=$patient['id']?>">Verify</a>
           </article>
         <?php endforeach?>
       <?php else: ?>
