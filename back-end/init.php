@@ -44,3 +44,6 @@ define('DATE_FORMAT', 'Y-m-d H:i:s');
 
 // Define default timezone (United Kingdom)
 date_default_timezone_set('Europe/London');
+
+// Define default number of seconds to wait before refreshing pages
+define('REFRESH_PERIOD', 3);

@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   RequestManager::cancelRequest($data);
 
   // Refresh the page
-  header("Refresh:0");
+  header("Refresh:" . REFRESH_PERIOD);
 }
 
 ?>

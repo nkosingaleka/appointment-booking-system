@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       RequestManager::assignAppointmentType($request['id'], $typeId);
 
       // Refresh the page
-      header("Refresh:0");
+      header("Refresh:" . REFRESH_PERIOD);
     } else {
       $GLOBALS['errors'][] = 'Sorry, this request could not be updated. Please select a valid appointment type.';
     }
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   RequestManager::cancelRequest($data);
 
   // Refresh the page
-  header("Refresh:0");
+  header("Refresh:" . REFRESH_PERIOD);
 }
 }
 
