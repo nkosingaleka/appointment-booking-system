@@ -69,6 +69,60 @@ class BookingManager {
   }
 
   /**
+   * Retrieves all the appointments booked at the medical facility.
+   *
+   * @return array Appointments booked at the medical facility.
+   */
+  public static function getAppointments() {
+    // Define JOIN tables
+    $join_tables = array('request', 'patient', 'appointment_type', 'language', 'availability', 'slot', 'staff');
+
+    // Define JOIN conditions
+    $join_conditions = array(
+      'request_id = request.id',
+      'patient_id = patient.id',
+      'appointment_type = appointment_type.id',
+      'translation = language.id',
+      'availability_id = availability.id',
+      'slot_id = slot.id',
+      'staff_id = staff.id',
+    );
+
+    // Define conditions to be checked in query
+    $selections = array(
+      '' => array(
+        'comparison' => 'NOT',
+        'param' => ':cancelled',
+        'value' => 'cancelled',
+      ),
+    );
+
+    // Define columns to select
+    $projections = array(
+      'appointment.id',
+      'start_time',
+      'reason',
+      "CONCAT(staff.title, ' ', staff.forename, ' ', staff.surname) AS staff",
+      'reason',
+      'language.name AS translation',
+      'appointment_type.title AS appointment_type',
+      'appointment.cancelled',
+      'patient.id AS patient_id',
+      'patient.contact_by_email',
+      'patient.contact_by_text',
+    );
+
+    try {
+      // Retrieve all booked appointments
+      $appointments = $GLOBALS['app']->getDB()->selectJoinWhere('appointment', $join_tables, $join_conditions, $selections, $projections);
+
+      return $appointments;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
    * Checks whether the approved request and slot details are in the correct format and not empty.
    *
    * @param array $data Collection of the approved request and slot details.
