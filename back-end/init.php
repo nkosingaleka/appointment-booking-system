@@ -23,9 +23,9 @@ spl_autoload_register('autoloadClasses');
 // Instantiate the application
 $GLOBALS['app'] = new App();
 
-$GLOBALS['errors'] = array();
-
+// Add arrays for success and error messages
 $GLOBALS['successes'] = array();
+$GLOBALS['errors'] = array();
 
 // Define user roles (administrative staff, medical staff, and patient)
 define('ADMINISTRATIVE_ROLE', 1);
