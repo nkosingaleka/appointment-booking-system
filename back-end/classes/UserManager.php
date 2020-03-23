@@ -621,7 +621,11 @@ class UserManager {
       $contact_result = $GLOBALS['app']->getDB()->updateWhere('patient', $selections, $update_columns);
 
       if ($contact_result) {
-        $GLOBALS['successes'][] = 'Your contact preferences have been updated successfully.';
+        $success_msg = 'Your contact preferences have been updated successfully.';
+
+        if (!in_array($success_msg, $GLOBALS['successes'])) {
+          $GLOBALS['successes'][] = $success_msg;
+        }
       } else {
         $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
       }
@@ -660,7 +664,11 @@ class UserManager {
       $contact_result = $GLOBALS['app']->getDB()->updateWhere('patient', $selections, $update_columns);
 
       if ($contact_result) {
-        $GLOBALS['successes'][] = 'Your contact preferences have been updated successfully.';
+        $success_msg = 'Your contact preferences have been updated successfully.';
+
+        if (!in_array($success_msg, $GLOBALS['successes'])) {
+          $GLOBALS['successes'][] = $success_msg;
+        }
       } else {
         $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
       }
