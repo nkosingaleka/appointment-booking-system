@@ -498,8 +498,8 @@ class UserManager {
   public static function receiveEmail($userId, $message) {
     $mail = new PHPMailer;
 
-    // Enable verbose error outputs
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    // Hide debug output
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;
 
     $mail->IsSMTP();
     $mail->SMTPOptions = array(
@@ -509,13 +509,14 @@ class UserManager {
         'allow_self_signed' => true,
       ),
     );
+
+    // Define options
     $mail->Host = 'smtp.gmail.com';
-    // $mail->Host = gethostbyname('smtp.gmail.com'); // if server doesnt allow ipv6
     $mail->SMTPAuth = true;
     $mail->Username = 'team9c.abs@gmail.com';
     $mail->Password = '39ThiS4is23A8SeCuRE215PassWoRd234';
     $mail->SMTPSecure = 'ssl';
-    $mail->Port = 587; // 465 or 587
+    $mail->Port = 587;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->IsHTML(true);
 
@@ -525,6 +526,7 @@ class UserManager {
     // Add recipient
     $mail->AddAddress($_SESSION['user']->email, $_SESSION['user']->id);
 
+    // Construct email
     $mail->Subject = 'Appointment Booking System Update';
     $mail->Body = $message;
     $mail->AltBody = $message;
