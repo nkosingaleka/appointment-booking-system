@@ -173,7 +173,7 @@ input[type="submit"]:active {
 }
 
 .help-btn {
-  position: absolute;
+  position: fixed;
   border-radius: 100%;
   display: flex;
   justify-content: center;
