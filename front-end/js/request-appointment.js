@@ -121,7 +121,6 @@ function displayWeek(week) {
 
         // Extract hours and minutes
         const shortStartTime = startTime.toString().split(' ')[4].substr(0, 5);
-        const shortEndTime = endTime.toString().split(' ')[4].substr(0, 5);
 
         // Add clickable buttons to request appointment bookings
         const slotEntry = document.createElement('div');
@@ -130,10 +129,10 @@ function displayWeek(week) {
         const slotEntryCheck = document.createElement('input');
         slotEntryCheck.setAttribute('type', 'checkbox');
         slotEntryCheck.id = `${slot['id']}`;
-        slotEntryCheck.value = `${shortStartTime} – ${shortEndTime}`;
+        slotEntryCheck.value = shortStartTime;
 
         const slotEntryLabel = document.createElement('label');
-        slotEntryLabel.textContent = `${shortStartTime} – ${shortEndTime}`;
+        slotEntryLabel.textContent = shortStartTime;
         slotEntryLabel.setAttribute('for', `${slot['id']}`);
 
         slotEntry.append(slotEntryCheck);
