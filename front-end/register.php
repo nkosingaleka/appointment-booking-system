@@ -202,20 +202,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </fieldset>
 
       <fieldset>
-        <legend>Final Consent</legend>
+        <legend>Data Consent</legend>
+
+        <p>By ticking this box, I am consenting to have my personal data being used by the system.</p>
 
         <label for="consent_check">
-          By ticking this box, I am consenting to have my personal information being used by this medical institute.
           <input type="checkbox" name="consent_check" id="consent_check">
+          I consent
         </label>
       </fieldset>
 
-      <input type="submit" value="Register" id="Register">
-
       <a href="login.php" id="login">Log in</a>
+      <input type="submit" value="Register" id="Register">
     </form>
   </main>
-  
+
   <script src="js/register.js"></script>
 </body>
 
