@@ -132,5 +132,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </form>
     <?php endif?>
   </main>
+
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
 </body>
 </html>

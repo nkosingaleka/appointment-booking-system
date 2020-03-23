@@ -564,6 +564,18 @@ form.cancellation-reason label {
   text-align: center;
 }
 
+.help-btn {
+  position: absolute;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  right: var(--space-xs);
+  bottom: var(--space-xs);
+}
+
 /*
   Styling for tablets.
 */
@@ -571,6 +583,19 @@ form.cancellation-reason label {
   header nav ul li {
     display: inline-block;
     margin: 0 0 0 var(--space-xl);
+  }
+
+  .help-btn {
+    font-size: 2rem;
+    width: 4rem;
+    height: 4rem;
+    right: var(--space-xl);
+    bottom: var(--space-xl);
+  }
+
+  #help {
+    max-width: 50em;
+    margin: 0 auto;
   }
 }
 

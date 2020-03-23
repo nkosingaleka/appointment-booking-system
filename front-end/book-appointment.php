@@ -123,6 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif?>
   </main>
 
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
   <script src="js/book-appointment.js"></script>
 </body>
 

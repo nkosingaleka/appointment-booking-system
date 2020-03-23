@@ -196,6 +196,8 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
     </section>
   </main>
 
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
   <script src="js/patient-accounts.js"></script>
 </body>
 </html>

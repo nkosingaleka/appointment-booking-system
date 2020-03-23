@@ -61,6 +61,8 @@ if (!isset($_SESSION['user'])) {
       </ul>
     <?php endif?>
   </main>
+
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
 </body>
 
 </html>

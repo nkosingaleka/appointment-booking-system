@@ -88,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </main>
 
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
   <script src="js/add-availability.js"></script>
 </body>
 

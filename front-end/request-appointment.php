@@ -119,6 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
   </main>
 
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
   <script src="js/request-appointment.js"></script>
 </body>
 

@@ -39,6 +39,8 @@ if (!isset($_SESSION['user'])) {
     <?php require dirname(__FILE__) . "/../back-end/includes/requests/requests-$to_load.inc.php";?>
   </main>
 
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
   <script src="js/requests.js"></script>
 </body>
 

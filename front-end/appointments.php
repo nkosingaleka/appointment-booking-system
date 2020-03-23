@@ -40,6 +40,8 @@ if (!isset($_SESSION['user'])) {
     <?php require dirname(__FILE__) . "/../back-end/includes/appointments/appointments-$to_load.inc.php";?>
   </main>
 
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
+
   <script src="js/appointments.js"></script>
 </body>
 
