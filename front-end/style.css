@@ -147,7 +147,8 @@ input[type="submit"] {
 }
 
 .btn:hover,
-.btn:active {
+.btn:active,
+.btn:visited {
   color: var(--text-inv);
 }
 
