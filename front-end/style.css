@@ -483,7 +483,7 @@ legend {
 }
 
 #slots-table .slot.disabled label {
-  background: var(--disabled);
+  background: var(--disabled) !important;
   color: var(--text-inv);
 }
 
@@ -527,7 +527,8 @@ legend {
 }
 
 #slots-table .slot.reserved label {
-  background: #a55353;
+  background: var(--danger-alt-d);
+  color: var(--text-inv);
 }
 
 /*
