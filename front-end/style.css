@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --safe: rgb(68, 162, 128);
+  --danger: rgb(244, 67, 54);
+}
 body {
   line-height: 1.5;
   font-family: sans-serif;
@@ -280,4 +284,28 @@ form.cancellation-reason label {
 form.cancellation-reason label {
   font-weight: normal;
   margin: 0.5em 0;
+}
+
+.error-message {
+  background: var(--danger);
+}
+
+.success-message {
+  background: var(--safe);
+}
+
+.error-message,
+.success-message {
+  color: var(--text-inv);
+  width: max-content;
+  max-width: 80%;
+  margin: 0 auto;
+  padding: var(--space-xs) var(--space-s);
+}
+
+.error-message > p,
+.success-message > p {
+  text-align: center;
+}
+
 }
