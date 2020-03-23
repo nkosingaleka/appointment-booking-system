@@ -41,18 +41,27 @@ function showCancellationReasonTextbox(appointmentToCancel) {
         // Create the error list
         const errorList = document.createElement('div');
         const ul = document.createElement('ul');
-
+  
         errorList.className = 'error-message';
-
-        // Add the error to the list
-        for (const error of errors) {
-          const li = document.createElement('li');
-
-          li.textContent = error;
-          ul.append(li);
+  
+        if (errors.length > 1) {
+          // Add the error to the list
+          for (const error of errors) {
+            const li = document.createElement('li');
+  
+            li.textContent = error;
+  
+            ul.append(li);
+            errorList.append(ul);
+          }
+        } else {
+          const p = document.createElement('p');
+  
+          p.textContent = errors[0];
+  
+          errorList.append(p);
         }
-
-        errorList.append(ul);
+  
         main.insertBefore(errorList, cancellationReasonArea);
       }
     }

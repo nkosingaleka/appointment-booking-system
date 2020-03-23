@@ -247,15 +247,24 @@ function validateRequestForm(e) {
 
       errorList.className = 'error-message';
 
-      // Add the error to the list
-      for (const error of errors) {
-        const li = document.createElement('li');
+      if (errors.length > 1) {
+        // Add the error to the list
+        for (const error of errors) {
+          const li = document.createElement('li');
 
-        li.textContent = error;
-        ul.append(li);
+          li.textContent = error;
+
+          ul.append(li);
+          errorList.append(ul);
+        }
+      } else {
+        const p = document.createElement('p');
+
+        p.textContent = errors[0];
+
+        errorList.append(p);
       }
 
-      errorList.append(ul);
       main.insertBefore(errorList, requestSection);
     }
   }

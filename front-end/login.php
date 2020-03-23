@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
 
     <form method="post" id="login-form">
       <h2>Login</h2>

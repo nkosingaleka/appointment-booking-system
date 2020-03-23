@@ -68,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
-    <?php include dirname(__FILE__) . '/../back-end/includes/success_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/success-container.inc.php';?>
 
     <div id = "request-section">
       <h2>Request Appointment</h2>

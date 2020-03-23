@@ -60,7 +60,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
 
   <main>
   <h2>User Accounts</h2>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
 
     <form action="" method="GET">
       <label for="query">Search patients</label>
