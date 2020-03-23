@@ -628,6 +628,9 @@ class UserManager {
         if (!in_array($success_msg, $GLOBALS['successes'])) {
           $GLOBALS['successes'][] = $success_msg;
         }
+
+        // Set for the current session
+        $_SESSION['user']->contact_by_email = $choice ? '1' : '0';
       } else {
         $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
       }
@@ -671,6 +674,9 @@ class UserManager {
         if (!in_array($success_msg, $GLOBALS['successes'])) {
           $GLOBALS['successes'][] = $success_msg;
         }
+
+        // Set for the current session
+        $_SESSION['user']->contact_by_text = $choice ? '1' : '0';
       } else {
         $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
       }
