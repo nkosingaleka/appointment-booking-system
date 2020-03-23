@@ -24,6 +24,9 @@ if (!isset($_SESSION['user'])) {
     <section id="help">
       <h2>Help</h2>
 
+      <h3>Viewing Medical Facility Details</h3>
+      <p>To view details about the medical facility you are registered at, go to <a href="account.php">My Account</a>. On this page, you will find its key contact details, including its address and telephone number.</p>
+
       <?php if ($_SESSION['user']->role_id == PATIENT_ROLE): ?>
         <h3>Viewing Account Details</h3>
         <p>To view personal details, go to <a href="account.php">My Account</a>. On this page, you can view all of your personal details that you inputted when registering your account and can update your contact preferences be it email, text (SMS) or both.</p>
