@@ -66,6 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
 
     <form method="post" id="registration-form">
+      <h2>Register</h2>
+
+      <p>Please enter details about yourself and your next of kin.</p>
+
       <fieldset>
         <legend>Account Details</legend>
 
