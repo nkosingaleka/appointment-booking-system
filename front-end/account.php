@@ -12,6 +12,9 @@ if (!isset($_SESSION['user'])) {
 // Retrieve the account details of the current user
 $account = UserManager::getAccount($_SESSION['user']->id);
 
+// Retrieve details about the current user's facility
+$facility = FacilityManager::getContactDetails('fa-5e4a83211ffd59.63214101');
+
 // Check if contact preferences are updated
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Set the user's email messaging preference
@@ -107,6 +110,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <b>Health and Care number:</b> <?=$account['hc_no']?>
           </li>
         <?php endif?>
+      </ul>
+    <?php endif?>
+
+    <?php if (count($facility) > 0): ?>
+      <h3>Facility Details</h3>
+
+      <ul>
+        <li>
+          <b>Name:</b> <?=$facility['name']?>
+        </li>
+        <li>
+          <b>Address:</b> <?=$facility['building_name'] ?? $facility['building_no'] . ', ' . $facility['street'] . ', ' . $facility['city'] . ', ' . $facility['county'] . ', ' . $facility['postcode']?>
+        </li>
+        <li>
+          <b>Telephone number:</b> <?=$facility['tel_no']?>
+        </li>
       </ul>
     <?php endif?>
 
