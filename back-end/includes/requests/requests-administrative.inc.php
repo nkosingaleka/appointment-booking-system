@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach?>
           </td>
           <td>
-            <a href="book-appointment.php?request_id=<?=$request['id']?>">Book</a>
+            <a class="btn" href="book-appointment.php?request_id=<?=$request['id']?>">Book</a>
           </td>
           <td>
             <a class="btn danger-btn">Cancel</a>
