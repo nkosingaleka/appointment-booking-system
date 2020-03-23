@@ -4,7 +4,7 @@
 
 Project created by Team 9C for the Software Engineering Theory and Practice module (2019-2020). Please reference the linked [project board](https://github.com/users/lewisknewton/projects/1).
 
-XAMPP was used as the local development and testing environment, with [http://localhost/uni/setp](http://localhost/uni/setp) as the URL. Therefore, it is recommended that the project continues to be tested in the same way.
+[XAMPP](https://www.apachefriends.org/index.html) was used as the local development and testing environment, with [http://localhost/uni/setp](http://localhost/uni/setp) as the URL. Therefore, it is recommended that the project continues to be tested in the same way.
 
 ## Branches
 
@@ -26,6 +26,10 @@ All branches have been retained to aid review.
 | luketipler         | Luke Tipler      | 891550    |
 | NabinG99           | Nabin Gurung     | 903868    |
 
+## SCM
+
+General notes on the source control management plan followed by the team are available in [scm-plan.md](scm-plan.md).
+
 ## Set-up
 
 ### Installation 
@@ -40,7 +44,7 @@ Open the project folder using its name e.g. `cd setp`.
 
 #### Dependencies
 
-The project uses Composer and npm dependencies for automatic testing, which can be installed by running the `composer install` and `npm i` commands in the root folder.
+The project uses [Composer](https://getcomposer.org/) and [npm](https://www.npmjs.com/) dependencies for automatic testing, which can be installed by running the `composer install` and `npm i` commands in the root folder.
 
 ### Using XAMPP
 
@@ -51,7 +55,7 @@ The project uses Composer and npm dependencies for automatic testing, which can 
 
 ### Database Configuration
 
-The system currently uses MySQL's default configurations. If you need to include your own configurations, please edit *back-end/.config.ini*. If you are using XAMPP on default settings, you should not need to edit this file.
+The system currently uses MySQL's default configurations. If you need to include your own configurations, please edit [back-end/.config.ini](back-end/.config.ini). If you are using XAMPP on default settings, you should not need to edit this file.
 
 To create the database and populate the tables, start the MySQL service and run the SQL code included in *back-end/database*:
 
@@ -68,14 +72,14 @@ mysql -u root -p appointment_booking_system < back-end/database/test_data.sql
 
 You will be asked to enter your password. If you are using the default `root` user account, this password should be empty and you should be able to simply press the enter key.
 
-Alternatively, run the `setup-db.sh` script in the project root folder, which uses the same default path for the binary (*c:/xampp/mysql/bin/mysql*). This uses a blank password by default, which can be changed by entering your own in the quotation marks of the `--password=""` option.
+Alternatively, run the [setup-db.sh](setup-db.sh) script in the project root folder, which uses the same default path for the binary (*c:/xampp/mysql/bin/mysql*). This uses a blank password by default, which can be changed by entering your own in the quotation marks of the `--password=""` option.
 
 #### Using phpMyAdmin
 
 1. Navigate to the *SQL* tab.
-2. Copy and paste the contents of *back-end/database/database.sql* into the text area.
+2. Copy and paste the contents of [back-end/database/database.sql](back-end/database/database.sql) into the text area.
 3. Navigate to the *SQL* tab (now under the *appointment_booking_system* database).
-4. Copy and paste the contents of *back-end/database/test_data.sql* into the text area.
+4. Copy and paste the contents of [back-end/database/test_data.sql](back-end/database/test_data.sql) into the text area.
 
 ## Testing
 
@@ -83,7 +87,7 @@ Alternatively, run the `setup-db.sh` script in the project root folder, which us
 
 > **NOTE**: Due to the use of headers in the *back-end*, all PHPUnit tests must be run with the `--stderr` option. The `--configuration phpunit.xml` option, however, may be omitted.
 
-Automated testing is available using PHPUnit for the *back-end* scripts and Jest and Selenium WebDriver for interactivity. To run these test cases, run the `run-test.sh` script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
+Automated testing is available using [PHPUnit](https://phpunit.de/) for the *back-end* scripts and [Jest](https://jestjs.io/) and [Selenium WebDriver](https://www.selenium.dev/) for interactivity. To run these test cases, run the [run-test.sh](run-tests.sh) script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
 
 Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xml --stderr` or `npm test` yourself. To run the Selenium WebDriver tests without opening browser windows and rendering pages (i.e. in `headless` mode), run `npm run test-headless` instead of `npm test`.
 
