@@ -387,6 +387,21 @@ legend {
   margin: var(--space-xs) auto 0;
 }
 
+#booking-form ul {
+  padding: 0;
+  list-style: none;
+}
+
+#booking-form ul > li,
+#booking-form ul > ul {
+  margin: var(--space-xs) 0;
+}
+
+#booking-form ul > ul {
+  padding: 0 0 0 var(--space-xl);
+  list-style: disc;
+}
+
 #availability-form {
   display: flex;
   flex-direction: column;
