@@ -1,5 +1,18 @@
+/*
+  Global styles
+*/
 * {
   box-sizing: border-box;
+}
+
+*:focus {
+  outline: var(--border-medium) var(--secondary);
+}
+
+::selection,
+input::selection {
+  background: var(--accent);
+  color: var(--text-inv);
 }
 
 :root {
@@ -27,16 +40,9 @@
   --border-medium: medium solid;
 }
 
-::selection,
-input::selection {
-  background: var(--accent);
-  color: var(--text-inv);
-}
-
-*:focus {
-  outline: var(--border-medium) var(--secondary);
-}
-
+/*
+  Common elements styling
+*/
 body {
   line-height: 1.5;
   font-family: "Open Sans", sans-serif;
@@ -97,10 +103,16 @@ main {
   overflow-x: auto;
 }
 
+/*
+  Hidden element styling
+*/
 .hidden {
   display: none;
 }
 
+/*
+  Hyperlink styling
+*/
 a {
   color: var(--d-shade);
 }
@@ -114,23 +126,9 @@ a:hover {
   color: var(--secondary);
 }
 
-input,
-select {
-  height: var(--space-xl);
-}
-
-input,
-textarea {
-  padding: var(--space-xs);
-  font-family: inherit;
-}
-
-input,
-select,
-textarea {
-  border: var(--border-thin) var(--d-shade);
-}
-
+/*
+  Action and link button styling
+*/
 button,
 .btn,
 input[type="submit"] {
@@ -172,6 +170,38 @@ input[type="submit"]:hover {
 button:active,
 input[type="submit"]:active {
   background: var(--primary-alt-d);
+}
+
+.help-btn {
+  position: absolute;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  right: var(--space-xs);
+  bottom: var(--space-xs);
+}
+
+/*
+  Form element styling
+*/
+input,
+select {
+  height: var(--space-xl);
+}
+
+input,
+textarea {
+  padding: var(--space-xs);
+  font-family: inherit;
+}
+
+input,
+select,
+textarea {
+  border: var(--border-thin) var(--d-shade);
 }
 
 textarea {
@@ -330,17 +360,6 @@ legend {
   width: max-content;
 }
 
-.patient-account {
-  border: var(--border-thin) var(--d-shade);
-  padding: 0 var(--space-s) var(--space-s);
-  margin: 0 0 var(--space-s);
-}
-
-.patient-account ul {
-  padding: 0;
-  list-style: none;
-}
-
 #preferences-form label {
   display: flex;
   align-items: center;
@@ -354,6 +373,56 @@ legend {
   margin: var(--space-s) 0 0;
 }
 
+#request-form,
+#booking-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto var(--space-xl);
+  grid-area: form;
+}
+
+#request-form #confirm,
+#booking-form #confirm {
+  margin: var(--space-xs) auto 0;
+}
+
+#availability-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 15em;
+}
+
+#availability-form label {
+  margin-bottom: var(--space-s);
+}
+
+#availability-form input[type="datetime-local"] {
+  width: 100%;
+}
+
+#availability-form input[type="submit"] {
+  margin-left: auto;
+  max-width: fit-content;
+}
+
+/*
+  Patient account information 'cards' styling
+*/
+.patient-account {
+  border: var(--border-thin) var(--d-shade);
+  padding: 0 var(--space-s) var(--space-s);
+  margin: 0 0 var(--space-s);
+}
+
+.patient-account ul {
+  padding: 0;
+  list-style: none;
+}
+
+/*
+  Bookable time slots styling
+*/
 #slots-table {
   display: grid;
   grid-area: slots-table;
@@ -446,6 +515,9 @@ legend {
   background: #a55353;
 }
 
+/*
+  Appointment booking styling
+*/
 #request-section,
 #booking-section {
   display: grid;
@@ -460,39 +532,6 @@ legend {
 #booking-section h2 {
   grid-area: title;
   text-align: center;
-}
-
-#request-form,
-#booking-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0 auto var(--space-xl);
-  grid-area: form;
-}
-
-#request-form #confirm,
-#booking-form #confirm {
-  margin: var(--space-xs) auto 0;
-}
-
-#availability-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 15em;
-}
-
-#availability-form label {
-  margin-bottom: var(--space-s);
-}
-
-#availability-form input[type="datetime-local"] {
-  width: 100%;
-}
-
-#availability-form input[type="submit"] {
-  margin-left: auto;
-  max-width: fit-content;
 }
 
 #requests-table,
@@ -522,6 +561,9 @@ legend {
   list-style: none;
 }
 
+/*
+  Cancellation reason styling
+*/
 form.cancellation-reason {
   max-width: 25em;
   font-weight: bold;
@@ -543,6 +585,9 @@ form.cancellation-reason label {
   margin: var(--space-xs) 0;
 }
 
+/*
+  Status (error/success) message styling
+*/
 .error-message {
   background: var(--danger);
 }
@@ -564,20 +609,8 @@ form.cancellation-reason label {
   text-align: center;
 }
 
-.help-btn {
-  position: absolute;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  right: var(--space-xs);
-  bottom: var(--space-xs);
-}
-
 /*
-  Styling for tablets.
+  Tablet and desktop styling (>=400px width)
 */
 @media only screen and (min-width: 400px) {
   header nav ul li {
@@ -600,7 +633,7 @@ form.cancellation-reason label {
 }
 
 /* 
-  Styling for desktops.
+  Desktop styling (>=700px width)
 */
 @media only screen and (min-width: 700px) {
   header {
