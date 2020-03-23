@@ -147,7 +147,7 @@ class AvailabilityManager {
               $new_slot_result = $GLOBALS['app']->getDB()->insert('slot', $slot_data);
 
               if ($new_slot_result) {
-                $GLOBALS['successes'][] = 'New slots has been successfully added.';
+                $GLOBALS['successes'][] = 'New slots have been successfully added.';
               } else {
                 $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
               }
@@ -176,7 +176,7 @@ class AvailabilityManager {
               $availability_result = $GLOBALS['app']->getDB()->insert('availability', $availability_data);
 
               if ($availability_result) {
-                $GLOBALS['successes'][] = 'Your availability has successfully been added.';
+                $GLOBALS['successes'][] = 'Your availability has been successfully added.';
               } else {
                 $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
               }
