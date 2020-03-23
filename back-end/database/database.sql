@@ -179,11 +179,4 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `attendance` (
-  `id` VARCHAR(36),
-  `appointment_id` VARCHAR(36) NOT NULL,
-  `staff_id` VARCHAR(36) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`request_id`),
-  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
-);
+
