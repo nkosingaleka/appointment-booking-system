@@ -86,25 +86,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if (isset($account['tel_no'])): ?>
           <li>
-            <b>Telephone Number:</b> <?=$account['tel_no']?>
+            <b>Telephone number:</b> <?=$account['tel_no']?>
           </li>
         <?php endif?>
 
         <?php if (isset($account['mob_no'])): ?>
           <li>
-            <b>Mobile Number:</b> <?=$account['mob_no']?>
+            <b>Mobile number:</b> <?=$account['mob_no']?>
           </li>
         <?php endif?>
 
         <?php if (isset($account['nhs_no'])): ?>
           <li>
-            <b>NHS Number:</b> <?=$account['nhs_no']?>
+            <b>NHS number:</b> <?=$account['nhs_no']?>
           </li>
         <?php endif?>
 
         <?php if (isset($account['hc_no'])): ?>
           <li>
-            <b>Health and Care Number:</b> <?=$account['hc_no']?>
+            <b>Health and Care number:</b> <?=$account['hc_no']?>
           </li>
         <?php endif?>
       </ul>
