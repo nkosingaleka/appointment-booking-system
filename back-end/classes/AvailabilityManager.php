@@ -147,7 +147,11 @@ class AvailabilityManager {
               $new_slot_result = $GLOBALS['app']->getDB()->insert('slot', $slot_data);
 
               if ($new_slot_result) {
-                $GLOBALS['successes'][] = 'New slots have been successfully added.';
+                $success_msg = 'New slots have been successfully added.';
+
+                if (!in_array($success_msg, $GLOBALS['successes'])) {
+                  $GLOBALS['successes'][] = $success_msg;
+                }
               } else {
                 $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
               }
@@ -176,12 +180,20 @@ class AvailabilityManager {
               $availability_result = $GLOBALS['app']->getDB()->insert('availability', $availability_data);
 
               if ($availability_result) {
-                $GLOBALS['successes'][] = 'Your availability has been successfully added.';
+                $success_msg = 'Your availability has been successfully added.';
+
+                if (!in_array($success_msg, $GLOBALS['successes'])) {
+                  $GLOBALS['successes'][] = $success_msg;
+                }
               } else {
                 $GLOBALS['errors'][] = 'An unexpected error has occurred. Please check your input and try again.';
               }
             } else {
-              $GLOBALS['errors'][] = 'Sorry, you have already added your availability for the specified times.';
+              $error_msg = 'Sorry, you have already added your availability for the specified times.';
+
+              if (!in_array($error_msg, $GLOBALS['errors'])) {
+                $GLOBALS['errors'][] = $error_msg;
+              }
             }
           }
         } else {

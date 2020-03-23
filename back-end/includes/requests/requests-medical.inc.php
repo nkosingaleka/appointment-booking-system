@@ -30,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       // Refresh the page
       header("Refresh:" . REFRESH_PERIOD);
-    } else {
-      $GLOBALS['errors'][] = 'Sorry, this request could not be updated. Please select a valid appointment type.';
     }
 
     if (isset($_POST["$id-id"])) {
