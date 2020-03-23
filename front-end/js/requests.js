@@ -1,6 +1,6 @@
 // Select page elements
 const main = document.querySelector('main');
-const cancelBtns = document.querySelectorAll('.cancel-btn');
+const cancelBtns = document.querySelectorAll('.danger-btn');
 const requestsTable = document.querySelector('table');
 
 // Define array for displaying errors

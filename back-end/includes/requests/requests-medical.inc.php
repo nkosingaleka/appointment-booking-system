@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
           </td>
           <td>
-            <a class="cancel-btn">Cancel</a>
+            <a class="btn danger-btn">Cancel</a>
           </td>
         </tr>
       <?php endforeach?>

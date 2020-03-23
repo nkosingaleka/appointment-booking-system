@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <p>Please check at least one of the following to set your contact preferences.</p>
 
-      <form action="" method="POST">
+      <form id="preferences-form" action="" method="POST">
         <span>I would like to be contacted via&hellip;</span>
 
         <label for="contact_by_email">

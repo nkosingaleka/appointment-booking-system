@@ -62,9 +62,9 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
   <h2>User Accounts</h2>
     <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
 
-    <form action="" method="GET">
+    <form id="verification-search-form" action="" method="GET">
       <label for="query">Search patients</label>
-      <input type="search" name="query" id="query" value="<?=$_GET['query'] ?? ''?>" required>
+      <input type="search" name="query" id="query" value="<?=$_GET['query'] ?? ''?>">
       <input type="submit" id="search" value="Search">
     </form>
 
@@ -76,7 +76,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
 
       <?php if (count($verified_patients) > 0): ?>
         <?php foreach ($verified_patients as $patient): ?>
-          <article>
+          <article class="patient-account">
             <ul>
               <li>
                 <b>ID:</b> <?=$patient['id']?>
@@ -137,7 +137,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
 
       <?php if (count($unverified_patients) > 0): ?>
         <?php foreach ($unverified_patients as $patient): ?>
-          <article>
+          <article class="patient-account">
             <ul>
               <li>
                 <b>ID:</b> <?=$patient['id']?>
@@ -187,7 +187,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
               <?php endif?>
             </ul>
 
-            <a href="scripts/verify.php?id=<?=$patient['id']?>">Verify</a>
+            <a class="btn" href="scripts/verify.php?id=<?=$patient['id']?>">Verify</a>
           </article>
         <?php endforeach?>
       <?php else: ?>
