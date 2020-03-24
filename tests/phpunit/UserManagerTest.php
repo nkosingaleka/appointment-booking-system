@@ -75,8 +75,8 @@ class UserManagerTest extends TestCase {
       if (strpos($user, 'patient') !== false) {
         $this->assertEquals($email, $_SESSION['user']->email);
         $this->assertEquals($GLOBALS['verified_users'][$user]['mob_no'], $_SESSION['user']->number);
-        $this->assertEquals($GLOBALS['verified_users'][$user]['contact_by_email'], $_SESSION['user']->contact_by_email);
-        $this->assertEquals($GLOBALS['verified_users'][$user]['contact_by_text'], $_SESSION['user']->contact_by_text);
+        $this->assertNotNull($_SESSION['user']->contact_by_email);
+        $this->assertNotNull($_SESSION['user']->contact_by_text);
       }
 
       // Check the time taken to log the user in
@@ -272,5 +272,86 @@ class UserManagerTest extends TestCase {
 
     $this->assertNull($facility);
     $this->assertContains('An unexpected error has occurred. Please check your input and try again.', $GLOBALS['errors']);
+  }
+
+  public function testEmailPreferenceCanBeUpdated() {
+    $values = [true, false];
+    $password = $GLOBALS['valid_password'];
+
+    $patients = array(
+      $GLOBALS['verified_users']['patient-1'],
+      $GLOBALS['verified_users']['patient-2'],
+    );
+
+    foreach ($values as $value) {
+      foreach (array_keys($patients) as $patient) {
+        $email = $patients[$patient]['email'];
+
+        UserManager::login($email, $password);
+        UserManager::updateContactByEmail($patients[$patient]['id'], $value);
+
+        $patient_selections = array(
+          'id' => array(
+            'comparison' => '=',
+            'param' => ':id',
+            'value' => $patients[$patient]['id'],
+          ),
+        );
+
+        // Check value in patient table
+        $email_value = $GLOBALS['app']->getDB()->selectOneWhere('patient', $patient_selections, ['contact_by_email']);
+
+        $this->assertEquals((boolean) $email_value['contact_by_email'], $value);
+        $this->assertEquals((boolean) $_SESSION['user']->contact_by_email, $value);
+
+        $this->assertEmpty($GLOBALS['errors']);
+        $this->assertNotEmpty($GLOBALS['successes']);
+        $this->assertContains('Your contact preferences have been updated successfully.', $GLOBALS['successes']);
+
+        // Log out to destroy user sessions
+        include dirname(__FILE__) . '/../../front-end/scripts/logout.php';
+      }
+    }
+  }
+
+  public function testTextPreferenceCanBeUpdated() {
+    $values = [true, false];
+    $password = $GLOBALS['valid_password'];
+
+    $patients = array(
+      $GLOBALS['verified_users']['patient-1'],
+      $GLOBALS['verified_users']['patient-2'],
+    );
+
+    foreach ($values as $value) {
+      foreach (array_keys($patients) as $patient) {
+        $email = $patients[$patient]['email'];
+
+        UserManager::login($email, $password);
+        UserManager::updateContactByText($patients[$patient]['id'], $value);
+
+        $patient_selections = array(
+          'id' => array(
+            'comparison' => '=',
+            'param' => ':id',
+            'value' => $patients[$patient]['id'],
+          ),
+        );
+
+        // Check value in patient table and session
+        $text_value = $GLOBALS['app']->getDB()->selectOneWhere('patient', $patient_selections, ['contact_by_text']);
+
+        $this->assertEquals((boolean) $text_value['contact_by_text'], $value);
+        $this->assertEquals((boolean) $_SESSION['user']->contact_by_text, $value);
+
+        // Check status messages
+        $this->assertEmpty($GLOBALS['errors']);
+        $this->assertNotEmpty($GLOBALS['successes']);
+        $this->assertContains('Your contact preferences have been updated successfully.', $GLOBALS['successes']);
+
+        // Log out to destroy user sessions
+        include dirname(__FILE__) . '/../../front-end/scripts/logout.php';
+      }
+    }
   }
 }
