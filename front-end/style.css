@@ -406,6 +406,8 @@ legend {
   display: flex;
   flex-direction: column;
   max-width: 15em;
+  grid-area: form;
+  margin: 0 auto var(--space-xl);
 }
 
 #availability-form label {
@@ -419,6 +421,18 @@ legend {
 #availability-form input[type="submit"] {
   margin-left: auto;
   max-width: fit-content;
+}
+
+/*
+  Availability styling
+*/
+#availability-section {
+  display: flex;
+  flex-direction: column;
+}
+
+#availability-section h2 {
+  margin: 0 auto;
 }
 
 /*
@@ -707,6 +721,27 @@ form.cancellation-reason label {
   #request-form #confirm,
   #booking-form #confirm {
     margin: var(--space-xs) 0 0 auto;
+  }
+
+  #availability-form {
+    margin: 0;
+  }
+
+  #availability-section {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-areas:
+      "title title"
+      "form description";
+  }
+
+  #availability-section h2 {
+    grid-area: title;
+    margin: 0;
+  }
+
+  #availability-section p {
+    grid-area: description;
   }
 
   .error-message,

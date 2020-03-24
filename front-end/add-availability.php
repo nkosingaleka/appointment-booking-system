@@ -63,29 +63,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
     <?php include dirname(__FILE__) . '/../back-end/includes/success-container.inc.php';?>
 
-    <h2>Add Availability</h2>
+    <section id="availability-section">
+      <h2>Add Availability</h2>
 
-    <form method="post" id="availability-form">
-      <label for="start_time">
-        Start Time
-        <input type="datetime-local"
-          id="start_time"
-          name="start_time"
-          value="<?=isset($_POST['start_time']) ? $_POST['start_time'] : "{$current_date}T{$nearest_time}"?>"
-          min="<?="{$current_date}T{$current_time}"?>">
-      </label>
+      <form method="post" id="availability-form">
+        <label for="start_time">
+          Start Time
+          <input type="datetime-local"
+            id="start_time"
+            name="start_time"
+            value="<?=isset($_POST['start_time']) ? $_POST['start_time'] : "{$current_date}T{$nearest_time}"?>"
+            min="<?="{$current_date}T{$current_time}"?>">
+        </label>
 
-      <label for="end_time">
-        End Time
-        <input type="datetime-local"
-          id="end_time"
-          name="end_time"
-          value="<?=isset($_POST['end_time']) ? $_POST['end_time'] : "{$current_date}T" . date('H:i:s', strtotime($nearest_time . '+1 hour'))?>"
-          min="<?="{$current_date}T{$current_time}"?>">
-      </label>
+        <label for="end_time">
+          End Time
+          <input type="datetime-local"
+            id="end_time"
+            name="end_time"
+            value="<?=isset($_POST['end_time']) ? $_POST['end_time'] : "{$current_date}T" . date('H:i:s', strtotime($nearest_time . '+1 hour'))?>"
+            min="<?="{$current_date}T{$current_time}"?>">
+        </label>
 
-      <input type="submit" id="add" value="Add Slot(s)">
-    </form>
+        <input type="submit" id="add" value="Add Slot(s)">
+      </form>
+
+      <p>You can view all bookable time slots added by yourself or by colleagues on the <a href="request-appointment.php">Request Appointment page</a>.</p>
+    </section>
   </main>
 
   <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
