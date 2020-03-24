@@ -255,7 +255,7 @@ class AvailabilityManager {
     );
 
     try {
-      // Retrieve slots for the current week
+      // Retrieve availability ID
       return $GLOBALS['app']->getDB()->selectOneWhere('availability', $selections, ['id'])['id'];
     } catch (PDOException $e) {
       $GLOBALS['errors'][] = $e->getMessage();
