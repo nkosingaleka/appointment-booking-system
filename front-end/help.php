@@ -61,7 +61,7 @@ if (!isset($_SESSION['user'])) {
         <p>To set the appointment type needed for a requested appointment, go to <a href="requests.php">View Requests</a>. On this page, you can set the appointment type based on the reason, whether the appointment should be a routine or an emergency.</p>
 
         <h3>Adding Availability </h3>
-        <p>To add your availability, go to <a href="add-availability.php">Add Availability</a>. On this page, you can add your start time and end time of your working hours.</p>
+        <p>To add your availability, go to <a href="add-availability.php">Add Availability</a>. On this page, you can add your start time and end time of your working hours. You can view all slots made available by you or your colleagues on the <a href="request-appointment.php">Request Appointment</a> page.</p>
 
         <h3>Viewing Appointments</h3>
         <p>To view appointments booked with you, go to <a href="appointments.php">View Appointments</a>. On this page, you can view the date, time, reason, translation (if required) and appointment type.</p>
@@ -75,7 +75,7 @@ if (!isset($_SESSION['user'])) {
         <p>To view personal details, go to <a href="account.php">My Account</a>. On this page, you can view all of your personal details that you inputted when joining.</p>
 
         <h3>Viewing Requests</h3>
-        <p>To view requests for appointments, go to <a href="requests.php">View Requests</a>. On this page, you can view the date, time, staff member, reason, translation (if required) and appointment type.</p>
+        <p>To view requests for appointments, go to <a href="requests.php">View Requests</a>. On this page, you can view the date, time, staff member, reason, translation (if required) and appointment type. You can also view all available slots for which requests can be made on the <a href="request-appointment.php">Request Appointment</a> page.</p>
 
         <h3>Cancelling Requests</h3>
         <p>To cancel requests for appointments, go to <a href="requests.php">View Requests</a>. On this page, you can select the ‘cancel’ button, a confirmation appears with an optional cancellation reason, the patient will receive a confirmation message via email or text (SMS) depending on the preference they had chosen. </p>

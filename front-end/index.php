@@ -36,6 +36,7 @@ if (!isset($_SESSION['user'])) {
 
       <ul>
         <li><a href="add-availability.php">Add available slots</a></li>
+        <li><a href="request-appointment.php">View all available slots</a></li>
       </ul>
 
       <h2>Appointment Bookings</h2>
@@ -56,6 +57,7 @@ if (!isset($_SESSION['user'])) {
       <h2>Appointment Bookings</h2>
 
       <ul>
+        <li><a href="request-appointment.php">View all available slots</a></li>
         <li><a href="requests.php">View appointment booking requests</a></li>
         <li><a href="appointments.php">View booked appointments</a></li>
       </ul>
