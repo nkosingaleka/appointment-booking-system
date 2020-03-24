@@ -16,6 +16,7 @@ class UserManagerTest extends TestCase {
 
     UserManager::login($email, $password);
 
+    $this->assertNotEmpty($GLOBALS['errors']);
     $this->assertContains('Please enter a valid email address.', $GLOBALS['errors']);
     $this->assertContains('Sorry, your email or password was in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
   }
@@ -26,6 +27,7 @@ class UserManagerTest extends TestCase {
 
     UserManager::login($email, $password);
 
+    $this->assertNotEmpty($GLOBALS['errors']);
     $this->assertContains('Please enter a valid email address.', $GLOBALS['errors']);
     $this->assertContains('Sorry, your email or password was in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
   }
@@ -38,6 +40,7 @@ class UserManagerTest extends TestCase {
 
       UserManager::login($email, $password);
 
+      $this->assertNotEmpty($GLOBALS['errors']);
       $this->assertContains('Please enter a valid password.', $GLOBALS['errors']);
       $this->assertContains('Sorry, your email or password was in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
     }
@@ -95,6 +98,7 @@ class UserManagerTest extends TestCase {
 
       UserManager::login($email, $password);
 
+      $this->assertNotEmpty($GLOBALS['errors']);
       $this->assertContains('Sorry, your account is not yet verified. If you have any queries, please contact your medical facility.', $GLOBALS['errors']);
     }
   }
@@ -109,6 +113,7 @@ class UserManagerTest extends TestCase {
 
       UserManager::register($data);
 
+      $this->assertNotEmpty($GLOBALS['errors']);
       $this->assertContains('Sorry, the email address you entered has already been taken. Please try again.', $GLOBALS['errors']);
     }
   }
@@ -123,6 +128,7 @@ class UserManagerTest extends TestCase {
 
     UserManager::register($data);
 
+    $this->assertNotEmpty($GLOBALS['errors']);
     $this->assertContains('Please enter a valid email address.', $GLOBALS['errors']);
     $this->assertContains('Sorry, your details were in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
   }
@@ -137,6 +143,7 @@ class UserManagerTest extends TestCase {
 
     UserManager::register($data);
 
+    $this->assertNotEmpty($GLOBALS['errors']);
     $this->assertContains('Please enter a valid password.', $GLOBALS['errors']);
     $this->assertContains('Sorry, your details were in an incorrect format. Please check your input and try again.', $GLOBALS['errors']);
   }
@@ -151,6 +158,7 @@ class UserManagerTest extends TestCase {
 
     UserManager::register($data);
 
+    $this->assertNotEmpty($GLOBALS['errors']);
     $this->assertContains('Please enter a valid title', $GLOBALS['errors']);
     $this->assertContains('Please enter a valid forename', $GLOBALS['errors']);
     $this->assertContains('Please enter a valid surname', $GLOBALS['errors']);
@@ -176,6 +184,7 @@ class UserManagerTest extends TestCase {
 
     UserManager::register($data);
 
+    $this->assertNotEmpty($GLOBALS['errors']);
     $this->assertContains('Please enter a valid relationship', $GLOBALS['errors']);
     $this->assertContains('Please enter a valid title', $GLOBALS['errors']);
     $this->assertContains('Please enter a valid forename', $GLOBALS['errors']);
