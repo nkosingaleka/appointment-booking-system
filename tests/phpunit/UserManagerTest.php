@@ -197,6 +197,32 @@ class UserManagerTest extends TestCase {
     $this->assertContains('Please enter either a house name or house number, or both.', $GLOBALS['errors']);
   }
 
+  public function testPatientsCanBeRetrieved() {
+    $patients = UserManager::getPatients();
+
+    $this->assertIsArray($patients);
+    $this->assertNotEmpty($patients);
+
+    foreach ($patients as $patient) {
+      $this->assertNotNull($patient['id']);
+      $this->assertNotNull($patient['email']);
+      $this->assertNotNull($patient['verified']);
+      $this->assertNotNull($patient['title']);
+      $this->assertNotNull($patient['forename']);
+      $this->assertNotNull($patient['surname']);
+      $this->assertNotNull($patient['sex']);
+      $this->assertNotNull($patient['date_of_birth']);
+      $this->assertNotNull($patient['house_name'] ?? $patient['house_no']);
+      $this->assertNotNull($patient['street']);
+      $this->assertNotNull($patient['city']);
+      $this->assertNotNull($patient['county']);
+      $this->assertNotNull($patient['postcode']);
+      $this->assertNotNull($patient['tel_no'] ?? $patient['mob_no']);
+      $this->assertNotNull($patient['next_of_kin']);
+      $this->assertNotNull($patient['NHS_no'] ?? $patient['HC_no']);
+    }
+  }
+
   public function testUnverifiedPatientCanBeVerified() {
     foreach (array_keys($GLOBALS['unverified_users']) as $user) {
       $id = $GLOBALS['unverified_users'][$user]['id'];
@@ -223,5 +249,28 @@ class UserManagerTest extends TestCase {
       // Unverify the verified users for other tests
       $verify_result = $GLOBALS['app']->getDB()->updateWhere('account', $selections, $update_columns);
     }
+  }
+
+  public function testFacilityDetailsCanBeRetrievedForValidUserId() {
+    foreach (array_keys($GLOBALS['verified_users']) as $user) {
+      $facility = UserManager::getUserFacility($GLOBALS['verified_users'][$user]['id']);
+
+      $this->assertIsArray($facility);
+      $this->assertNotEmpty($facility);
+      $this->assertNotNull($facility['name']);
+      $this->assertNotNull($facility['building_name'] ?? $facility['building_no']);
+      $this->assertNotNull($facility['street']);
+      $this->assertNotNull($facility['city']);
+      $this->assertNotNull($facility['county']);
+      $this->assertNotNull($facility['postcode']);
+      $this->assertNotNull($facility['tel_no']);
+    }
+  }
+
+  public function testFacilityDetailsCannotBeRetrievedForInvalidUserId() {
+    $facility = UserManager::getUserFacility('non-existent');
+
+    $this->assertNull($facility);
+    $this->assertContains('An unexpected error has occurred. Please check your input and try again.', $GLOBALS['errors']);
   }
 }
