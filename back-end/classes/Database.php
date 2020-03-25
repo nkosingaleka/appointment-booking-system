@@ -75,15 +75,19 @@ class Database {
     // List projections separately
     $projections = implode(', ', $projections);
 
-    $statement = $this->__pdo->prepare("SELECT $projections FROM $table");
+    try {
+      $statement = $this->__pdo->prepare("SELECT $projections FROM $table");
 
-    if ($statement->execute() && $statement->rowCount() > 0) {
-      // Return fetched rows if successful
-      return $statement->fetchAll(PDO::FETCH_ASSOC);
+      if ($statement->execute() && $statement->rowCount() > 0) {
+        // Return fetched rows if successful
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+
+      // Return empty array if unsuccessful
+      return array();
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
     }
-
-    // Return empty array if unsuccessful
-    return array();
   }
 
   /**
@@ -120,20 +124,24 @@ class Database {
       }
     }
 
-    $statement = $this->__pdo->prepare("SELECT $projections FROM $table WHERE $conditions");
+    try {
+      $statement = $this->__pdo->prepare("SELECT $projections FROM $table WHERE $conditions");
 
-    for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
-      // Safely bind parameters with input values
-      $statement->bindParam($params[$i], $values[$i]);
+      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+        // Safely bind parameters with input values
+        $statement->bindParam($params[$i], $values[$i]);
+      }
+
+      if ($statement->execute() && $statement->rowCount() > 0) {
+        // Return fetched rows if successful
+        return $statement->fetch(PDO::FETCH_ASSOC);
+      }
+
+      // Return empty array if unsuccessful
+      return array();
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
     }
-
-    if ($statement->execute() && $statement->rowCount() > 0) {
-      // Return fetched rows if successful
-      return $statement->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Return empty array if unsuccessful
-    return array();
   }
 
   /**
@@ -171,22 +179,26 @@ class Database {
       }
     }
 
-    $statement = $this->__pdo->prepare("SELECT $projections FROM $table WHERE $conditions");
+    try {
+      $statement = $this->__pdo->prepare("SELECT $projections FROM $table WHERE $conditions");
 
-    if ($bind) {
-      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
-        // Safely bind parameters with input values
-        $statement->bindParam($params[$i], $values[$i]);
+      if ($bind) {
+        for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+          // Safely bind parameters with input values
+          $statement->bindParam($params[$i], $values[$i]);
+        }
       }
-    }
 
-    if ($statement->execute() && $statement->rowCount() > 0) {
-      // Return fetched rows if successful
-      return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+      if ($statement->execute() && $statement->rowCount() > 0) {
+        // Return fetched rows if successful
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
 
-    // Return empty array if unsuccessful
-    return array();
+      // Return empty array if unsuccessful
+      return array();
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 
   /**
@@ -216,15 +228,19 @@ class Database {
       $query .= " JOIN $join_tables[$i] ON $join_conditions[$i]";
     }
 
-    $statement = $this->__pdo->prepare($query);
+    try {
+      $statement = $this->__pdo->prepare($query);
 
-    if ($statement->execute() && $statement->rowCount() > 0) {
-      // Return fetched rows if successful
-      return $statement->fetchAll(PDO::FETCH_ASSOC);
+      if ($statement->execute() && $statement->rowCount() > 0) {
+        // Return fetched rows if successful
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+
+      // Return empty array if unsuccessful
+      return array();
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
     }
-
-    // Return empty array if unsuccessful
-    return array();
   }
 
   /**
@@ -276,22 +292,26 @@ class Database {
 
     $query .= " WHERE $conditions";
 
-    $statement = $this->__pdo->prepare($query);
+    try {
+      $statement = $this->__pdo->prepare($query);
 
-    if ($bind) {
-      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
-        // Safely bind parameters with input values
-        $statement->bindParam($params[$i], $values[$i]);
+      if ($bind) {
+        for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+          // Safely bind parameters with input values
+          $statement->bindParam($params[$i], $values[$i]);
+        }
       }
-    }
 
-    if ($statement->execute() && $statement->rowCount() > 0) {
-      // Return fetched row if successful
-      return $statement->fetch(PDO::FETCH_ASSOC);
-    }
+      if ($statement->execute() && $statement->rowCount() > 0) {
+        // Return fetched row if successful
+        return $statement->fetch(PDO::FETCH_ASSOC);
+      }
 
-    // Return empty array if unsuccessful
-    return array();
+      // Return empty array if unsuccessful
+      return array();
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 
   /**
@@ -343,22 +363,26 @@ class Database {
 
     $query .= " WHERE $conditions";
 
-    $statement = $this->__pdo->prepare($query);
+    try {
+      $statement = $this->__pdo->prepare($query);
 
-    if ($bind) {
-      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
-        // Safely bind parameters with input values
-        $statement->bindParam($params[$i], $values[$i]);
+      if ($bind) {
+        for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+          // Safely bind parameters with input values
+          $statement->bindParam($params[$i], $values[$i]);
+        }
       }
-    }
 
-    if ($statement->execute() && $statement->rowCount() > 0) {
-      // Return fetched rows if successful
-      return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+      if ($statement->execute() && $statement->rowCount() > 0) {
+        // Return fetched rows if successful
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
 
-    // Return empty array if unsuccessful
-    return array();
+      // Return empty array if unsuccessful
+      return array();
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 
   /**
@@ -385,20 +409,24 @@ class Database {
     // List parameters separately
     $placeholders = implode(', ', $params);
 
-    $statement = $this->__pdo->prepare("INSERT INTO $table ($projections) VALUES ($placeholders)");
+    try {
+      $statement = $this->__pdo->prepare("INSERT INTO $table ($projections) VALUES ($placeholders)");
 
-    for ($i = 0; $i < count(array_keys($data)); $i += 1) {
-      // Safely bind parameters with input values
-      $statement->bindParam($params[$i], $values[$i]);
+      for ($i = 0; $i < count(array_keys($data)); $i += 1) {
+        // Safely bind parameters with input values
+        $statement->bindParam($params[$i], $values[$i]);
+      }
+
+      if ($statement->execute()) {
+        // If successful
+        return true;
+      }
+
+      // If unsuccessful
+      return false;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
     }
-
-    if ($statement->execute()) {
-      // If successful
-      return true;
-    }
-
-    // If unsuccessful
-    return false;
   }
 
   /**
@@ -448,25 +476,30 @@ class Database {
       }
     }
 
-    $statement = $this->__pdo->prepare("UPDATE $table SET $updates WHERE $conditions");
+    try {
+      $statement = $this->__pdo->prepare("UPDATE $table SET $updates WHERE $conditions");
 
-    for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
-      // Safely bind selection parameters with input values
-      $statement->bindParam($select_params[$i], $select_values[$i]);
+      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+        // Safely bind selection parameters with input values
+        $statement->bindParam($select_params[$i], $select_values[$i]);
+      }
+
+      for ($i = 0; $i < count(array_keys($update_columns)); $i += 1) {
+        // Safely bind update parameters with input values
+        $statement->bindParam($update_params[$i], $update_values[$i]);
+      }
+
+      if ($statement->execute()) {
+        // If successful
+        return true;
+      }
+
+      // If unsuccessful
+      return false;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
     }
-
-    for ($i = 0; $i < count(array_keys($update_columns)); $i += 1) {
-      // Safely bind update parameters with input values
-      $statement->bindParam($update_params[$i], $update_values[$i]);
-    }
-
-    if ($statement->execute()) {
-      // If successful
-      return true;
-    }
-
-    // If unsuccessful
-    return false;
+  }
   }
 
   /**
