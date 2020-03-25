@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
   <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
-  <title><?=$GLOBALS['app']->title?> &mdash; Login</title>
+  <title><?=$GLOBALS['app']->title?> &mdash; Register</title>
 </head>
 
 <body>
