@@ -196,6 +196,40 @@ class RequestManagerTest extends TestCase {
     }
   }
 
+  public function testPatientOwnRequestsCanBeRetrieved() {
+    $patients = array(
+      $GLOBALS['verified_users']['patient-1'],
+      $GLOBALS['verified_users']['patient-2'],
+    );
+
+    foreach ($patients as $patient) {
+      $requests = RequestManager::getOwnRequests($patient['id'], 'patient');
+
+      $this->assertIsArray($requests);
+      $this->assertNotEmpty($requests);
+
+      for ($i = 0; $i < count($requests); $i += 1) {
+        $this->assertIsArray($requests[$i]);
+        $this->assertNotEmpty($requests[$i]);
+        $this->assertIsString($requests[$i]['id']);
+        $this->assertIsString($requests[$i]['reason']);
+        $this->assertIsString($requests[$i]['translation']);
+        $this->assertIsString($requests[$i]['staff']);
+
+        $this->assertIsArray($requests[$i]['slots']);
+
+        $this->assertNotNull($requests[$i]['cancelled']);
+        $this->assertIsString($requests[$i]['patient_id']);
+        $this->assertNotNull($requests[$i]['contact_by_email']);
+        $this->assertNotNull($requests[$i]['contact_by_text']);
+
+        if (isset($requests[$i]['appointment_type'])) {
+          $this->assertIsString($requests[$i]['appointment_type']);
+        }
+      }
+    }
+  }
+
   public function testApprovedRequestsCanBeRetrieved() {
     $approved_requests = RequestManager::getApprovedRequests();
 
