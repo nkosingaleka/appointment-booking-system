@@ -500,6 +500,55 @@ class Database {
       $GLOBALS['errors'][] = $e->getMessage();
     }
   }
+
+  /**
+   * Deletes data from the database using the given table name and selections (e.g. comparions).
+   *
+   * @param string $table Name of the table from which to delete data, as specified after the DELETE clause.
+   * @param array $selections Conditions to check against, as specified after the WHERE clause.
+   * @return boolean Whether the statement is valid (true) or invalid (false) for execution.
+   */
+  public function deleteWhere($table, $selections) {
+    // Append database name to table name to avoid ambiguity
+    $table = $this->__name . '.' . $table;
+
+    $conditions = '';
+    $params = $values = array();
+
+    foreach (array_keys($selections) as $key) {
+      $params[] = $selections[$key]['param'];
+      $values[] = $selections[$key]['value'];
+
+      unset($selections[$key]['value']);
+
+      $conditions .= $key . ' ' . implode(' ', $selections[$key]);
+      $index = array_search($key, array_keys($selections));
+
+      if ($index + 1 < count(array_keys($selections))) {
+        // Append a space to all conditions apart from the last
+        $conditions .= ' ';
+      }
+    }
+
+    try {
+      // Delete the data from the given table
+      $statement = $this->__pdo->prepare("DELETE FROM $table WHERE $conditions");
+
+      for ($i = 0; $i < count(array_keys($selections)); $i += 1) {
+        // Safely bind parameters with input values
+        $statement->bindParam($params[$i], $values[$i]);
+      }
+
+      if ($statement->execute()) {
+        // If successful
+        return true;
+      }
+
+      // If unsuccessful
+      return false;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 
   /**
