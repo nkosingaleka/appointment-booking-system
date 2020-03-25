@@ -552,6 +552,28 @@ class Database {
   }
 
   /**
+   * Runs a given raw SQL query.
+   *
+   * @param string $query The SQL query to be run.
+   * @return boolean Whether the statement is valid (true) or invalid (false) for execution.
+   */
+  public function rawSQL($query) {
+    try {
+      $statement = $this->__pdo->prepare($query);
+
+      if ($statement->execute()) {
+        // If successful
+        return true;
+      }
+
+      // If unsuccessful
+      return false;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
    * Gets the PDO holding the database connection.
    *
    * @return void
