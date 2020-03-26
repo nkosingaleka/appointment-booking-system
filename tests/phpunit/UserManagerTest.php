@@ -10,6 +10,56 @@ class UserManagerTest extends TestCase {
     $GLOBALS['errors'] = array();
   }
 
+  public function testAccountDetailsCanBeRetrieved() {
+    for ($i = 0; $i < count($GLOBALS['all_users']); $i += 1) {
+      foreach ($GLOBALS['all_users'][$i] as $user) {
+        $account = UserManager::getAccount($user['id']);
+
+        $this->assertEmpty($GLOBALS['errors']);
+        $this->assertIsArray($account);
+        $this->assertNotEmpty($account);
+        $this->assertIsString($account['full_name']);
+        $this->assertEquals($account['full_name'], $user['full_name']);
+        $this->assertIsString($account['email']);
+        $this->assertEquals($account['email'], $user['email']);
+        $this->assertIsString($account['sex']);
+        $this->assertEquals($account['sex'], $user['sex']);
+        $this->assertIsString($account['role']);
+        $this->assertEquals($account['role'], $user['role_id']);
+
+        if ($account['role'] == PATIENT_ROLE) {
+          $this->assertIsString($account['date_of_birth']);
+          $this->assertEquals($account['date_of_birth'], $user['date_of_birth']);
+          $this->assertIsString($account['address']);
+          $this->assertEquals($account['address'], $user['address']);
+          $this->assertIsString($account['tel_no'] ?? $account['mob_no']);
+          $this->assertNotNull($account['contact_by_email']);
+          $this->assertNotNull($account['contact_by_text']);
+
+          if (isset($account['tel_no'])) {
+            $this->assertEquals($account['tel_no'], $user['tel_no']);
+          }
+
+          if (isset($account['mob_no'])) {
+            $this->assertEquals($account['mob_no'], $user['mob_no']);
+          }
+
+          $this->assertIsString($account['nhs_no'] ?? $account['hc_no']);
+
+          if (isset($account['nhs_no'])) {
+            $this->assertEquals($account['nhs_no'], $user['nhs_no']);
+          }
+
+          if (isset($account['hc_no'])) {
+            $this->assertEquals($account['hc_no'], $user['hc_no']);
+          }
+        } else {
+          $this->assertIsString('job_title');
+          $this->assertEquals($account['job_title'], $user['job_title']);
+        }
+      }
+    }
+  }
   public function testLoginDoesNotValidateEmptyEmail() {
     $email = '';
     $password = $GLOBALS['valid_password'];
