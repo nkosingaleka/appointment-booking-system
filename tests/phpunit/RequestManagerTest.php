@@ -34,8 +34,7 @@ class RequestManagerTest extends TestCase {
   }
 
   public function tearDown(): void {
-    // Log out to destroy user sessions
-    include dirname(__FILE__) . '/../../front-end/scripts/logout.php';
+    $this->logOut();
   }
 
   public function testMakeRequestDoesNotValidateEmptyTranslationRequired() {
@@ -367,8 +366,6 @@ class RequestManagerTest extends TestCase {
       // Un-cancel request for further tests
       $uncancel_result = $GLOBALS['app']->getDB()->updateWhere('request', $selections, $update_columns);
     }
-
-    $this->logOut();
   }
 
   public function testRequestCanBeCancelledByPatientsWithValidCancellationData() {
@@ -433,8 +430,6 @@ class RequestManagerTest extends TestCase {
       // Un-cancel request for further tests
       $uncancel_result = $GLOBALS['app']->getDB()->updateWhere('request', $selections, $update_columns);
     }
-
-    $this->logOut();
   }
 
   public function testAppointmentTypesCanBeRetrieved() {
