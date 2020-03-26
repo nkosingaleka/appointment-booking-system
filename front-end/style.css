@@ -311,6 +311,10 @@ legend {
   grid-area: message;
 }
 
+#registration-form > p {
+  margin: 0;
+}
+
 #login-form > label[for="email"],
 #registration-form label[for="email"] {
   grid-area: email;
