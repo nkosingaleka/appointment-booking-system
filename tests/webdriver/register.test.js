@@ -105,6 +105,818 @@ test('will try to register without entering in any of the fields', async () => {
   await trueRequired()
 });
 
+test('will try to register with just an email', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid password.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter a valid sex.\nPlease enter a valid date of birth.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email and password', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter a valid sex.\nPlease enter a valid date of birth.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password and title', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid forename.\nPlease enter a valid surname.\nPlease enter a valid sex.\nPlease enter a valid date of birth.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title and forename', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid surname.\nPlease enter a valid sex.\nPlease enter a valid date of birth.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename and surname', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid sex.\nPlease enter a valid date of birth.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname and sex', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid date of birth.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex and date of birth', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth and house name', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name and house number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number and street', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street and city', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city and postcode', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter either your mobile number or telephone number, or both.\nSorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode and telephone number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Sorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county , postcode,telephone number and mobile number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Sorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.\nPlease enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number and hns number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.id('Register')).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs and hc number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid relationship.\nPlease enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number and nok relationship', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid title.\nPlease enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship and nok title', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid forename.\nPlease enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid surname.\nPlease enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename and nok surname', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter either a house name or house number, or both.\nPlease enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname and nok house name', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname, nok house name and nok house number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.name('next_of_kin[house_no]')).sendKeys('124');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid street.\nPlease enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname, nok house name, nok house number and nok street', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.name('next_of_kin[house_no]')).sendKeys('124');
+  await driver.findElement(By.name('next_of_kin[street]')).sendKeys('ExampleStreetKin');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid city.\nPlease enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname, nok house name, nok house number, nok street and nok city', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.name('next_of_kin[house_no]')).sendKeys('124');
+  await driver.findElement(By.name('next_of_kin[street]')).sendKeys('ExampleStreetKin');
+  await driver.findElement(By.name('next_of_kin[city]')).sendKeys('ExampleCityKin');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid county.\nPlease enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname, nok house name, nok house number, nok street, nok city and nok county', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.name('next_of_kin[house_no]')).sendKeys('124');
+  await driver.findElement(By.name('next_of_kin[street]')).sendKeys('ExampleStreetKin');
+  await driver.findElement(By.name('next_of_kin[city]')).sendKeys('ExampleCityKin');
+  await driver.findElement(By.name('next_of_kin[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter a valid postcode.\nPlease enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname, nok house name, nok house number, nok street, nok city, nok county and nok postcode', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.name('next_of_kin[house_no]')).sendKeys('124');
+  await driver.findElement(By.name('next_of_kin[street]')).sendKeys('ExampleStreetKin');
+  await driver.findElement(By.name('next_of_kin[city]')).sendKeys('ExampleCityKin');
+  await driver.findElement(By.name('next_of_kin[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('next_of_kin[postcode]')).sendKeys('Example3TW');
+  await driver.findElement(By.id('Register')).click();
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter either your mobile number or telephone number, or both.\nPlease tick the consent box.');
+
+  // Replace required attribute for further tests
+  await trueRequired()
+});
+
+test('will try to register with just an email, password, title, forename, surname, sex, date of birth, house name, house number, street, city, county, postcode,telephone number mobile number, nhs, hc number, nok relationship, nok title, nok forename, nok surname, nok house name, nok house number, nok street, nok city, nok county, nok postcode and nok tel number', async () => {
+    
+  // Test HTML5 validation using the 'required' attribute
+  expect(await driver.findElements(By.css('input:invalid'))).toHaveLength(18);
+  
+  // Remove required attribute to test custom validation   
+  await removeRequired()
+
+  await driver.findElement(By.name('email')).sendKeys('Example123@gmail.com');
+  await driver.findElement(By.name('password')).sendKeys('Example123Password');
+  await driver.findElement(By.name('patient[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('patient[forename]')).sendKeys('ForenameExample');
+  await driver.findElement(By.name('patient[surname]')).sendKeys('SurenameExample');
+  await driver.findElement(By.name('patient[sex]')).sendKeys('Male');
+  await driver.findElement(By.name('patient[date_of_birth]')).sendKeys('01/01/2000');
+  await driver.findElement(By.name('patient[house_name]')).sendKeys('ExampleHouse');
+  await driver.findElement(By.name('patient[house_no]')).sendKeys('123');
+  await driver.findElement(By.name('patient[street]')).sendKeys('ExampleStreet');
+  await driver.findElement(By.name('patient[city]')).sendKeys('ExampleCity');
+  await driver.findElement(By.name('patient[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('patient[postcode]')).sendKeys('Example2TW');
+  await driver.findElement(By.name('patient[tel_no]')).sendKeys('000000000000001');
+  await driver.findElement(By.name('patient[mob_no]')).sendKeys('000000000000002');
+  await driver.findElement(By.name('patient[nhs_no]')).sendKeys('Example001');
+  await driver.findElement(By.name('patient[hc_no]')).sendKeys('Example002');
+  await driver.findElement(By.name('next_of_kin[relationship]')).sendKeys('ExampleKin');
+  await driver.findElement(By.name('next_of_kin[title]')).sendKeys('Mr');
+  await driver.findElement(By.name('next_of_kin[forename]')).sendKeys('ExamplForenameKin');
+  await driver.findElement(By.name('next_of_kin[surname]')).sendKeys('ExampleSurnameKin');
+  await driver.findElement(By.name('next_of_kin[house_name]')).sendKeys('ExampleHouseNameKin');
+  await driver.findElement(By.name('next_of_kin[house_no]')).sendKeys('124');
+  await driver.findElement(By.name('next_of_kin[street]')).sendKeys('ExampleStreetKin');
+  await driver.findElement(By.name('next_of_kin[city]')).sendKeys('ExampleCityKin');
+  await driver.findElement(By.name('next_of_kin[county]')).sendKeys('ExampleCounty');
+  await driver.findElement(By.name('next_of_kin[postcode]')).sendKeys('Example3TW');
+  await driver.findElement(By.name('next_of_kin[tel_no]')).sendKeys('000000000000003');
+  await driver.findElement(By.id('Register')).click();
+  
+  // Replace required attribute for further tests
+  await trueRequired()
+});
   // driver.findElement(By.name('email')).sendKeys('Example123@mail.com');
   // driver.findElement(By.name('password')).sendKeys('Example123Password');
   // driver.findElement(By.name('patient[title]')).sendKeys('Mr');
