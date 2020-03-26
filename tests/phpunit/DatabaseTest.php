@@ -1008,6 +1008,55 @@ class DatabaseTest extends TestCase {
     $db = null;
   }
 
+  public function testRawSQLRunsWithValidQuery() {
+    $db = new Database();
+
+    $query = "SELECT * FROM appointment_booking_system.appointment";
+
+    $result = $db->rawSQL($query);
+
+    $this->assertTrue($result);
+    $this->assertEmpty($GLOBALS['errors']);
+
+    $db = null;
+  }
+
+  public function testRawSQLFailsWithoutDatabaseNameInQuery() {
+    $db = new Database();
+
+    $query = "SELECT * FROM appointment";
+
+    $result = $db->rawSQL($query);
+
+    $this->assertNull($result);
+    $this->assertNotEmpty($GLOBALS['errors']);
+
+    foreach ($GLOBALS['errors'] as $error) {
+      // Check for 'SQLSTATE[3D000]: Invalid catalog name: 1046' error
+      $this->assertStringContainsString('SQLSTATE[3D000]', $error);
+    }
+
+    $db = null;
+  }
+
+  public function testRawSQLFailsWithSyntaxErrorInQuery() {
+    $db = new Database();
+
+    $query = "SELECT * FROM";
+
+    $result = $db->rawSQL($query);
+
+    $this->assertNull($result);
+    $this->assertNotEmpty($GLOBALS['errors']);
+
+    foreach ($GLOBALS['errors'] as $error) {
+      // Check for ''SQLSTATE[42000]: Syntax error or access violation: 1064' error
+      $this->assertStringContainsString('SQLSTATE[42000]', $error);
+    }
+
+    $db = null;
+  }
+
   public function testPDOCanBeCreated() {
     $db = new Database();
     $pdo = $db->getPDO();
