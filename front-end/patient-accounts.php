@@ -94,7 +94,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
                 <b>Date of birth:</b> <?=$patient['date_of_birth']?>
               </li>
               <li>
-                <b>Address:</b> <?=$patient['house_no'] ?? $patient['house_name'] . ' ' . $patient['street'] . ', ' . $patient['city'] . ', ' . $patient['county'] . ', ' . $patient['postcode']?>
+                <b>Address:</b> <?=($patient['house_no'] ?? $patient['house_name']) . ' ' . $patient['street'] . ', ' . $patient['city'] . ', ' . $patient['county'] . ', ' . $patient['postcode']?>
               </li>
 
               <?php if (isset($patient['tel_no'])): ?>
@@ -155,7 +155,7 @@ if (isset($_GET['query']) && !empty($_GET['query'])) {
                 <b>Date of birth:</b> <?=$patient['date_of_birth']?>
               </li>
               <li>
-                <b>Address:</b> <?=$patient['house_no'] ?? $patient['house_name'] . ' ' . $patient['street'] . ', ' . $patient['city'] . ', ' . $patient['county'] . ', ' . $patient['postcode']?>
+                <b>Address:</b> <?=($patient['house_no'] ?? $patient['house_name']) . ' ' . $patient['street'] . ', ' . $patient['city'] . ', ' . $patient['county'] . ', ' . $patient['postcode']?>
               </li>
 
               <?php if (isset($patient['tel_no'])): ?>
