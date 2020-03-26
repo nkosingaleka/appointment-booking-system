@@ -489,7 +489,9 @@ class UserManager {
   }
 
   /**
-   * Receives an email message sent from the application to inform users of updates. Note: to work with Google Mail, the 'Less secure app access' option must be enabled.
+   * Receives an email message sent from the application to inform users of updates. 
+   *
+   * Note: to work with Google Mail, the 'Less secure app access' option must be enabled.
    *
    * @param string $userid The ID of the user's account.
    * @param string $message Message to inform users of updates.
