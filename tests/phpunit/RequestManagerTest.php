@@ -269,10 +269,10 @@ class RequestManagerTest extends TestCase {
   public function testRequestCannotBeCancelledWithoutRequestId() {
     $data = array(
       'to_cancel' => '',
-      'cancellation_reason' => $GLOBALS['example_cancellation']['cancellation_reason'],
-      'requests' => $GLOBALS['example_cancellation']['requests'],
-      'patient_contact_by_email' => $GLOBALS['example_cancellation']['patient_contact_by_email'],
-      'patient_contact_by_text' => $GLOBALS['example_cancellation']['patient_contact_by_text'],
+      'cancellation_reason' => $GLOBALS['example_request_cancellation']['cancellation_reason'],
+      'requests' => $GLOBALS['example_request_cancellation']['requests'],
+      'patient_contact_by_email' => $GLOBALS['example_request_cancellation']['patient_contact_by_email'],
+      'patient_contact_by_text' => $GLOBALS['example_request_cancellation']['patient_contact_by_text'],
     );
 
     RequestManager::cancelRequest($data);
@@ -285,11 +285,11 @@ class RequestManagerTest extends TestCase {
 
   public function testRequestCannotBeCancelledWithReasonOver255Characters() {
     $data = array(
-      'to_cancel' => $GLOBALS['example_cancellation']['to_cancel'],
+      'to_cancel' => $GLOBALS['example_request_cancellation']['to_cancel'],
       'cancellation_reason' => $GLOBALS['cancellation_reason_256'],
-      'requests' => $GLOBALS['example_cancellation']['requests'],
-      'patient_contact_by_email' => $GLOBALS['example_cancellation']['patient_contact_by_email'],
-      'patient_contact_by_text' => $GLOBALS['example_cancellation']['patient_contact_by_text'],
+      'requests' => $GLOBALS['example_request_cancellation']['requests'],
+      'patient_contact_by_email' => $GLOBALS['example_request_cancellation']['patient_contact_by_email'],
+      'patient_contact_by_text' => $GLOBALS['example_request_cancellation']['patient_contact_by_text'],
     );
 
     RequestManager::cancelRequest($data);
@@ -302,15 +302,15 @@ class RequestManagerTest extends TestCase {
 
   public function testRequestCanBeCancelledByStaffWithValidCancellationData() {
     $reasons = array(
-      $GLOBALS['example_cancellation']['cancellation_reason'],
+      $GLOBALS['example_request_cancellation']['cancellation_reason'],
       $GLOBALS['cancellation_reason_255'],
     );
 
     $data = array(
-      'to_cancel' => $GLOBALS['example_cancellation']['to_cancel'],
-      'requests' => $GLOBALS['example_cancellation']['requests'],
-      'patient_contact_by_email' => $GLOBALS['example_cancellation']['patient_contact_by_email'],
-      'patient_contact_by_text' => $GLOBALS['example_cancellation']['patient_contact_by_text'],
+      'to_cancel' => $GLOBALS['example_request_cancellation']['to_cancel'],
+      'requests' => $GLOBALS['example_request_cancellation']['requests'],
+      'patient_contact_by_email' => $GLOBALS['example_request_cancellation']['patient_contact_by_email'],
+      'patient_contact_by_text' => $GLOBALS['example_request_cancellation']['patient_contact_by_text'],
     );
 
     $this->logMedicalStaffIn(1);
@@ -370,15 +370,15 @@ class RequestManagerTest extends TestCase {
 
   public function testRequestCanBeCancelledByPatientsWithValidCancellationData() {
     $reasons = array(
-      $GLOBALS['example_cancellation']['cancellation_reason'],
+      $GLOBALS['example_request_cancellation']['cancellation_reason'],
       $GLOBALS['cancellation_reason_255'],
     );
 
     $data = array(
-      'to_cancel' => $GLOBALS['example_cancellation']['to_cancel'],
-      'requests' => $GLOBALS['example_cancellation']['requests'],
-      'patient_contact_by_email' => $GLOBALS['example_cancellation']['patient_contact_by_email'],
-      'patient_contact_by_text' => $GLOBALS['example_cancellation']['patient_contact_by_text'],
+      'to_cancel' => $GLOBALS['example_request_cancellation']['to_cancel'],
+      'requests' => $GLOBALS['example_request_cancellation']['requests'],
+      'patient_contact_by_email' => $GLOBALS['example_request_cancellation']['patient_contact_by_email'],
+      'patient_contact_by_text' => $GLOBALS['example_request_cancellation']['patient_contact_by_text'],
     );
 
     $this->logPatientIn(1);

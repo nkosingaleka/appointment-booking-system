@@ -133,7 +133,7 @@ $GLOBALS['existing_requests'] = array(
 );
 
 // Example valid data to cancel a request
-$GLOBALS['example_cancellation'] = array(
+$GLOBALS['example_request_cancellation'] = array(
   'to_cancel' => 're-5e6b94fc6ba585.74287938',
   'cancellation_reason' => 'PHPUnit test',
   'requests' => array(
