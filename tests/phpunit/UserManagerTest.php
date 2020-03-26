@@ -60,6 +60,19 @@ class UserManagerTest extends TestCase {
       }
     }
   }
+
+  public function testAccountRoleCanBeRetrieved() {
+    for ($i = 0; $i < count($GLOBALS['all_users']); $i += 1) {
+      foreach ($GLOBALS['all_users'][$i] as $user) {
+        $role = UserManager::getRole($user['id']);
+
+        $this->assertEmpty($GLOBALS['errors']);
+        $this->assertIsString($role);
+        $this->assertEquals($role, $user['role_id']);
+      }
+    }
+  }
+
   public function testLoginDoesNotValidateEmptyEmail() {
     $email = '';
     $password = $GLOBALS['valid_password'];
