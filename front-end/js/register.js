@@ -110,7 +110,7 @@ registerForm.addEventListener('submit', (e) => {
 
   if ((pNHSNo.value == '' || pNHSNo.value == null) && (pHCNo.value == '' || pHCNo.value == null)) {
     e.preventDefault();
-    errors.push('Sorry, the NHS number or Health and Care number you entered has already been taken. Please check your input.');
+    errors.push('Please enter either your NHS number or Health and Care number (Northern Ireland only).');
   }
 
   if (nokRelationship.value == '' || nokRelationship.value == null) {
