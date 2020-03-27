@@ -32,18 +32,26 @@ afterAll(async () => {
   }
 }, timeout);
 
-test('this test will successfully select a a time period and book an availible time slot', async () => {
-  await driver.findElement(By.id('start_time')).sendKeys('2020-06-02T16:00');
-  await driver.findElement(By.id('end_time')).sendKeys('2020-06-02T17:00');
+test('this test will successfully select a time period and book an availible time slot', async () => {
+  await driver.executeScript("document.querySelector('#start_time').setAttribute('value', '2020-06-02T16:00')");
+  await driver.executeScript("document.querySelector('#end_time').setAttribute('value', '2020-06-02T17:00')");
   await driver.findElement(By.id("add")).click();
 
   expect(await driver.findElement(By.css('.success-message > ul')).getText()).toBe('New slots have been successfully added.\nYour availability has been successfully added.');
 });
 
-test('this test will try to book an invalid time where the end date occurs before the start date', async () => {
-  await driver.findElement(By.id('start_time')).sendKeys('2001-06-02T16:00');
-  await driver.findElement(By.id('end_time')).sendKeys('2000-06-02T17:00');
+test('this test will try to select time slots for which the staff member has already specified their availability', async () => {
+  await driver.executeScript("document.querySelector('#start_time').setAttribute('value', '2020-06-02T16:00')");
+  await driver.executeScript("document.querySelector('#end_time').setAttribute('value', '2020-06-02T17:00')");
   await driver.findElement(By.id("add")).click();
 
-  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please do not enter start and end times in the past.\nSorry, your times were in an incorrect format. Please check your input and try again.');
+  expect(await driver.findElement(By.css('.error-message > p')).getText()).toBe('Sorry, you have already added your availability for the specified times.');
+});
+
+test('this test will try to book an invalid time where the end date occurs before the start date', async () => {
+  await driver.executeScript("document.querySelector('#start_time').setAttribute('value', '2001-06-02T16:00')");
+  await driver.executeScript("document.querySelector('#end_time').setAttribute('value', '2000-06-02T17:00')");
+  await driver.findElement(By.id("add")).click();
+
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please enter an end time after the start time.\nSorry, your times were in an incorrect format. Please check your input and try again.');
 });
