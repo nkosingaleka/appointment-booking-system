@@ -20,6 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data['next_of_kin'] = $_POST['next_of_kin'];
     $data['patient'] = $_POST['patient'];
 
+    // Handle empty inputs
+    foreach (array_keys($data['next_of_kin']) as $detail) {
+      $data['next_of_kin'][$detail] = empty($data['next_of_kin'][$detail]) ? null : $data['next_of_kin'][$detail];
+    }
+
+    foreach (array_keys($data['patient']) as $detail) {
+      $data['patient'][$detail] = empty($data['patient'][$detail]) ? null : $data['patient'][$detail];
+    }
+
     // Sanitise the user's patient and next of kin inputs
     array_map($sanitise, $data['next_of_kin']);
     array_map($sanitise, $data['patient']);
@@ -28,21 +37,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       return preg_replace('/\s+/', '', $item);
     };
 
-    $contact_numbers = array(
-      'p_tel_no' => $data['patient']['tel_no'],
-      'p_mob_no' => $data['patient']['mob_no'],
-      'nk_mob_no' => $data['next_of_kin']['tel_no'],
-      'nk_mob_no' => $data['next_of_kin']['mob_no'],
+    $p_contact_numbers = array(
+      'tel_no' => $data['patient']['tel_no'],
+      'mob_no' => $data['patient']['mob_no'],
+    );
+
+    $nok_contact_numbers = array(
+      'tel_no' => $data['next_of_kin']['tel_no'],
+      'mob_no' => $data['next_of_kin']['mob_no'],
     );
 
     $healthcare_numbers = array(
-      'p_nhs_no' => $data['patient']['nhs_no'],
-      'p_hc_no' => $data['patient']['hc_no'],
+      'nhs_no' => $data['patient']['nhs_no'],
+      'hc_no' => $data['patient']['hc_no'],
     );
 
     // Remove all whitespace from contact and healthcare numbers
-    array_map($strip, $contact_numbers);
+    array_map($strip, $p_contact_numbers);
+    array_map($strip, $nok_contact_numbers);
     array_map($strip, $healthcare_numbers);
+
+    // Add cleansed contact numbers back into the array
+    foreach (array_keys($p_contact_numbers) as $number) {
+      $data['patient'][$number] = $p_contact_numbers[$number];
+    }
+
+    foreach (array_keys($nok_contact_numbers) as $number) {
+      $data['next_of_kin'][$number] = $nok_contact_numbers[$number];
+    }
+
+    // Add cleansed healthcare numbers back into the array
+    foreach (array_keys($healthcare_numbers) as $number) {
+      $data['patient'][$number] = $healthcare_numbers[$number];
+    }
 
     UserManager::register($data);
   } else {
@@ -55,19 +82,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?=$GLOBALS['app']->title?> &mdash; Login</title>
-  <link rel="stylesheet" href="style.css">
+  <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
+  <title><?=$GLOBALS['app']->title?> &mdash; Register</title>
 </head>
 
 <body>
   <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
 
     <form method="post" id="registration-form">
+      <h2>Register</h2>
+
+      <p>Please enter details about yourself and your next of kin.</p>
+
       <fieldset>
         <legend>Account Details</legend>
 
@@ -204,20 +233,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </fieldset>
 
       <fieldset>
-        <legend>Final Consent</legend>
+        <legend>Data Consent</legend>
+
+        <p>By ticking this box, I am consenting to have my personal data being used by the system.</p>
 
         <label for="consent_check">
-          By ticking this box, I am consenting to have my personal information being used by this medical institute.
           <input type="checkbox" name="consent_check" id="consent_check">
+          I consent
         </label>
       </fieldset>
 
-      <input type="submit" value="Register" id="Register">
-
       <a href="login.php" id="login">Log in</a>
+      <input type="submit" value="Register" id="Register">
     </form>
   </main>
-  
+
   <script src="js/register.js"></script>
 </body>
 

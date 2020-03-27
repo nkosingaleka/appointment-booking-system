@@ -1,63 +1,237 @@
+/*
+  Global styles
+*/
 * {
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: var(--border-medium) var(--secondary);
+}
+
+::selection,
+input::selection {
+  background: var(--accent);
+  color: var(--text-inv);
+}
+
+:root {
+  --primary: rgb(45, 131, 248);
+  --primary-alt-l: rgb(25, 111, 228);
+  --primary-alt-d: rgb(0, 86, 203);
+  --secondary: rgb(255, 117, 141);
+  --accent: rgb(182, 75, 136);
+  --l-shade: rgb(248, 248, 248);
+  --l-shade-alt: rgb(232, 232, 232);
+  --d-shade: rgb(32, 28, 67);
+  --text: rgb(40, 40, 40);
+  --text-inv: rgb(255, 255, 255);
+  --disabled: rgb(200, 200, 200);
+  --safe: rgb(68, 162, 128);
+  --danger: rgb(244, 67, 54);
+  --danger-alt-l: rgb(224, 47, 34);
+  --danger-alt-d: rgb(199, 22, 9);
+  --space-xs: 0.5rem;
+  --space-s: 1rem;
+  --space-m: 1.25rem;
+  --space-l: 1.5rem;
+  --space-xl: 2rem;
+  --border-thin: thin solid;
+  --border-medium: medium solid;
+}
+
+/*
+  Common elements styling
+*/
 body {
   line-height: 1.5;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin: 0;
+  color: var(--text);
+  background: var(--l-shade);
 }
 
 header {
-  margin: 0 0 1em;
-  padding: 1em 2em;
-  background: lightgrey;
+  margin: 0 0 var(--space-xl);
+  padding: var(--space-s) var(--space-xl);
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background: var(--d-shade);
+  color: var(--text-inv);
+}
+
+header > h1 {
+  text-align: center;
+}
+
+header nav {
+  width: 100%;
+  text-align: center;
 }
 
 header nav ul {
   list-style: none;
+  padding: 0;
 }
 
 header nav ul li {
-  display: inline-block;
-  margin: 0 0 0 2em;
+  display: block;
+  margin: 0 0 var(--space-xl);
+}
+
+header nav ul li a {
+  display: block;
+}
+
+header nav ul li a,
+header nav ul li a:visited {
+  color: var(--text-inv);
+  text-decoration: none;
+}
+
+header nav ul li a:active,
+header nav ul li a:hover {
+  text-decoration: underline;
 }
 
 main {
   max-width: 80em;
-  margin: 0 auto;
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-s);
+  overflow-x: auto;
 }
 
+/*
+  Hidden element styling
+*/
 .hidden {
   display: none;
 }
 
+/*
+  Hyperlink styling
+*/
+a {
+  color: var(--d-shade);
+}
+
+a:active,
+a:visited {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+/*
+  Action and link button styling
+*/
+button,
+.btn,
+input[type="submit"] {
+  height: auto;
+  border: none;
+  color: var(--text-inv);
+  background: var(--primary);
+  padding: var(--space-xs) var(--space-s);
+}
+
+.btn {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover,
+.btn:active,
+.btn:visited {
+  color: var(--text-inv);
+}
+
+.btn.danger-btn {
+  background: var(--danger);
+}
+
+.btn.danger-btn:hover {
+  background: var(--danger-alt-l);
+}
+
+.btn.danger-btn:active {
+  background: var(--danger-alt-d);
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background: var(--primary-alt-l);
+}
+
+button:active,
+input[type="submit"]:active {
+  background: var(--primary-alt-d);
+}
+
+.help-btn {
+  position: fixed;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  right: var(--space-xs);
+  bottom: var(--space-xs);
+}
+
+/*
+  Form element styling
+*/
 input,
 select {
-  height: 2em;
+  height: var(--space-xl);
+}
+
+input,
+textarea {
+  padding: var(--space-xs);
+  font-family: inherit;
+}
+
+input,
+select,
+textarea {
+  border: var(--border-thin) var(--d-shade);
 }
 
 textarea {
+  max-width: 100%;
   height: 6em;
 }
 
 input[type="text"] {
-  padding: 0.5em;
+  padding: var(--space-xs);
+}
+
+fieldset {
+  border: var(--border-medium) var(--d-shade);
+}
+
+legend {
+  color: var(--primary);
+  font-weight: bold;
+  padding: var(--space-xs);
 }
 
 #login-form,
 #registration-form {
-  padding: 1em;
+  padding: var(--space-s);
   display: grid;
-  margin: 0 auto;
+  margin: 0 auto var(--space-s) auto;
   grid-template-columns: minmax(0, 1fr);
 }
 
 #login-form {
-  max-width: 22em;
   display: grid;
   grid-template-areas:
     "title title"
@@ -68,13 +242,15 @@ input[type="text"] {
 }
 
 #registration-form {
-  max-width: 30em;
   grid-template-areas:
+    "title title"
+    "message message"
     "account account"
     "patient patient"
     "next-of-kin next-of-kin"
+    "consent consent"
     "alt-link submit-btn";
-  gap: 1em;
+  gap: var(--space-s);
 }
 
 #registration-form > fieldset:nth-of-type(1) {
@@ -89,22 +265,54 @@ input[type="text"] {
   grid-area: next-of-kin;
 }
 
+#registration-form > fieldset:nth-of-type(4) {
+  grid-area: consent;
+  margin: 0 0 var(--space-l) 0;
+}
+
+#registration-form label[for="consent_check"] {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#registration-form #consent_check {
+  margin: 0 var(--space-xs) 0 0;
+}
+
 #login-form > label,
 #registration-form label,
 #request-form label,
 #booking-form label {
   display: flex;
   flex-direction: column;
-  margin: 0.5em 0;
 }
 
-#login-form > h2 {
+#login-form label,
+#registration-form label,
+#request-form label,
+#booking-form label,
+#preferences-form label {
+  margin: var(--space-xs) 0;
+}
+
+#login-form > label:last-of-type {
+  margin: var(--space-xs) 0 var(--space-l) 0;
+}
+
+#login-form > h2,
+#registration-form > h2 {
   grid-area: title;
   margin: 0;
 }
 
-#login-form > p {
+#login-form > p,
+#registration-form > p {
   grid-area: message;
+}
+
+#registration-form > p {
+  margin: 0;
 }
 
 #login-form > label[for="email"],
@@ -128,117 +336,86 @@ input[type="text"] {
   max-width: fit-content;
 }
 
-#slots-table {
+#verification-search-form {
   display: grid;
-  grid-area: slots-table;
-  grid-template-columns: repeat(7, 1fr);
-  height: fit-content;
-}
-
-#slots-table > div {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background: #dfdfdf;
-  border-bottom: thin solid #000;
-}
-
-#slots-table h2 {
-  background: #fff;
-  font-size: 1.25em;
-  font-weight: 400;
-  line-height: 1;
-  margin: 0;
-  padding: 0.5em;
-  border: thin solid black;
-  width: 100%;
-}
-
-#slots-table .slot {
-  overflow: hidden;
-  position: relative;
-}
-
-#slots-table .slot.disabled {
-  color: #969696;
-}
-
-#slots-table .slot label {
-  display: inline-block;
-  width: 100%;
-  border-left: thin solid black;
-  border-right: thin solid black;
-  border-bottom: thin solid black;
-  padding: 0.1em 0.2em;
-  background: #dfdfdf;
-}
-
-#slots-table .slot input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  position: absolute;
-}
-
-#slots-table .slot:not(.disabled) input:hover + label {
-  background: #f5f5f5;
-}
-
-#slots-table .slot:not(.disabled)  input:active + label {
-  background: #969696;
-}
-
-#slots-table .slot input:checked + label {
-  background: #b1b1b1;
-}
-
-#slots-table .slot.reserved label {
-  background: #a55353;
-}
-
-#request-section,
-#booking-section {
-  display: grid;
+  width: max-content;
   grid-template-areas:
-    "null title"
-    "form slots-table";
-  max-width: 80%;
-  margin: 0 auto;
+    "label label"
+    "query search";
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-xl);
 }
 
-#request-section h2,
-#booking-section h2 {
-  grid-area: title;
-  text-align: center;
+#verification-search-form label {
+  grid-area: label;
+}
+
+#verification-search-form input[type="search"] {
+  height: auto;
+  grid-area: query;
+}
+
+#verification-search-form input[type="submit"] {
+  grid-area: search;
+}
+
+#verification-search-form input[type="search"],
+#verification-search-form input[type="submit"] {
+  width: max-content;
+}
+
+#preferences-form label {
+  display: flex;
+  align-items: center;
+}
+
+#preferences-form label input {
+  margin: 0 var(--space-xs) 0 var(--space-s);
+}
+
+#preferences-form input[type="submit"] {
+  margin: var(--space-s) 0 0;
 }
 
 #request-form,
 #booking-form {
   display: flex;
   flex-direction: column;
-  width: 15em;
+  width: 100%;
+  margin: 0 auto var(--space-xl);
   grid-area: form;
-}
-
-#request-form select,
-#booking-form select {
-  max-width: 75%;
 }
 
 #request-form #confirm,
 #booking-form #confirm {
-  margin: 0.5em 0 0 auto;
+  margin: var(--space-xs) auto 0;
+}
+
+#booking-form ul {
+  padding: 0;
+  list-style: none;
+}
+
+#booking-form ul > li,
+#booking-form ul > ul {
+  margin: var(--space-xs) 0;
+}
+
+#booking-form ul > ul {
+  padding: 0 0 0 var(--space-xl);
+  list-style: disc;
 }
 
 #availability-form {
   display: flex;
   flex-direction: column;
   max-width: 15em;
+  grid-area: form;
+  margin: 0 auto var(--space-xl);
 }
 
 #availability-form label {
-  margin-bottom: 1em;
+  margin-bottom: var(--space-s);
 }
 
 #availability-form input[type="datetime-local"] {
@@ -250,21 +427,181 @@ input[type="text"] {
   max-width: fit-content;
 }
 
-#requests-table {
-  border: thin solid black;
+/*
+  Availability styling
+*/
+#availability-section {
+  display: flex;
+  flex-direction: column;
+}
+
+#availability-section h2 {
+  margin: 0 auto;
+}
+
+/*
+  Patient account information 'cards' styling
+*/
+.patient-account {
+  border: var(--border-thin) var(--d-shade);
+  padding: 0 var(--space-s) var(--space-s);
+  margin: 0 0 var(--space-s);
+}
+
+.patient-account ul {
+  padding: 0;
+  list-style: none;
+}
+
+/*
+  Bookable time slots styling
+*/
+#slots-table {
+  display: grid;
+  grid-area: slots-table;
+  grid-template-columns: repeat(7, 1fr);
+  height: fit-content;
+}
+
+#slots-table > div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: var(--disabled);
+  border-bottom: var(--border-thin) var(--d-shade);
+}
+
+#slots-table h2 {
+  font-size: 1.25em;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
+  padding: var(--space-xs);
+  width: 100%;
+  background: var(--l-shade);
+  border-bottom: var(--border-thin) var(--d-shade);
+}
+
+#slots-table > div {
+  border-top: var(--border-thin) var(--d-shade);
+  border-left: var(--border-thin) var(--d-shade);
+}
+
+#slots-table > div:last-of-type {
+  border-right: var(--border-thin) var(--d-shade);
+}
+
+#slots-table .slot {
+  overflow: hidden;
+  position: relative;
+}
+
+#slots-table .slot:not(:nth-of-type(1)) {
+  border-top: var(--border-thin) var(--d-shade);
+}
+
+#slots-table .slot.disabled label {
+  background: var(--disabled) !important;
+  color: var(--text-inv);
+}
+
+#slots-table .slot.disabled label,
+#slots-table .slot input:disabled label {
+  cursor: not-allowed;
+}
+
+#slots-table .slot label {
+  display: inline-block;
+  width: 100%;
+  padding: 0.1em;
+  background: var(--l-shade);
+}
+
+#slots-table .slot input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  position: absolute;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+#slots-table .slot:not(.disabled) input:hover + label,
+#slots-table .slot:not(.disabled) input:focus + label {
+  background: var(--secondary);
+  color: var(--text-inv);
+}
+
+#slots-table .slot:not(.disabled) input:active + label {
+  background: var(--accent);
+  color: var(--text-inv);
+}
+
+#slots-table .slot input:checked + label {
+  background: var(--primary);
+  color: var(--text-inv);
+}
+
+#slots-table .slot.reserved label {
+  background: var(--danger-alt-d);
+  color: var(--text-inv);
+}
+
+/*
+  Appointment booking styling
+*/
+#request-section,
+#booking-section {
+  display: grid;
+  grid-template-areas:
+    "title"
+    "form"
+    "slots-table";
+  margin: 0 auto;
+}
+
+#request-section h2,
+#booking-section h2 {
+  grid-area: title;
+  text-align: center;
+}
+
+#requests-table,
+#appointments-table {
+  width: 100%;
+  border: var(--border-thin) var(--d-shade);
   border-collapse: collapse;
 }
 
 #requests-table td,
-#requests-table th {
-  border: thin solid black;
-  padding: 1em;
+#requests-table th,
+#appointments-table td,
+#appointments-table th {
+  border: var(--border-thin) var(--d-shade);
+  padding: var(--space-s);
+  text-align: center;
 }
 
+#requests-table tbody tr:nth-child(odd),
+#appointments-table tbody tr:nth-child(odd) {
+  background: var(--l-shade-alt);
+}
+
+#requests-table ul,
+#appointments-table ul {
+  padding: 0;
+  list-style: none;
+}
+
+/*
+  Cancellation reason styling
+*/
 form.cancellation-reason {
   max-width: 25em;
   font-weight: bold;
-  margin: 2em auto;
+  margin: var(--space-xl) auto;
 }
 
 form.cancellation-reason input[type="submit"] {
@@ -279,5 +616,141 @@ form.cancellation-reason label {
 
 form.cancellation-reason label {
   font-weight: normal;
-  margin: 0.5em 0;
+  margin: var(--space-xs) 0;
+}
+
+/*
+  Status (error/success) message styling
+*/
+.error-message {
+  background: var(--danger);
+}
+
+.success-message {
+  background: var(--safe);
+}
+
+.error-message,
+.success-message {
+  color: var(--text-inv);
+  width: 100%;
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-xs) var(--space-s);
+}
+
+.error-message > p,
+.success-message > p {
+  text-align: center;
+}
+
+/*
+  Tablet and desktop styling (>=400px width)
+*/
+@media only screen and (min-width: 400px) {
+  header nav ul li {
+    display: inline-block;
+    margin: 0 0 0 var(--space-xl);
+  }
+
+  .help-btn {
+    font-size: 2rem;
+    width: 4rem;
+    height: 4rem;
+    right: var(--space-xl);
+    bottom: var(--space-xl);
+  }
+
+  #help {
+    max-width: 50em;
+    margin: 0 auto;
+  }
+}
+
+/* 
+  Desktop styling (>=700px width)
+*/
+@media only screen and (min-width: 700px) {
+  header {
+    flex-direction: row;
+  }
+
+  header > h1 {
+    text-align: left;
+  }
+
+  header nav {
+    width: auto;
+  }
+
+  header nav ul {
+    list-style: none;
+  }
+
+  main {
+    overflow-x: hidden;
+  }
+
+  #login-form {
+    max-width: 22em;
+  }
+
+  #registration-form {
+    max-width: 30em;
+  }
+
+  #login-form,
+  #registration-form {
+    padding: var(--space-xl);
+  }
+
+  #request-section,
+  #booking-section {
+    grid-template-areas:
+      "null title"
+      "form slots-table";
+    max-width: 80%;
+  }
+
+  #request-form,
+  #booking-form {
+    width: 15em;
+    margin: 0;
+  }
+
+  #request-form select,
+  #booking-form select {
+    max-width: 75%;
+  }
+
+  #request-form #confirm,
+  #booking-form #confirm {
+    margin: var(--space-xs) 0 0 auto;
+  }
+
+  #availability-form {
+    margin: 0;
+  }
+
+  #availability-section {
+    display: grid;
+    gap: var(--space-xl);
+    grid-template-areas:
+      "title title"
+      "form description";
+  }
+
+  #availability-section h2 {
+    grid-area: title;
+    margin: 0;
+  }
+
+  #availability-section p {
+    grid-area: description;
+  }
+
+  .error-message,
+  .success-message {
+    width: max-content;
+    max-width: 80%;
+  }
 }

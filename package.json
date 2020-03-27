@@ -5,6 +5,7 @@
     "chromedriver": "^80.0.1",
     "http-server": "^0.12.1",
     "jest": "^25.1.0",
+    "jsdoc": "^3.6.3",
     "path": "^0.12.7",
     "selenium-webdriver": "^4.0.0-alpha.7"
   },

@@ -26,10 +26,8 @@ if (!isset($_SESSION['user'])) {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?=$GLOBALS['app']->title?> &mdash; <?=$_SESSION['user']->role_id == PATIENT_ROLE ? 'My Requests' : 'Requests' ?></title>
-  <link rel="stylesheet" href="style.css">
+  <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
+  <title><?=$GLOBALS['app']->title?> &mdash; <?=$page_title?></title>
 </head>
 
 <body>
@@ -40,6 +38,8 @@ if (!isset($_SESSION['user'])) {
 
     <?php require dirname(__FILE__) . "/../back-end/includes/requests/requests-$to_load.inc.php";?>
   </main>
+
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
 
   <script src="js/requests.js"></script>
 </body>

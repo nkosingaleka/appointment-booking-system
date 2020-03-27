@@ -1,9 +1,15 @@
 <?php
 
 /**
+ * Helper component for defining essential elements for the application to function.
+ *
+ * @category Helper Component
+ */
+
+/**
  * Autoloads classes in /back-end/classes/.
  *
- * @param $class_ref
+ * @param $class_ref Name of the class, including its namespace, to be autoloaded.
  * @return void
  */
 function autoloadClasses($class_ref) {
@@ -23,9 +29,9 @@ spl_autoload_register('autoloadClasses');
 // Instantiate the application
 $GLOBALS['app'] = new App();
 
-$GLOBALS['errors'] = array();
-
+// Add arrays for success and error messages
 $GLOBALS['successes'] = array();
+$GLOBALS['errors'] = array();
 
 // Define user roles (administrative staff, medical staff, and patient)
 define('ADMINISTRATIVE_ROLE', 1);
@@ -44,3 +50,6 @@ define('DATE_FORMAT', 'Y-m-d H:i:s');
 
 // Define default timezone (United Kingdom)
 date_default_timezone_set('Europe/London');
+
+// Define default number of seconds to wait before refreshing pages
+define('REFRESH_PERIOD', 3);

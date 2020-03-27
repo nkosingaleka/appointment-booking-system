@@ -1,0 +1,13 @@
+<?php if (count($GLOBALS['errors']) > 0): ?>
+  <div class="error-message">
+    <?php if (count($GLOBALS['errors']) > 1): ?>
+      <ul>
+        <?php foreach ($GLOBALS['errors'] as $error): ?>
+          <li><?=$error?></li>
+        <?php endforeach?>
+      </ul>
+    <?php else: ?>
+      <p><?=$GLOBALS['errors'][0]?></p>
+    <?php endif?>
+  </div>
+<?php endif?>

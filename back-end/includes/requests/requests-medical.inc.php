@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Included section for medical staff to perform request-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve the available appointment types to assign to requests
 $appointment_types = RequestManager::getAppointmentTypes();
 
@@ -29,9 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       RequestManager::assignAppointmentType($request['id'], $typeId);
 
       // Refresh the page
-      header("Refresh:0");
-    } else {
-      $GLOBALS['errors'][] = 'Sorry, this request could not be updated. Please select a valid appointment type.';
+      header("Refresh:" . REFRESH_PERIOD);
     }
 
     if (isset($_POST["$id-id"])) {
@@ -51,14 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   RequestManager::cancelRequest($data);
 
   // Refresh the page
-  header("Refresh:0");
+  header("Refresh:" . REFRESH_PERIOD);
 }
 }
 
 ?>
 
-<?php include dirname(__FILE__) . '/../error_container.inc.php';?>
-<?php include dirname(__FILE__) . '/../success_container.inc.php';?>
+<?php include dirname(__FILE__) . '/../error-container.inc.php';?>
+<?php include dirname(__FILE__) . '/../success-container.inc.php';?>
 
 <?php if (count($requests) > 0): ?>
   <table id="requests-table">
@@ -117,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
           </td>
           <td>
-            <a class="cancel-btn">Cancel</a>
+            <a class="btn danger-btn">Cancel</a>
           </td>
         </tr>
       <?php endforeach?>

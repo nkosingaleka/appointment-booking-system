@@ -67,18 +67,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
   <title><?=$GLOBALS['app']->title?> &mdash; Book Appointment</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
-    <?php include dirname(__FILE__) . '/../back-end/includes/success_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/success-container.inc.php';?>
 
     <?php if (isset($_GET['request_id']) && !empty($_GET['request_id'])): ?>
       <div id="booking-section">
@@ -124,6 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     <?php endif?>
   </main>
+
+  <a aria-label="Help" class="btn help-btn" href="help.php">?</a>
 
   <script src="js/book-appointment.js"></script>
 </body>

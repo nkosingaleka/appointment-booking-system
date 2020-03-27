@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class for the UserManager component.
+ *
+ * @category Core Component
+ */
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
@@ -9,6 +15,111 @@ require dirname(__FILE__) . '/../../vendor/autoload.php';
  * Represents the component for handling user-related actions.
  */
 class UserManager {
+  /**
+   * Retrieves the account details of a given user, referencing their account ID.
+   *
+   * @param string $userId Account ID of the given user.
+   * @return array Collection of account details for the given user.
+   */
+  public static function getAccount($userId) {
+    // Retrieve the type of account the user has
+    $user_role = self::getRole($userId);
+
+    // Define parameters based on the user's role
+    if ($user_role == PATIENT_ROLE) {
+      // Define JOIN tables
+      $join_tables = array('patient', 'role');
+
+      // Define JOIN conditions
+      $join_conditions = array(
+        'account.id = patient.id',
+        'account.role_id = role.id',
+      );
+
+      // Define columns to select
+      $projections = array(
+        'date_of_birth',
+        "CONCAT(COALESCE(house_no, house_name), ' ', street, ', ', city, ', ', county, ', ', postcode) AS address",
+        'tel_no',
+        'mob_no',
+        'nhs_no',
+        'hc_no',
+        'contact_by_email',
+        'contact_by_text',
+      );
+    } else {
+      // Define JOIN tables
+      $join_tables = array('staff', 'role');
+
+      // Define JOIN conditions
+      $join_conditions = array(
+        'account.id = staff.id',
+        'account.role_id = role.id',
+      );
+
+      // Define columns to select
+      $projections = array(
+        'job_title',
+      );
+    }
+
+    // Define shared columns to select (for any role)
+    array_push(
+      $projections,
+      "CONCAT(title, ' ', forename, ' ', surname) AS full_name",
+      'email',
+      'sex',
+      'role.id AS role'
+    );
+
+    // Define conditions to be checked in query
+    $selections = array(
+      'account.id' => array(
+        'comparison' => '=',
+        'param' => ':id',
+        'value' => $userId,
+      ),
+    );
+
+    try {
+      // Retrieve relevant account details for the given ID
+      $account_details = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', $join_tables, $join_conditions, $selections, $projections);
+
+      return $account_details;
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
+   * Retrieves the role associated with a given user's account.
+   *
+   * @param string $userId Account ID of the given user.
+   * @return string ID of the role associated with the given user's account.
+   */
+  public static function getRole($userId) {
+    // Define JOIN tables
+    $join_tables = array();
+
+    // Define conditions to be checked in query based on the type of user
+    $selections = array(
+      'account.id' => array(
+        'comparison' => '=',
+        'param' => ':id',
+        'value' => $userId,
+      ),
+    );
+
+    try {
+      // Retrieve the user's role
+      $role = $GLOBALS['app']->getDB()->selectOneJoinWhere('account', ['role'], ['account.role_id = role.id'], $selections, ['role.id']);
+
+      return $role['id'];
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
   /**
    * Logs the user into their account using their email address and password.
    *
@@ -384,17 +495,19 @@ class UserManager {
   }
 
   /**
-   * Receives an email message sent from the application to inform users of updates. Note: to work with Google Mail, the 'Less secure app access' option must be enabled.
+   * Receives an email message sent from the application to inform users of updates.
    *
-   * @param string $userid The ID of the user's account.
+   * Note: to work with Google Mail, the 'Less secure app access' option must be enabled.
+   *
+   * @param string $userId The ID of the user's account.
    * @param string $message Message to inform users of updates.
    * @return void
    */
   public static function receiveEmail($userId, $message) {
     $mail = new PHPMailer;
 
-    // Enable verbose error outputs
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    // Hide debug output
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;
 
     $mail->IsSMTP();
     $mail->SMTPOptions = array(
@@ -404,13 +517,14 @@ class UserManager {
         'allow_self_signed' => true,
       ),
     );
+
+    // Define options
     $mail->Host = 'smtp.gmail.com';
-    // $mail->Host = gethostbyname('smtp.gmail.com'); // if server doesnt allow ipv6
     $mail->SMTPAuth = true;
     $mail->Username = 'team9c.abs@gmail.com';
     $mail->Password = '39ThiS4is23A8SeCuRE215PassWoRd234';
     $mail->SMTPSecure = 'ssl';
-    $mail->Port = 587; // 465 or 587
+    $mail->Port = 587;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->IsHTML(true);
 
@@ -420,6 +534,7 @@ class UserManager {
     // Add recipient
     $mail->AddAddress($_SESSION['user']->email, $_SESSION['user']->id);
 
+    // Construct email
     $mail->Subject = 'Appointment Booking System Update';
     $mail->Body = $message;
     $mail->AltBody = $message;
@@ -484,5 +599,97 @@ class UserManager {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     curl_close($ch);
+  }
+
+  /**
+   * Sets the given user's contact preferences to allow or disallow email messages.
+   *
+   * @param string $userId Account ID of the given user.
+   * @param boolean $choice Whether the user wants to allow (true) or disallow (false) email messages.
+   * @return void
+   */
+  public static function updateContactByEmail($userId, $choice) {
+    try {
+      // Define conditions to be checked in query
+      $selections = array(
+        'id' => array(
+          'comparison' => '=',
+          'param' => ':id',
+          'value' => $userId,
+        ),
+      );
+
+      // Define columns to be updated
+      $update_columns = array(
+        'contact_by_email' => array(
+          'param' => ':contact_by_email',
+          'value' => $choice,
+        ),
+      );
+
+      // Set email messaging preferences for the given user
+      $contact_result = $GLOBALS['app']->getDB()->updateWhere('patient', $selections, $update_columns);
+
+      if ($contact_result) {
+        $success_msg = 'Your contact preferences have been updated successfully.';
+
+        if (!in_array($success_msg, $GLOBALS['successes'])) {
+          $GLOBALS['successes'][] = $success_msg;
+        }
+
+        // Set for the current session
+        $_SESSION['user']->contact_by_email = $choice ? '1' : '0';
+      } else {
+        $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
+      }
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
+  }
+
+  /**
+   * Sets the given user's contact preferences to allow or disallow text (SMS) messages.
+   *
+   * @param string $userId Account ID of the given user.
+   * @param boolean $choice Whether the user wants to allow (true) or disallow (false) text (SMS) messages.
+   * @return void
+   */
+  public static function updateContactByText($userId, $choice) {
+    try {
+      // Define conditions to be checked in query
+      $selections = array(
+        'id' => array(
+          'comparison' => '=',
+          'param' => ':id',
+          'value' => $userId,
+        ),
+      );
+
+      // Define columns to be updated
+      $update_columns = array(
+        'contact_by_text' => array(
+          'param' => ':contact_by_text',
+          'value' => $choice,
+        ),
+      );
+
+      // Set text messaging preferences for the given user
+      $contact_result = $GLOBALS['app']->getDB()->updateWhere('patient', $selections, $update_columns);
+
+      if ($contact_result) {
+        $success_msg = 'Your contact preferences have been updated successfully.';
+
+        if (!in_array($success_msg, $GLOBALS['successes'])) {
+          $GLOBALS['successes'][] = $success_msg;
+        }
+
+        // Set for the current session
+        $_SESSION['user']->contact_by_text = $choice ? '1' : '0';
+      } else {
+        $GLOBALS['errors'][] = 'Sorry, an unexpected error has occurred while updating your contact preferences. Please try again.';
+      }
+    } catch (PDOException $e) {
+      $GLOBALS['errors'][] = $e->getMessage();
+    }
   }
 }

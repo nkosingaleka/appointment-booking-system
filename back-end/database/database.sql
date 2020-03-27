@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `slot` (
   `id` VARCHAR(36),
   `start_time` DATETIME,
   `end_time` DATETIME,
-  `reserved` BOOLEAN,
+  `reserved` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`id`)
 );
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `request` (
   `preferred_staff` VARCHAR(36),
   `p_cancellation_reason` VARCHAR(255),
   `r_cancellation_reason` VARCHAR(255),
-  `cancelled` BOOLEAN,
+  `cancelled` BOOLEAN DEFAULT FALSE,
   `reviewer_id` VARCHAR(36),
   `appointment_type` VARCHAR(36),
   `patient_id` VARCHAR(36) NOT NULL,
@@ -166,7 +166,8 @@ CREATE TABLE IF NOT EXISTS `availability` (
 CREATE TABLE IF NOT EXISTS `appointment` (
   `id` VARCHAR(36),
   `b_cancellation_reason` VARCHAR(255),
-  `a_cancellation_reason` VARCHAR(255),
+  `p_cancellation_reason` VARCHAR(255),
+  `cancelled` BOOLEAN DEFAULT FALSE,
   `booker_id` VARCHAR(36) NOT NULL,
   `availability_id` VARCHAR(36) NOT NULL,
   `request_id` VARCHAR(36) NOT NULL,
@@ -178,11 +179,4 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   FOREIGN KEY (`room_id`) REFERENCES `room` (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `attendance` (
-  `id` VARCHAR(36),
-  `appointment_id` VARCHAR(36) NOT NULL,
-  `staff_id` VARCHAR(36) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`request_id`),
-  FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
-);
+

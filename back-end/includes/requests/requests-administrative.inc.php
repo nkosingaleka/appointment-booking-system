@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Included section for administrative staff to perform request-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve the available appointment types to assign to requests
 $appointment_types = RequestManager::getAppointmentTypes();
 
@@ -27,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'to_cancel' => $_POST["$id-id"],
         'cancellation_reason' => isset($_POST["$id-reason"]) ? $_POST["$id-reason"] : null,
         'requests' => $requests,
+        'patient_id' => $request['patient_id'],
+        'patient_contact_by_email' => $request['contact_by_email'],
+        'patient_contact_by_text' => $request['contact_by_text'],
       );
     }
   }
@@ -35,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   RequestManager::cancelRequest($data);
 
   // Refresh the page
-  header("Refresh:0");
+  header("Refresh:" . REFRESH_PERIOD);
 }
 
 ?>
 
-<?php include dirname(__FILE__) . '/../error_container.inc.php';?>
-<?php include dirname(__FILE__) . '/../success_container.inc.php';?>
+<?php include dirname(__FILE__) . '/../error-container.inc.php';?>
+<?php include dirname(__FILE__) . '/../success-container.inc.php';?>
 
 <?php if (count($requests) > 0): ?>
   <table id="requests-table">
@@ -95,10 +104,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach?>
           </td>
           <td>
-            <a href="book-appointment.php?request_id=<?=$request['id']?>">Book</a>
+            <a class="btn" href="book-appointment.php?request_id=<?=$request['id']?>">Book</a>
           </td>
           <td>
-            <a class="cancel-btn">Cancel</a>
+            <a class="btn danger-btn">Cancel</a>
           </td>
         </tr>
       <?php endforeach?>

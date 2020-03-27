@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Class for the FacilityManager component.
+ *
+ * @category Core Component
+ */
+
+/**
  * Represents the component for handling Facility related actions.
  */
 class FacilityManager {

@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Included section for patients to perform request-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve the patient's own requests
 $requests = RequestManager::getOwnRequests($_SESSION['user']->id, 'patient');
 
@@ -31,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   RequestManager::cancelRequest($data);
 
   // Refresh the page
-  header("Refresh:0");
+  header("Refresh:" . REFRESH_PERIOD);
 }
 
 ?>
 
-<?php include dirname(__FILE__) . '/../error_container.inc.php';?>
-<?php include dirname(__FILE__) . '/../success_container.inc.php';?>
+<?php include dirname(__FILE__) . '/../error-container.inc.php';?>
+<?php include dirname(__FILE__) . '/../success-container.inc.php';?>
 
 <?php if (count($requests) > 0): ?>
   <table id="requests-table">
@@ -82,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?=$request['translation']?>
           </td>
           <td>
-            <a class="cancel-btn">Cancel</a>
+            <a class="btn danger-btn">Cancel</a>
           </td>
         </tr>
       <?php endforeach?>

@@ -27,17 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php include dirname(__FILE__) . '/../back-end/includes/head-elements.inc.php';?>
   <title><?=$GLOBALS['app']->title?> &mdash; Login</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <?php include dirname(__FILE__) . '/../back-end/includes/header.inc.php';?>
 
   <main>
-    <?php include dirname(__FILE__) . '/../back-end/includes/error_container.inc.php';?>
+    <?php include dirname(__FILE__) . '/../back-end/includes/error-container.inc.php';?>
 
     <form method="post" id="login-form">
       <h2>Login</h2>
@@ -53,9 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="password" name="password" id="password" required>
       </label>
 
-      <input type="submit" value="Log in" id="login">
-
       <a href="register.php" id="register">Register</a>
+      <input type="submit" value="Log in" id="login">
     </form>
   </main>
 

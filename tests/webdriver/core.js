@@ -6,7 +6,7 @@ const chrome = require('selenium-webdriver/chrome');
 const { Builder, By } = require('selenium-webdriver');
 
 // Set default timeout
-const timeout = 10000;
+const timeout = 30000;
 
 // Get root directory path
 const rootUrl = path.resolve(__dirname, '..', '..');

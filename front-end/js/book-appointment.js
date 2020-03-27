@@ -119,7 +119,6 @@ function displayWeek(week) {
 
         // Extract hours and minutes
         const shortStartTime = startTime.toString().split(' ')[4].substr(0, 5);
-        const shortEndTime = endTime.toString().split(' ')[4].substr(0, 5);
 
         // Add clickable buttons to request appointment bookings
         const slotEntry = document.createElement('div');
@@ -133,10 +132,10 @@ function displayWeek(week) {
         const slotEntryCheck = document.createElement('input');
         slotEntryCheck.setAttribute('type', 'checkbox');
         slotEntryCheck.id = `${slot['id']}`;
-        slotEntryCheck.value = `${shortStartTime} – ${shortEndTime}`;
+        slotEntryCheck.value = shortStartTime;
 
         const slotEntryLabel = document.createElement('label');
-        slotEntryLabel.textContent = `${shortStartTime} – ${shortEndTime}`;
+        slotEntryLabel.textContent = shortStartTime;
         slotEntryLabel.setAttribute('for', `${slot['id']}`);
 
         slotEntry.append(slotEntryCheck);
@@ -222,15 +221,24 @@ function validateBookingForm(e) {
 
       errorList.className = 'error-message';
 
-      // Add the error to the list
-      for (const error of errors) {
-        const li = document.createElement('li');
+      if (errors.length > 1) {
+        // Add the error to the list
+        for (const error of errors) {
+          const li = document.createElement('li');
 
-        li.textContent = error;
-        ul.append(li);
+          li.textContent = error;
+
+          ul.append(li);
+          errorList.append(ul);
+        }
+      } else {
+        const p = document.createElement('p');
+
+        p.textContent = errors[0];
+
+        errorList.append(p);
       }
 
-      errorList.append(ul);
       main.insertBefore(errorList, requestSection);
     }
   }
