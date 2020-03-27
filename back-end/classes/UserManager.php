@@ -69,7 +69,7 @@ class UserManager {
       "CONCAT(title, ' ', forename, ' ', surname) AS full_name",
       'email',
       'sex',
-      'role.id AS role',
+      'role.id AS role'
     );
 
     // Define conditions to be checked in query
