@@ -8,12 +8,20 @@ Project created by Team 9C for the Software Engineering Theory and Practice modu
 
 ## Branches
 
-* `prototype-one`, for the first prototype \*
-* `prototype-two`, for the second prototype
+All branches have been retained to aid review. Namely, these are:
+
+* `prototype-one`  \*, which included:
+  * a very basic UI
+  * partially-automated testing
+  * comment-only documentation
+  * key features for the steps involved in requests and bookings
+* `prototype-two`, which included:
+  * a more user-friendly UI
+  * fully-automated testing
+  * automatic documentation generation
+  * additional, non-critical features such as all cancellations, preferences, and more robust validation
 
 \* Currently merged with `master`. 
-
-All branches have been retained to aid review.
 
 ## The Team
 
