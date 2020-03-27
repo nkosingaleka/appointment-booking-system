@@ -91,13 +91,34 @@ Alternatively, run the [setup-db.sh](setup-db.sh) script in the project root fol
 
 ## Testing
 
-> **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases, and a server with the MySQL service must be running. If using XAMPP, please start the *Apache* and *MySQL* modules.
-
-> **NOTE**: Due to the use of headers in the *back-end*, all PHPUnit tests must be run with the `--stderr` option. The `--configuration phpunit.xml` option, however, may be omitted.
-
-Automated testing is available using [PHPUnit](https://phpunit.de/) for the *back-end* scripts and [Jest](https://jestjs.io/) and [Selenium WebDriver](https://www.selenium.dev/) for interactivity. To run these test cases, run the [run-test.sh](run-tests.sh) script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
+Automated testing is available using [PHPUnit](https://phpunit.de/) for the [back-end](back-end) scripts and [Jest](https://jestjs.io/) and [Selenium WebDriver](https://www.selenium.dev/) for interactivity. To run these test cases, run the [run-test.sh](run-tests.sh) script in the project root folder. This will execute the `vendor/bin/phpunit --configuration phpunit.xml --stderr` and `npm test` commands.
 
 Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xml --stderr` or `npm test` yourself. To run the Selenium WebDriver tests without opening browser windows and rendering pages (i.e. in `headless` mode), run `npm run test-headless` instead of `npm test`.
+
+It is recommended that the database is re-created before testing.
+
+> **NOTE**: The project's Composer and npm dependenices must be installed prior to running the test cases, and a server with the MySQL service must be running. If using XAMPP, please start the *Apache* and *MySQL* modules.
+
+> **NOTE**: Due to the use of headers in the [back-end](back-end), all PHPUnit tests must be run with the `--stderr` option. The `--configuration phpunit.xml` option, however, may be omitted.
+
+### Test Accounts
+
+Several accounts have been defined in [back-end/database/test_data.sql](back-end/database/test_data.sql) for testing. Their email addresses are as follows:
+
+* Administrative staff:
+  * as1@test.com
+  * as2@test.com
+* Medical staff:
+  * ms1@test.com
+  * ms2@test.com
+* Patients:
+  * pa1@test.com
+  * pa2@test.com
+* Patients (unverified):
+  * pa3@test.com
+  * pa4@test.com
+
+The password for all test accounts is *test123*.
 
 ### Default URL
 
