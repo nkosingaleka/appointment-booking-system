@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Helper component for defining essential elements for the application to function.
+ *
+ * @category Helper Component
+ */
+
+/**
  * Autoloads classes in /back-end/classes/.
  *
  * @param $class_ref

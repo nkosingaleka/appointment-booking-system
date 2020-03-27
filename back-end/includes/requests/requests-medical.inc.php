@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Included section for medical staff to perform request-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve the available appointment types to assign to requests
 $appointment_types = RequestManager::getAppointmentTypes();
 

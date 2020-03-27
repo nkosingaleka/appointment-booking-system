@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Class for the RequestManager component.
+ *
+ * @category Core Component
+ */
+
+/**
  * Represents the component for handling patients' appointment booking requests.
  */
 class RequestManager {

@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Included section for patients to perform request-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve the patient's own requests
 $requests = RequestManager::getOwnRequests($_SESSION['user']->id, 'patient');
 

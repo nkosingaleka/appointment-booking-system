@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Included section for administrative staff to perform appointment-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve all booked appointments
 $appointments = BookingManager::getAppointments();
 

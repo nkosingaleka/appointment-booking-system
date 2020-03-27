@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class for the UserManager component.
+ *
+ * @category Core Component
+ */
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 

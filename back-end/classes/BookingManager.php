@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Class for the BookingManager component.
+ *
+ * @category Core Component
+ */
+
+/**
  * Represents the component for handling appointment bookings.
  */
 class BookingManager {

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Included section for medical staff to perform appointment-related operations.
+ *
+ * @category Include
+ */
+
 // Retrieve all booked appointments to which the current medical staff member has been assigned
 $appointments = BookingManager::getOwnAppointments($_SESSION['user']->id, 'medical');
 

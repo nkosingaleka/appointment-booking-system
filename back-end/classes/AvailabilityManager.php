@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Class for the AvailabilityManager component.
+ *
+ * @category Core Component
+ */
+
+/**
  * Represents the component for handling medical staff availability for bookable time slots.
  */
 class AvailabilityManager {

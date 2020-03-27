@@ -1,14 +1,55 @@
 <?php
 
 /**
+ * Class for the Database component.
+ *
+ * @category Core Component
+ */
+
+/**
  * Represents the relational database used by the application.
  */
 class Database {
+  /**
+   * PHP Data Object (PDO) for connecting to the database.
+   *
+   * @var object
+   */
   private $__pdo;
+
+  /**
+   * Name of the host on which the database is held.
+   *
+   * @var string
+   */
   private $__host;
+
+  /**
+   * Name of the database.
+   *
+   * @var string
+   */
   private $__name;
+
+  /**
+   * Username of the user account used to access the database.
+   *
+   * @var string
+   */
   private $__user;
+
+  /**
+   * Name of the driver, or DBMS, on which the database is held.
+   *
+   * @var string
+   */
   private $__driver;
+
+  /**
+   * Password for the user account used to access the database.
+   *
+   * @var string
+   */
   private $__password;
 
   /**
