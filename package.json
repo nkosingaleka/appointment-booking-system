@@ -10,8 +10,8 @@
     "selenium-webdriver": "^4.0.0-alpha.7"
   },
   "scripts": {
-    "test": "jest --passWithNoTests",
-    "test-headless": "set BROWSER_MODE=headless && jest --passWithNoTests"
+    "test": "setup-db.sh && jest --passWithNoTests",
+    "test-headless": "setup-db.sh && set BROWSER_MODE=headless && jest --passWithNoTests"
   },
   "jest": {
     "rootDir": "./tests/webdriver"
