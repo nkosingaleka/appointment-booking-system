@@ -16,6 +16,6 @@
       </ul>
     <?php else: ?>
       <p><?=$GLOBALS['errors'][0]?></p>
-    <?php endif ?>
+    <?php endif?>
   </div>
 <?php endif?>
