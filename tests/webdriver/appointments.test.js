@@ -26,6 +26,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   try {
+    await driver.get(`${url}/front-end/scripts/logout.php`);
     await driver.quit();
   } catch (err) {
     console.error(err);
