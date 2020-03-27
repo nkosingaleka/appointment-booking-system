@@ -6,6 +6,22 @@ Project created by Team 9C for the Software Engineering Theory and Practice modu
 
 [XAMPP](https://www.apachefriends.org/index.html) was used as the local development and testing environment, with [http://localhost/uni/setp](http://localhost/uni/setp) as the URL. Therefore, it is recommended that the project continues to be tested in the same way.
 
+## Core Features
+
+At a high level, the system provides the ability to:
+
+* register and log in to accounts
+* verify patient accounts
+* make and cancel appointment booking requests
+* approve appointment booking requests for appointments to be booked
+* book and cancel appointments
+* receive notifications on-screen and via email and/or SMS
+* select communication preferences (email and/or SMS)
+* view the user's own account details
+* view the user's facility contact details
+* view tailored help sections
+* add available time slots for bookings
+
 ## Branches
 
 All branches have been retained to aid review. Namely, these are:
