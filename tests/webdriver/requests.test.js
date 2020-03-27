@@ -11,6 +11,13 @@ beforeAll(async () => {
     await driver.findElement(By.id('email')).sendKeys('pa1@test.com');
     await driver.findElement(By.id('password')).sendKeys('test123');
     await driver.findElement(By.id('login')).click();
+  } catch (err) {
+    console.error(err);
+  }
+}, timeout);
+
+beforeEach(async () => {
+  try {
     await driver.get(`${url}/front-end/requests.php`);
   } catch (err) {
     console.error(err);
@@ -26,7 +33,6 @@ afterAll(async () => {
 }, timeout);
 
 test('This test will access the patients request page and attempt to cancel an appointment with a reason exceeding 255 characters', async () => {
-  
   await driver.findElement(By.css('a[href="?cancel=re-5e6b94fc6ba585.74287938"]')).click();
 
   await driver.findElement(By.css('textarea[id="re-5e6b94fc6ba585.74287938-reason"]')).sendKeys('Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. Everything is fine. ');
@@ -34,4 +40,4 @@ test('This test will access the patients request page and attempt to cancel an a
 
   expect(await driver.findElement(By.css('.error-message > p')).getText()).toBe('Please ensure the cancellation reason does not exceed 255 characters.');
 
-  });
+});

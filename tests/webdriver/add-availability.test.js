@@ -11,6 +11,13 @@ beforeAll(async () => {
     await driver.findElement(By.id('email')).sendKeys('ms1@test.com');
     await driver.findElement(By.id('password')).sendKeys('test123');
     await driver.findElement(By.id('login')).click();
+  } catch (err) {
+    console.error(err);
+  }
+}, timeout);
+
+beforeEach(async () => {
+  try {
     await driver.get(`${url}/front-end/add-availability.php`);
   } catch (err) {
     console.error(err);
@@ -25,23 +32,18 @@ afterAll(async () => {
   }
 }, timeout);
 
-  //await driver.findElement(By.id('')).sendKeys('');
+test('this test will successfully select a a time period and book an availible time slot', async () => {
+  await driver.findElement(By.id('start_time')).sendKeys('2020-06-02T16:00');
+  await driver.findElement(By.id('end_time')).sendKeys('2020-06-02T17:00');
+  await driver.findElement(By.id("add")).click();
 
-  test('this test will successfully select a a time period and book an availible time slot', async () => {
-  
-    await driver.findElement(By.id('start_time')).sendKeys('2020-06-02T16:00');
-    await driver.findElement(By.id('end_time')).sendKeys('2020-06-02T17:00');
-    await driver.findElement(By.id("add")).click();
-  
-    expect(await driver.findElement(By.css('.success-message > ul')).getText()).toBe('New slots have been successfully added.\nYour availability has been successfully added.');
-    await driver.get(`${url}/front-end/add-availability.php`);
-  });
+  expect(await driver.findElement(By.css('.success-message > ul')).getText()).toBe('New slots have been successfully added.\nYour availability has been successfully added.');
+});
 
-  test('this test will try to book an invalid time where the end date occurs before the start date', async () => {
-  
-    await driver.findElement(By.id('start_time')).sendKeys('2001-06-02T16:00');
-    await driver.findElement(By.id('end_time')).sendKeys('2000-06-02T17:00');
-    await driver.findElement(By.id("add")).click();
+test('this test will try to book an invalid time where the end date occurs before the start date', async () => {
+  await driver.findElement(By.id('start_time')).sendKeys('2001-06-02T16:00');
+  await driver.findElement(By.id('end_time')).sendKeys('2000-06-02T17:00');
+  await driver.findElement(By.id("add")).click();
 
-    expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please do not enter start and end times in the past.\nSorry, your times were in an incorrect format. Please check your input and try again.');
-  });
+  expect(await driver.findElement(By.css('.error-message > ul')).getText()).toBe('Please do not enter start and end times in the past.\nSorry, your times were in an incorrect format. Please check your input and try again.');
+});
