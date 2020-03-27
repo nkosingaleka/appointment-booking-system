@@ -52,7 +52,7 @@ Open the project folder using its name e.g. `cd setp`.
 
 #### Dependencies
 
-The project uses [Composer](https://getcomposer.org/) and [npm](https://www.npmjs.com/) dependencies for automatic testing, which can be installed by running the `composer install` and `npm i` commands in the root folder.
+The project uses [Composer](https://getcomposer.org/) and [npm](https://www.npmjs.com/) dependencies for automatic testing and documentation generation, which can be installed by running the `composer install` and `npm i` commands in the root folder.
 
 ### Using XAMPP
 
@@ -102,3 +102,18 @@ Alternatively, you can run either `vendor/bin/phpunit --configuration phpunit.xm
 ### Default URL
 
 The default URL at which to access the system is [http://localhost/uni/setp](http://localhost/uni/setp). If your server does not serve files at this URL, [http://localhost](http://localhost) is assumed instead.
+
+## Documentation
+
+Single and multi-line comments are provided throughout the project. Many are docblocks, from which documentation has been automatically generated using [phpDocumentor](https://www.phpdoc.org/) for the [back-end](back-end) and [JSDoc](https://jsdoc.app/) for the [front-end](front-end).
+
+Generated documentation for both directories may be found in [docs](docs). Alternatively, you can generate the documentation yourself by running the [generate-docs.sh](generate-docs.sh) script in the project root folder or by running the following commands:
+
+```
+node_modules/.bin/jsdoc front-end/js -r -d docs/front-end
+vendor/bin/phpdoc -d ./back-end -t ./docs/back-end --sourcecode
+```
+
+> **NOTE**: The project's Composer and npm dependenices must be installed prior to running the automatic documentation generation commands.
+
+> **NOTE**: When running phpDocumentor, the [GraphViz](https://www.graphviz.org/) package needs to be installed and added to your PATH.
