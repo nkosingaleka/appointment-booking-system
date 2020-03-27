@@ -1,11 +1,3 @@
-<?php
-/**
- * Included section for displaying error messages.
- *
- * @category Include
- */
-?>
-
 <?php if (count($GLOBALS['successes']) > 0): ?>
   <div class="success-message">
     <?php if (count($GLOBALS['successes']) > 1): ?>

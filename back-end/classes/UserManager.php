@@ -499,7 +499,7 @@ class UserManager {
    *
    * Note: to work with Google Mail, the 'Less secure app access' option must be enabled.
    *
-   * @param string $userid The ID of the user's account.
+   * @param string $userId The ID of the user's account.
    * @param string $message Message to inform users of updates.
    * @return void
    */

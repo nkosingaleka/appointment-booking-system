@@ -1,11 +1,3 @@
-<?php
-/**
- * Included section for consistent navigation links across pages.
- *
- * @category Include
- */
-?>
-
 <nav>
   <ul>
     <li><a href="index.php">Home</a></li>

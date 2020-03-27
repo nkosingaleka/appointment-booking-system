@@ -9,7 +9,7 @@
 /**
  * Autoloads classes in /back-end/classes/.
  *
- * @param $class_ref
+ * @param $class_ref Name of the class, including its namespace, to be autoloaded.
  * @return void
  */
 function autoloadClasses($class_ref) {

@@ -1,11 +1,3 @@
-<?php
-/**
- * Included section for a consistent header across pages.
- *
- * @category Include
- */
-?>
-
 <header>
   <h1><?=$GLOBALS['app']->title?></h1>
 
