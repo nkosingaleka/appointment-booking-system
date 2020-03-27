@@ -65,7 +65,7 @@ The project uses [Composer](https://getcomposer.org/) and [npm](https://www.npmj
 
 The system currently uses MySQL's default configurations. If you need to include your own configurations, please edit [back-end/.config.ini](back-end/.config.ini). If you are using XAMPP on default settings, you should not need to edit this file.
 
-To create the database and populate the tables, start the MySQL service and run the SQL code included in *back-end/database*:
+To create the database and populate the tables, start the MySQL service and run the SQL code included in [back-end/database](back-end/database):
 
 #### Using the command-line
 
