@@ -194,7 +194,7 @@ async function getSlots() {
 
 /**
  * Selects the clicked slot.
- * @param {String} id 
+ * @param {String} id ID of the clicked slot.
  */
 function selectSlot(id) {
   if (!selected.includes(id)) {
